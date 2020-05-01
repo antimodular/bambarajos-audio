@@ -1,5 +1,12 @@
 // the first argument corresponds to the id of the video tag in the html file
-var player = videojs("vid", {});
+
+// data-setup='{"children": {"loadingSpinner": false}}
+//https://github.com/videojs/video.js/issues/669
+// videojs.options.children.loadingSpinner = false; 
+//var myPlayer = videojs('id', { children: { loadingSpinner: false }});
+// var player = videojs("vid", {});
+var player = videojs("vid", { children: { loadingSpinner: false }});
+
 var json_src = "l-001-200_047.json";
 // var vid_src = "l-001-200_047.mp4";
 var vid_src = "https://cdn.glitch.com/b1e475c8-3489-4513-8664-2d0f29f610de%2Fl-001-200_047.mp4?v=1588351308938";
@@ -101,7 +108,8 @@ player.controlBar.fullscreenToggle.hide();
 //  return (this - in_min) * (1) / (in_max - in_min);
 //}
 
-player.loadingSpinner = false;
+
+// player.loadingSpinner = false;
 
 document.addEventListener("keydown", function(e) {
   //uncommnet the following line so the pressed key info is printed to the console and you can see which is its code or key value if you want to add more behaviors.
