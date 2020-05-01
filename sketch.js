@@ -3,6 +3,8 @@
 //change buffer amounts 
 //https://github.com/videojs/videojs-contrib-hls/issues/1302
 
+var version = "v5";
+
 var player = videojs("vid", {});
 
 
@@ -77,7 +79,7 @@ player.controlBar.chaptersButton.hide();
 player.controlBar.descriptionsButton.hide();
 player.controlBar.subsCapsButton.hide();
 player.controlBar.audioTrackButton.hide();
-player.controlBar.pictureInPictureToggle.hide();
+// player.controlBar.pictureInPictureToggle.hide();
 player.controlBar.fullscreenToggle.hide();
 
 // use the following to show specific elements of the COntrolBar
@@ -214,6 +216,8 @@ window.onload = function(e) {
     .catch(function(ex) {
       console.log("parsing failed", ex);
     });
+  
+  document.getElementById("version").innerHTML = "version "+version;
 };
 
 function update_loop() {
@@ -498,3 +502,62 @@ function volume_slider_changed() {
 //the correct event to use is oninput, although InternetExplorer does not recognize it, while it only recognizes onchange
 volume_slider.onchange = volume_slider_changed;
 volume_slider.oninput = volume_slider_changed;
+
+//----touch screen interaction via touch-------
+/*
+var pre = document.querySelector('pre');
+function log( message ) {
+  pre.innerText = message;
+}
+ */
+var identifier;
+var isTouching = false;
+
+window.body.addEventListener('touchstart', function(event) {
+    // dismiss after-touches
+    if (isTouching == true) {
+        return;
+    }
+    //    event.preventDefault();
+    // only care about the first touch
+    var touch = event.changedTouches[0];
+    identifier = touch.identifier;
+    // log('touch START; indentifer ' + touch.identifier);
+    window.addEventListener('touchmove', onTouchMove, false);
+    window.addEventListener('touchend', onTouchEnd, false);
+    isTouching = true;
+
+
+
+jumpTo(-1);
+
+}, false);
+
+function getTouch(event) {
+    // cycle through every change touch and get one that matches
+    for (var i = 0, len = event.changedTouches.length; i < len; i++) {
+        var touch = event.changedTouches[i];
+        if (touch.identifier === identifier) {
+            return touch;
+        }
+    }
+}
+
+function onTouchMove(event) {
+    var touch = getTouch(event);
+    if (!touch) {
+        return;
+    }
+    // log('touch move ' + touch.pageX + ' ' + touch.pageY);
+}
+
+function onTouchEnd(event) {
+    var touch = getTouch(event);
+    if (!touch) {
+        return;
+    }
+    //  log('touch _ENDED_ ' + touch.pageX + ' ' + touch.pageY);
+    window.removeEventListener('touchmove', onTouchMove, false);
+    window.removeEventListener('touchend', onTouchEnd, false);
+    isTouching = false;
+}
