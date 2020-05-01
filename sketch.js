@@ -2,13 +2,15 @@
 var player = videojs("vid", {});
 var json_src = "l-001-200_047.json";
 // var vid_src = "l-001-200_047.mp4";
-var vid_src = "https://stephanschulz.ca/bamba/l-001-200_047.mp4";
+var vid_src = "https://cdn.glitch.com/b1e475c8-3489-4513-8664-2d0f29f610de%2Fl-001-200_047.mp4?v=1588351308938";
+// var vid_src = "https://stephanschulz.ca/bamba/l-001-200_047.mp4";
 var millisStart;
 
 var vidCounter = 0;
 
 var new_startTime = 0;
 var new_endTime = 10;
+var new_duration = 0;
 var startOffsetTime = 0.3; //in order to not start right at start time but a bit later
 var endOffsetTime = 0.2;
 
@@ -126,8 +128,10 @@ document.addEventListener("keydown", function(e) {
   } else if (e.key === "f") {
     player.requestFullscreen();
   } else if (e.key === "j") {
+    player.play();
     jumpTo(-1);
   } else if (e.key === "n") {
+    player.play();
     jumpTo(vidCounter);
     vidCounter++;
     vidCounter %= 200;
@@ -301,6 +305,8 @@ var muted_btn = document.getElementById("muted");
 var volume_slider = document.getElementById("volume_slider");
 var time_slider = document.getElementById("time_slider");
 
+var info_speed = document.getElementById("speed");
+
 // register for the mouse events of the document
 document.addEventListener("mousemove", function(e) {
   info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
@@ -329,6 +335,7 @@ function setup_rewind(_speed) {
   console.log("setup_rewind speed " + _speed);
   rewinding = true;
   rewindSpeed = _speed;
+  info_speed.innerHTML = _speed;
   rewind_startSystemTime = new Date().getTime();
   rewind_startVideoTime = player.currentTime();
 
@@ -343,7 +350,7 @@ function time_updated() {
     if (player.currentTime() >= new_endTime - endOffsetTime) {
       //            player.pause();
       //            player.currentTime(new_startTime + startOffsetTime);
-      setup_rewind(1);
+      setup_rewind(0.7);
       //            rewinding = true;
       loopDirection = -1;
     }
@@ -359,6 +366,7 @@ function time_updated() {
       //            player.currentTime(new_startTime + startOffsetTime);
       rewinding = false;
       loopDirection = 1;
+      info_speed.innerHTML = 1;
     }
   }
 
