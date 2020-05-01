@@ -1,11 +1,15 @@
 // the first argument corresponds to the id of the video tag in the html file
 
+//change buffer amounts 
+//https://github.com/videojs/videojs-contrib-hls/issues/1302
+//
 // data-setup='{"children": {"loadingSpinner": false}}
 //https://github.com/videojs/video.js/issues/669
 // videojs.options.children.loadingSpinner = false; 
 //var myPlayer = videojs('id', { children: { loadingSpinner: false }});
-// var player = videojs("vid", {});
-var player = videojs("vid", { children: { loadingSpinner: false }});
+var player = videojs("vid", {});
+// var player = videojs("vid", { children: { loadingSpinner: false }});
+player.loadingSpinner.hide(); // = false; 
 
 var json_src = "l-001-200_047.json";
 // var vid_src = "l-001-200_047.mp4";
