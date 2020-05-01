@@ -2,14 +2,9 @@
 
 //change buffer amounts 
 //https://github.com/videojs/videojs-contrib-hls/issues/1302
-//
-// data-setup='{"children": {"loadingSpinner": false}}
-//https://github.com/videojs/video.js/issues/669
-// videojs.options.children.loadingSpinner = false; 
-//var myPlayer = videojs('id', { children: { loadingSpinner: false }});
+
 var player = videojs("vid", {});
-// var player = videojs("vid", { children: { loadingSpinner: false }});
-player.loadingSpinner.hide(); // = false; 
+
 
 var json_src = "l-001-200_047.json";
 // var vid_src = "l-001-200_047.mp4";
@@ -59,7 +54,7 @@ player.height(300);
 
 /// player GUI controls
 //use the following functions to show or hide the controls
-
+player.loadingSpinner.hide(); // = false; 
 player.bigPlayButton.show();
 //player.resizeManager.show(); //https://docs.videojs.com/resizemanager
 //player.controlBar.show();
@@ -231,16 +226,6 @@ function update_loop() {
 }
 
 window.setInterval(update_loop, 33); //33 ms = 30 fps 1000/30
-//        document.getElementById("decoded").innerHTML = myJson;
-
-// document.getElementById("j_duration").innerHTML = json[idx].duration;
-// document.getElementById("j_extro_end").innerHTML = json[idx].extro_end;
-// document.getElementById("j_extro_start").innerHTML = json[idx].extro_start;
-// document.getElementById("j_eye_contact_end").innerHTML = json[idx].eye_contact_end;
-// document.getElementById("j_eye_contact_start").innerHTML = json[idx].eye_contact_start;
-// document.getElementById("j_intro_end").innerHTML = json[idx].intro_end;
-// document.getElementById("j_intro_start").innerHTML = json[idx].intro_start;
-//document.getElementById("j_name").innerHTML = json[idx].name;
 
 function display_jsonObj(oneObj) {
   document.getElementById("chapter_name").innerHTML = oneObj.name;
@@ -364,7 +349,7 @@ function time_updated() {
     if (player.currentTime() >= new_endTime - endOffsetTime) {
       //            player.pause();
       //            player.currentTime(new_startTime + startOffsetTime);
-      setup_rewind(0.7);
+      setup_rewind(1);
       //            rewinding = true;
       loopDirection = -1;
     }
@@ -466,6 +451,10 @@ player.on("loadeddata", function(e) {
   info_video_name.innerHTML = player.currentSrc();
   update_info_height_width();
   update_info_duration();
+  
+  // player.play();
+  jumpTo(-1);
+  
 });
 
 player.on("resize", update_info_height_width);
