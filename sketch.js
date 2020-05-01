@@ -111,9 +111,7 @@ player.controlBar.fullscreenToggle.hide();
 //}
 
 
-// player.loadingSpinner = false;
-
-document.addEventListener("keydown", function(e) {
+document.addEventListener("keyup", function(e) {
   //uncommnet the following line so the pressed key info is printed to the console and you can see which is its code or key value if you want to add more behaviors.
   //console.log(e);
 
