@@ -3,7 +3,7 @@
 //change buffer amounts 
 //https://github.com/videojs/videojs-contrib-hls/issues/1302
 
-var version = "v5";
+var version = "v6";
 
 var player = videojs("vid", {});
 
@@ -57,6 +57,7 @@ player.height(300);
 /// player GUI controls
 //use the following functions to show or hide the controls
 player.loadingSpinner.hide(); // = false; 
+player.playsinline(true);
 player.bigPlayButton.show();
 //player.resizeManager.show(); //https://docs.videojs.com/resizemanager
 //player.controlBar.show();
@@ -457,7 +458,7 @@ player.on("loadeddata", function(e) {
   update_info_duration();
   
   // player.play();
-  jumpTo(-1);
+  // jumpTo(-1);
   
 });
 
@@ -513,7 +514,7 @@ function log( message ) {
 var identifier;
 var isTouching = false;
 
-window.body.addEventListener('touchstart', function(event) {
+window.addEventListener('touchstart', function(event) {
     // dismiss after-touches
     if (isTouching == true) {
         return;
