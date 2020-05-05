@@ -9,6 +9,16 @@
     <script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
   </head>
   <body>
+    <audio id="audio" controls width="160" height="120" autoplay></audio><br>
+<label><input type="checkbox" id="echo">echoCancellation</label>
+<label><input type="checkbox" id="noise">noiseSuppression</label>
+<label><input type="checkbox" id="gain">autoGainControl</label>
+<label><input type="checkbox" id="muted">mute</label>
+<div id="container"></div>
+<div id="div"></div>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="audio.js"></script>
+    
     <div class="wrapper">
       <video-js id="vid" controls preload="auto"> </video-js>
     </div>
