@@ -1,8 +1,31 @@
+// :: Beat Detect Variables
+// how many draw loop frames before the beatCutoff starts to decay
+// so that another beat can be triggered.
+// frameRate() is usually around 60 frames per second,
+// so 20 fps = 3 beats per second, meaning if the song is over 180 BPM,
+// we wont respond to every beat.
+var beatHoldFrames = 30;
 
-var track, gUM = c => navigator.mediaDevices.getUserMedia(c);
+// what amplitude level can trigger a beat?
+var beatThreshold = 0.11; //0.05; //0.11;
+
+// When we have a beat, beatCutoff will be reset to 1.1*beatThreshold, and then decay
+// Level must be greater than beatThreshold and beatCutoff before the next beat can trigger.
+var beatCutoff = 0;
+var beatDecayRate = 0.985; // how fast does beat cutoff decay?
+var framesSinceLastBeat = 0; // once this equals beatHoldFrames, beatCutoff starts to decay.
+
+var beatRectSize = 100;
+var bAudioTrigger = false;
+
+var audioLevel;
+let levelHistory = [];
+
+var track,
+  gUM = c => navigator.mediaDevices.getUserMedia(c);
 
 (async () => {
-  spectrum(audio.srcObject = await gUM({audio: true}));
+  spectrum((audio.srcObject = await gUM({ audio: true })));
   track = audio.srcObject.getAudioTracks()[0];
   update();
 })().catch(e => log(e));
@@ -15,54 +38,166 @@ function update() {
   muted.checked = !track.enabled;
 }
 
-echo.onclick = e => apply({echoCancellation: echo.checked});
-noise.onclick = e => apply({noiseSuppression: noise.checked});
-gain.onclick = e => apply({autoGainControl: gain.checked});
-muted.onclick = e => { track.enabled = !muted.checked };
+echo.onclick = e => apply({ echoCancellation: echo.checked });
+noise.onclick = e => apply({ noiseSuppression: noise.checked });
+gain.onclick = e => apply({ autoGainControl: gain.checked });
+muted.onclick = e => {
+  track.enabled = !muted.checked;
+};
 
 async function apply(c) {
   await track.applyConstraints(Object.assign(track.getSettings(), c));
   update();
 }
 
+// var audioCtx = new AudioContext();
+
 function spectrum(stream) {
-  var audioCtx = new AudioContext();
-  var analyser = audioCtx.createAnalyser();
-  var source = audioCtx.createMediaStreamSource(stream);
-  source.connect(analyser);
+  // var audioCtx = new AudioContext();
+  var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  //   var audioCtx =  new AudioContext // Default
+  //     || window.webkitAudioContext // Safari and old versions of Chrome
+  //     || false;
 
-  var canvas = document.createElement("canvas");
-  var canvasCtx = canvas.getContext("2d");
-  canvas.width = window.innerWidth/2 - 20;
-  canvas.height = window.innerHeight/5 - 20;
-  container.appendChild(canvas);
+  if (audioCtx == false) {
+    // Web Audio API is not supported
+    // Alert the user
+    alert(
+      "Sorry, but the Web Audio API is not supported by your browser. Please, consider upgrading to the latest version or downloading Google Chrome or Mozilla Firefox"
+    );
+  } else {
+    var analyser = audioCtx.createAnalyser();
+    var source = audioCtx.createMediaStreamSource(stream);
+    source.connect(analyser);
 
-  var data = new Uint8Array(canvas.width);
-  canvasCtx.strokeStyle = 'rgb(0, 125, 0)';
+    var canvas = document.createElement("canvas");
+    var canvasCtx = canvas.getContext("2d");
+    canvas.width = window.innerWidth / 4 - 20;
+    canvas.height = window.innerHeight / 4 - 20;
+    container.appendChild(canvas);
 
-  setInterval(() => {
-    canvasCtx.fillStyle = "#a0a0a0";
-    canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+    var data = new Uint8Array(400); //canvas.width);
 
-    analyser.getByteFrequencyData(data);
-    canvasCtx.lineWidth = 2;
-    data.forEach((y, x) => {
-      y = canvas.height - (y / 128) * canvas.height / 4;
-      var c = Math.floor((x*255)/canvas.width);
-      canvasCtx.fillStyle = "rgb("+c+",0,"+(255-x)+")";
-      canvasCtx.fillRect(x, y, 2, canvas.height - y)
-    });
+    setInterval(() => {
+      //---draw FFT bins
+      canvasCtx.fillStyle = "#a0a0a0";
+      canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+      audioLevel = 0;
+      analyser.getByteFrequencyData(data);
+      canvasCtx.lineWidth = 1;
 
-    analyser.getByteTimeDomainData(data);
-    canvasCtx.lineWidth = 5;
-    canvasCtx.beginPath();
-    data.forEach((y, x) => {
-      y = canvas.height - (y / 128) * canvas.height / 2;
-      x ? canvasCtx.lineTo(x, y) : canvasCtx.moveTo(x, y);
-    });
-    canvasCtx.stroke();
-    var bogus = source; // avoid GC or the whole thing stops
-  }, 1000 * canvas.width / audioCtx.sampleRate);
-};
+      data.forEach((y, x) => {
+        var yy = y;
+        audioLevel += yy / 128;
+        y = canvas.height - ((y / 128) * canvas.height) / 4;
+        var c = Math.floor((x * 255) / canvas.width);
+        canvasCtx.fillStyle = "rgb(" + c + ",0," + (255 - x) + ")";
+        canvasCtx.fillRect(x, y, 2, canvas.height - y);
+      });
 
-function log(msg) { div.innerHTML += "<br>" + msg; }
+      //---draw line?
+      analyser.getByteTimeDomainData(data);
+      canvasCtx.strokeStyle = "rgb(0, 125, 0)";
+      canvasCtx.lineWidth = 1;
+      canvasCtx.beginPath();
+
+      data.forEach((y, x) => {
+        y = canvas.height - ((y / 128) * canvas.height) / 2;
+        x ? canvasCtx.lineTo(x, y) : canvasCtx.moveTo(x, y);
+      });
+      canvasCtx.stroke();
+
+      //---calculateaudioLevel line
+      audioLevel = audioLevel / data.length;
+      detectBeat(audioLevel);
+
+      //
+      canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
+      // canvasCtx.clearRect(45, 45, 60, 60);
+      canvasCtx.strokeRect(25, 25, beatRectSize, beatRectSize);
+      
+
+      //---draw audioLevel line
+      canvasCtx.strokeStyle = "rgb(0, 0, 0)";
+      canvasCtx.lineWidth = 1;
+      canvasCtx.beginPath();
+
+      // console.log("levelHistory "+levelHistory.length + " [0] " +levelHistory[0].y);
+
+      for (let i = 1; i < levelHistory.length; i++) {
+        let y = canvas.height / 2 - levelHistory[i].y * 400;
+        let x = i;
+        canvasCtx.lineTo(x, y);
+        canvasCtx.moveTo(x, y);
+      }
+      canvasCtx.stroke();
+
+      //---draw beatCutoff line
+      canvasCtx.strokeStyle = "rgb(100,100,100)";
+      canvasCtx.beginPath();
+
+      let mapped_cutOff = canvas.height / 2 - beatCutoff * 400;
+      // console.log("beatCutoff " + mapped_cutOff);
+      canvasCtx.moveTo(0, mapped_cutOff);
+      canvasCtx.lineTo(canvas.width, mapped_cutOff);
+      // line(0, temp_cutOff, levelHistory.length, temp_cutOff);
+      canvasCtx.stroke();
+
+      //---draw beatThreshold line
+      canvasCtx.strokeStyle = "rgb(100,100,100)";
+      canvasCtx.beginPath();
+
+      let mapped_beatThres = canvas.height / 2 - beatThreshold * 400;
+      // console.log("mapped_beatThres " + mapped_beatThres);
+      canvasCtx.moveTo(0, mapped_beatThres);
+      canvasCtx.lineTo(canvas.width, mapped_beatThres);
+      canvasCtx.stroke();
+
+      var bogus = source; // avoid GC or the whole thing stops
+    }, (1000 * canvas.width) / audioCtx.sampleRate);
+  }
+}
+
+function log(msg) {
+  div.innerHTML += "<br>" + msg;
+}
+
+function detectBeat(level) {
+  // console.log("level "+level);
+
+  levelHistory.push({
+    y: level
+  });
+
+  // console.log("level "+level);
+
+  if (levelHistory.length > 100) levelHistory.shift();
+
+  if (level > beatCutoff && level > beatThreshold) {
+    onBeat();
+    beatCutoff = level * 1.2;
+    framesSinceLastBeat = 0;
+  } else {
+    if (framesSinceLastBeat <= beatHoldFrames) {
+      framesSinceLastBeat++;
+    } else {
+      beatCutoff *= beatDecayRate;
+      beatCutoff = Math.max(beatCutoff, beatThreshold);
+    }
+  }
+
+  beatRectSize -= 1;
+      if (beatRectSize < 50) beatRectSize = 50;
+  // line(0, temp_cutOff, levelHistory.length, temp_cutOff);
+}
+
+function onBeat() {
+  // backgroundColor = color( random(0,255), random(0,255), random(0,255) );
+  // rectRotate = !rectRotate;
+  beatRectSize = 100;
+  bAudioTrigger = true;
+
+  jumpTo(-1);
+  console.log("onBeat == true");
+  // onEnd();
+}

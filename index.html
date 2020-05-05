@@ -9,6 +9,7 @@
     <script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
   </head>
   <body>
+
     <audio id="audio" controls width="160" height="120" autoplay></audio><br>
 <label><input type="checkbox" id="echo">echoCancellation</label>
 <label><input type="checkbox" id="noise">noiseSuppression</label>
@@ -17,7 +18,7 @@
 <div id="container"></div>
 <div id="div"></div>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-    <script src="audio.js"></script>
+<script src="audio.js"></script>
     
     <div class="wrapper">
       <video-js id="vid" controls preload="auto"> </video-js>
@@ -28,6 +29,49 @@
     <div id="fps">...</div>
     <!--    if i remove the word controls then no control bar will be visible-->
     <!--    The following table is copied pasted form the the project you sent me. It simply creates the elements that are then addressed and filled form the javascript code-->
+  
+     <table>
+      <thead>
+        <th>property</th>
+        <th>video chapter</th>
+      </thead>
+      <tbody>
+        <tr>
+          <th>name</th>
+          <td><span id="chapter_name"></span></td>
+        </tr>
+
+        <tr>
+          <th>startTime</th>
+          <td><span id="chapter_startTime"></span></td>
+        </tr>
+
+        <tr>
+          <th>endTime</th>
+          <td><span id="chapter_endTime"></span></td>
+        </tr>
+
+        <tr>
+          <th>duration</th>
+          <td><span id="chapter_duration"></span></td>
+        </tr>
+        <tr>
+          <th>time</th>
+          <td>
+            <input
+              id="chapter_slider"
+              type="range"
+              value="0"
+              max="1"
+              step="any"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div><br /></div>
+    
     <table>
       <thead>
         <th>property</th>
@@ -134,45 +178,7 @@
 
     <div><br /></div>
 
-    <table>
-      <thead>
-        <th>property</th>
-        <th>video chapter</th>
-      </thead>
-      <tbody>
-        <tr>
-          <th>name</th>
-          <td><span id="chapter_name"></span></td>
-        </tr>
-
-        <tr>
-          <th>startTime</th>
-          <td><span id="chapter_startTime"></span></td>
-        </tr>
-
-        <tr>
-          <th>endTime</th>
-          <td><span id="chapter_endTime"></span></td>
-        </tr>
-
-        <tr>
-          <th>duration</th>
-          <td><span id="chapter_duration"></span></td>
-        </tr>
-        <tr>
-          <th>time</th>
-          <td>
-            <input
-              id="chapter_slider"
-              type="range"
-              value="0"
-              max="1"
-              step="any"
-            />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+   
 
     <!--
        <div id="j_name">...</div>
