@@ -271,7 +271,8 @@ function jumpTo(idx) {
   new_duration = Math.round(jsonData[idx].duration_vid * 1e6) / 1e6;
   new_endTime = new_startTime + new_duration; //jsonData[idx].duration_vid;
   //   new_endTime += new_startTime;
-
+// startOffsetTime = 0;
+  loopDirection = 1;
   // Math.round(someNumber * 1e2) / 1e2
 
   console.log(
@@ -333,6 +334,7 @@ var rewind_startSystemTime;
 var rewind_startVideoTime;
 var rewindSpeed;
 var rewinding = false;
+
 function setup_rewind(_speed) {
   console.log("setup_rewind speed " + _speed);
   rewinding = true;
