@@ -41,23 +41,38 @@ function log(msg) {
   // document.getElementById("divLog").innerHTML += "<br>" + msg;
 }
 
+var audio_mute = document.getElementById("mute");
+
+play_btn.onclick = function(e) {
+  player.play();
+};
+
 function update() {
-  let set = track.getSettings();
-  echo.checked = set.echoCancellation;
-  noise.checked = set.noiseSuppression;
-  gain.checked = set.autoGainControl;
+document.getElementById("mute").checked = !track.enabled;
 
-  muted.checked = !track.enabled;
-
-  // console.log("audioOutputLevel "+track.audioOutputLevel);
 }
 
-echo.onclick = e => apply({ echoCancellation: echo.checked });
-noise.onclick = e => apply({ noiseSuppression: noise.checked });
-gain.onclick = e => apply({ autoGainControl: gain.checked });
-muted.onclick = e => {
-  track.enabled = !muted.checked;
+ document.getElementById("mute").onclick = e => {
+  track.enabled = !document.getElementById("mute").checked;
 };
+
+// function update() {
+//   let set = track.getSettings();
+//   window.echo.checked = set.echoCancellation;
+//   window.noise.checked = set.noiseSuppression;
+//   window.gain.checked = set.autoGainControl;
+
+//   window.muted.checked = !track.enabled;
+
+//   // console.log("audioOutputLevel "+track.audioOutputLevel);
+// }
+
+// window.echo.onclick = e => apply({ echoCancellation: window.echo.checked });
+// window.noise.onclick = e => apply({ noiseSuppression: window.noise.checked });
+// window.gain.onclick = e => apply({ autoGainControl: window.gain.checked });
+// window.muted.onclick = e => {
+//   track.enabled = !window.muted.checked;
+// };
 
 async function apply(c) {
   await track.applyConstraints(Object.assign(track.getSettings(), c));
@@ -89,7 +104,7 @@ function spectrum(stream) {
     var canvasCtx = canvas.getContext("2d");
     canvas.width = window.innerWidth / 4 - 20;
     canvas.height = window.innerHeight / 4 - 20;
-    audio_Canvas.appendChild(canvas);
+    window.audio_Canvas.appendChild(canvas);
 
     var data = new Uint8Array(400); //canvas.width);
 

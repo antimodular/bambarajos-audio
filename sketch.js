@@ -411,32 +411,6 @@ function time_updated() {
     }
   }
 
-  //    if(rewinding == true){
-  //
-  //        var elapsed = new Date().getTime()-rewind_startSystemTime;
-  //        var temp_s = elapsed*rewindSpeed/1000.0;
-  //        var rewind_time =  Math.max(rewind_startVideoTime - temp_s, 0);
-  //
-  ////        console.log("rewind_startVideoTime "+rewind_startVideoTime + " - " +temp_s);
-  //
-  ////        if(rewind_time <= new_startTime){
-  //////            console.log("end rewind_time " + rewind_time);
-  ////            player.currentTime(new_endTime-endOffsetTime);
-  ////            setup_rewind(rewinding);
-  ////        }else{
-  //////            console.log("run rewind_time " + rewind_time);
-  //            player.currentTime(rewind_time);
-  ////        }
-  //
-  //    }else{
-  //
-  //
-  ////        if(player.currentTime() >= (new_endTime-endOffsetTime)){
-  ////            player.currentTime(new_startTime + startOffsetTime);
-  ////        }
-  //
-  //    }
-
   //function (in_min, in_max, out_min, out_max)
   //    let temp_time = player.currentTime();
   //        temp_time.map(new_startTime,new_endTime,0,100);
