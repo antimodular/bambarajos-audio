@@ -7,7 +7,7 @@
 var beatHoldFrames = 30;
 
 // what amplitude level can trigger a beat?
-var beatThreshold = 0.21; //0.05; //0.11;
+var beatThreshold = 0.15; //0.05; //0.11;
 
 // When we have a beat, beatCutoff will be reset to 1.1*beatThreshold, and then decay
 // Level must be greater than beatThreshold and beatCutoff before the next beat can trigger.
@@ -109,6 +109,7 @@ function spectrum(stream) {
 
       //---calculate audioLevel line
       audioLevel = audioLevel / data.length;
+      audioLevel = audioLevel / 2;
       detectBeat(audioLevel);
 
       //
