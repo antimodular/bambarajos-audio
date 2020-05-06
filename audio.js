@@ -40,32 +40,49 @@ function log(msg) {
   // divLog.innerHTML += "<br>" + msg;
   // document.getElementById("divLog").innerHTML += "<br>" + msg;
 }
+//https://glitch.com/edit/#!/join/2a1594f0-19f3-4732-8585-abe2ce18b31a
+//for simple example
+var audio_echo= document.getElementById("echo");
+var audio_noise = document.getElementById("noise");
+var audio_gain = document.getElementById("gain");
+var audio_mute = document.getElementById("mutedMic");
 
-var audio_mute = document.getElementById("mute");
-
-play_btn.onclick = function(e) {
-  player.play();
+audio_echo.onclick = function(e) {
+apply({ echoCancellation: audio_echo.checked });
+  console.log("audio_echo.onclick " + e);
 };
-
-function update() {
-document.getElementById("mute").checked = !track.enabled;
-
-}
-
- document.getElementById("mute").onclick = e => {
-  track.enabled = !document.getElementById("mute").checked;
+audio_noise.onclick = function(e) {
+  apply({ noiseSuppression: audio_noise.checked });
+  console.log("audio_noise.onclick " + e);
+};
+audio_gain.onclick = function(e) {
+apply({ autoGainControl: audio_gain });
+  console.log("audio_gain.onclick " + e);
+};
+audio_mute.onclick = function(e) {
+  track.enabled = !audio_mute.checked;
+  console.log("audio_mute.onclick " + e);
 };
 
 // function update() {
-//   let set = track.getSettings();
-//   window.echo.checked = set.echoCancellation;
-//   window.noise.checked = set.noiseSuppression;
-//   window.gain.checked = set.autoGainControl;
+// document.getElementById("mute").checked = !track.enabled;
 
-//   window.muted.checked = !track.enabled;
+// }
+
+//  document.getElementById("mute").onclick = e => {
+//   track.enabled = !document.getElementById("mute").checked;
+// };
+
+ function update() {
+//   let set = track.getSettings();
+//   audio_echo = set.echoCancellation;
+//   audio_noise = set.noiseSuppression;
+//   audio_gain = set.autoGainControl;
+
+//   audio_mute = !track.enabled;
 
 //   // console.log("audioOutputLevel "+track.audioOutputLevel);
-// }
+ }
 
 // window.echo.onclick = e => apply({ echoCancellation: window.echo.checked });
 // window.noise.onclick = e => apply({ noiseSuppression: window.noise.checked });
