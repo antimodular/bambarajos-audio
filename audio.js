@@ -192,7 +192,7 @@ var graph_scaler = 100;
       canvasCtx.moveTo(0, mapped_beatThres);
       canvasCtx.lineTo(canvas.width, mapped_beatThres);
       canvasCtx.stroke();
-
+// console.log((1000 * canvas.width) / audioCtx.sampleRate); is equal 2
       var bogus = source; // avoid GC or the whole thing stops
     }, 30); //(1000 * canvas.width) / audioCtx.sampleRate);
   }

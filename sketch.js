@@ -20,8 +20,9 @@ var jumpCounter = 0;
 var new_startTime = 0;
 var new_endTime = 10;
 var new_duration = 0;
-var startOffsetTime = 0.3; //in order to not start right at start time but a bit later
+var startOffsetTime = 0.05; //0.3; //in order to not start right at start time but a bit later
 var endOffsetTime = 0.2;
+var new_eye_contact = 0;
 
 //var rewind = false;
 var speed = 1;
@@ -237,7 +238,9 @@ function display_jsonObj(oneObj) {
   document.getElementById("chapter_duration").innerHTML = new_duration;
   document.getElementById("chapter_startTime").innerHTML = new_startTime;
   document.getElementById("chapter_endTime").innerHTML = new_endTime; //temp_v.toFixed(2);
+document.getElementById("chapter_eye_contact").innerHTML = new_eye_contact; 
 
+  
   time_slider.value = player.currentTime() / player.duration();
 
   //     document.getElementById("j_duration").innerHTML = oneObj.duration;
@@ -252,6 +255,7 @@ function display_jsonObj(oneObj) {
   //     document.getElementById("j_timecodeVid").innerHTML = oneObj.timecode_vid;
   //document.getElementById("j_name").innerHTML = oneObj.name;
 }
+
 
 function jumpTo(idx) {
   rewinding = false;
@@ -278,13 +282,15 @@ jumpCounter++;
   loopDirection = 1;
   // Math.round(someNumber * 1e2) / 1e2
 
-  // console.log(
-  //   jsonData[idx].name + " , start " + new_startTime + " , end " + new_endTime
-  // );
+  console.log(
+    jsonData[idx].name + " , start " + new_startTime + " , end " + new_endTime
+  );
 
-  // display_jsonObj(jsonData[idx]);
-
-  player.currentTime(new_startTime + startOffsetTime);
+  display_jsonObj(jsonData[idx]);
+  
+new_eye_contact = Math.round(jsonData[idx].eye_contact_start * 1e6) / 1e6; //jsonData[idx].eye_contact_start;
+  player.currentTime(new_startTime + new_eye_contact + startOffsetTime);
+  
 }
 
 //get the elements defined in the HTML file using their id so we can change these programatically
