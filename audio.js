@@ -36,6 +36,10 @@ var track,
   update();
 })().catch(e => log(e));
 
+function log(msg) {
+  div.innerHTML += "<br>" + msg;
+}
+
 function update() {
   let set = track.getSettings();
   echo.checked = set.echoCancellation;
@@ -194,9 +198,7 @@ var graph_scaler = 100;
   }
 }
 
-function log(msg) {
-  div.innerHTML += "<br>" + msg;
-}
+
 
 function detectBeat(level) {
   // console.log("level "+level);
