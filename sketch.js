@@ -613,6 +613,9 @@ function onTouchEnd(event) {
 function setFullScreen(fullScreen) {
   // console.log("fullScreen "+fullScreen);
   // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
+//   var w = window.innerWidth;
+// var h = window.innerHeight;
+  
   if (fullScreen == true) {
     player.width(screen.width);
     player.height(screen.height);
