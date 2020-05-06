@@ -30,6 +30,8 @@ var loopDirection = 1;
 
 var bShowInfo = true;
 
+var playSpeed = 0.5;
+
 //player.src([{src:'//vjs.zencdn.net/v/oceans.mp4',type:'video/mp4'},
 //            {src:'//vjs.zencdn.net/v/oceans.webm',type:'video/webm'},
 //            {src:'//vjs.zencdn.net/v/oceans.ogv',type:'video/ogg'}
@@ -287,7 +289,7 @@ function jumpTo(idx) {
   rewinding = false;
 
   player.play();
-  player.playbackRate(1);
+  player.playbackRate(playSpeed);
 jumpCounter++;
   document.getElementById("jumpCounter").innerHTML = jumpCounter;
   
@@ -389,7 +391,7 @@ function time_updated() {
     if (player.currentTime() >= new_endTime - endOffsetTime) {
       //            player.pause();
       //            player.currentTime(new_startTime + startOffsetTime);
-      setup_rewind(1);
+      setup_rewind(playSpeed);
       //            rewinding = true;
       loopDirection = -1;
     }
