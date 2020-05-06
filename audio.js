@@ -114,16 +114,16 @@ function spectrum(stream) {
       });
 
       //---draw line?
-      analyser.getByteTimeDomainData(data);
-      canvasCtx.strokeStyle = "rgb(0, 125, 0)";
-      canvasCtx.lineWidth = 1;
-      canvasCtx.beginPath();
+//       analyser.getByteTimeDomainData(data);
+//       canvasCtx.strokeStyle = "rgb(0, 125, 0)";
+//       canvasCtx.lineWidth = 1;
+//       canvasCtx.beginPath();
 
-      data.forEach((y, x) => {
-        y = canvas.height - ((y / 128) * canvas.height) / 2;
-        x ? canvasCtx.lineTo(x, y) : canvasCtx.moveTo(x, y);
-      });
-      canvasCtx.stroke();
+//       data.forEach((y, x) => {
+//         y = canvas.height - ((y / 128) * canvas.height) / 2;
+//         x ? canvasCtx.lineTo(x, y) : canvasCtx.moveTo(x, y);
+//       });
+//       canvasCtx.stroke();
 
       //---calculate audioLevel line
        // var average = total/ data.length;
