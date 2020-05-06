@@ -8,29 +8,30 @@
     <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
     <script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
   </head>
+  
   <body>
+    <audio id="audio" controls width="160" height="120" autoplay></audio><br />
+    <label><input type="checkbox" id="echo" />echoCancellation</label>
+    <label><input type="checkbox" id="noise" />noiseSuppression</label>
+    <label><input type="checkbox" id="gain" />autoGainControl</label>
+    <label><input type="checkbox" id="muted" />mute</label>
+    <div id="container"></div>
 
-    <audio id="audio" controls width="160" height="120" autoplay></audio><br>
-<label><input type="checkbox" id="echo">echoCancellation</label>
-<label><input type="checkbox" id="noise">noiseSuppression</label>
-<label><input type="checkbox" id="gain">autoGainControl</label>
-<label><input type="checkbox" id="muted">mute</label>
-<div id="container"></div>
-<div id="div"></div>
+    <div id="div"></div>
 
-    
     <div class="wrapper">
       <video-js id="vid" controls preload="auto"> </video-js>
     </div>
 
-    <div  id="version">...</div>
+      <div id="info">
+    <div id="version">...</div>
     <div id="info">key [j] = jump, key [n] = next chapter</div>
     <div id="fps">...</div>
     <div id="jumpCounter">...</div>
     <!--    if i remove the word controls then no control bar will be visible-->
     <!--    The following table is copied pasted form the the project you sent me. It simply creates the elements that are then addressed and filled form the javascript code-->
-  
-     <table>
+
+    <table>
       <thead>
         <th>property</th>
         <th>video chapter</th>
@@ -55,12 +56,12 @@
           <th>duration</th>
           <td><span id="chapter_duration"></span></td>
         </tr>
-        
-                <tr>
+
+        <tr>
           <th>eye_contact</th>
           <td><span id="chapter_eye_contact"></span></td>
         </tr>
-        
+
         <tr>
           <th>time</th>
           <td>
@@ -75,9 +76,9 @@
         </tr>
       </tbody>
     </table>
-    
+
     <div><br /></div>
-    
+
     <table>
       <thead>
         <th>property</th>
@@ -96,7 +97,7 @@
           <th>duration</th>
           <td><span id="duration"></span></td>
         </tr>
-          <tr>
+        <tr>
           <th>speed</th>
           <td><span id="speed"></span></td>
         </tr>
@@ -184,8 +185,6 @@
 
     <div><br /></div>
 
-   
-
     <!--
        <div id="j_name">...</div>
      <div id="j_timecode">...</div>
@@ -200,12 +199,12 @@
      <div id="j_intro_start">...</div>
 -->
 
-   
     <p id="error"></p>
-
+  </div>
+    
     <!--    <div myJson></div>-->
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script src="audio.js"></script>
+    <script src="audio.js"></script>
     <script src="sketch.js"></script>
   </body>
 </html>
