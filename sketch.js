@@ -30,7 +30,7 @@ var loopDirection = 1;
 
 var bShowInfo = true;
 
-var playSpeed = 0.5;
+var playSpeed = 1; //0.5;
 
 //player.src([{src:'//vjs.zencdn.net/v/oceans.mp4',type:'video/mp4'},
 //            {src:'//vjs.zencdn.net/v/oceans.webm',type:'video/webm'},
@@ -57,8 +57,8 @@ player.poster("https://stephanschulz.ca/bamba/l-001-20min_h264.png");
 player.autoplay(true);
 //https://coolestguidesontheplanet.com/videodrome/videojs/
 //player.fluid(true); //set to window size
-player.width(400);
-player.height(300);
+player.width(400); //80
+player.height(320); //64
 
 /// player GUI controls
 //use the following functions to show or hide the controls
@@ -596,7 +596,7 @@ function setFullScreen(fullScreen) {
     player.width(screen.width);
     player.height(screen.height);
   } else {
-    player.width(400);
-    player.height(300);
-  }
+    player.width(400); //80
+    player.height(320); //64
+  } 
 }
