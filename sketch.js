@@ -15,6 +15,7 @@ var vid_src = "https://cdn.glitch.com/b1e475c8-3489-4513-8664-2d0f29f610de%2Fl-0
 var millisStart;
 
 var vidCounter = 0;
+var jumpCounter = 0;
 
 var new_startTime = 0;
 var new_endTime = 10;
@@ -257,7 +258,9 @@ function jumpTo(idx) {
 
   player.play();
   player.playbackRate(1);
-
+jumpCounter++;
+  document.getElementById("jumpCounter").innerHTML = jumpCounter;
+  
   if (idx == -1) {
     idx = Math.random() * jsonData.length;
     idx = parseInt(idx);
@@ -266,20 +269,20 @@ function jumpTo(idx) {
 
   console.log("jumpt to idx", idx);
 
-  new_startTime = Math.round(jsonData[idx].timecode_vid * 1e6) / 1e6;
-  ////jsonData[idx].timecode_vid;
-  new_duration = Math.round(jsonData[idx].duration_vid * 1e6) / 1e6;
+  new_startTime = Math.random()*200;
+  // new_startTime = Math.round(jsonData[idx].timecode_vid * 1e6) / 1e6;
+new_duration = 2 + Math.random() * 5;
+  // new_duration = Math.round(jsonData[idx].duration_vid * 1e6) / 1e6;
   new_endTime = new_startTime + new_duration; //jsonData[idx].duration_vid;
-  //   new_endTime += new_startTime;
-// startOffsetTime = 0;
+
   loopDirection = 1;
   // Math.round(someNumber * 1e2) / 1e2
 
-  console.log(
-    jsonData[idx].name + " , start " + new_startTime + " , end " + new_endTime
-  );
+  // console.log(
+  //   jsonData[idx].name + " , start " + new_startTime + " , end " + new_endTime
+  // );
 
-  display_jsonObj(jsonData[idx]);
+  // display_jsonObj(jsonData[idx]);
 
   player.currentTime(new_startTime + startOffsetTime);
 }

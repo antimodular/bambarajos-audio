@@ -107,7 +107,7 @@ function spectrum(stream) {
       });
       canvasCtx.stroke();
 
-      //---calculateaudioLevel line
+      //---calculate audioLevel line
       audioLevel = audioLevel / data.length;
       detectBeat(audioLevel);
 
@@ -118,6 +118,7 @@ function spectrum(stream) {
       
 
       //---draw audioLevel line
+      var graph_y = canvas.height /4 * 3;
       canvasCtx.strokeStyle = "rgb(0, 0, 0)";
       canvasCtx.lineWidth = 1;
       canvasCtx.beginPath();
@@ -125,7 +126,7 @@ function spectrum(stream) {
       // console.log("levelHistory "+levelHistory.length + " [0] " +levelHistory[0].y);
 
       for (let i = 1; i < levelHistory.length; i++) {
-        let y = canvas.height / 2 - levelHistory[i].y * 400;
+        let y = graph_y - levelHistory[i].y * 400;
         let x = i;
         canvasCtx.lineTo(x, y);
         canvasCtx.moveTo(x, y);
@@ -133,10 +134,10 @@ function spectrum(stream) {
       canvasCtx.stroke();
 
       //---draw beatCutoff line
-      canvasCtx.strokeStyle = "rgb(100,100,100)";
+      canvasCtx.strokeStyle = "rgb(255,255,255)";
       canvasCtx.beginPath();
 
-      let mapped_cutOff = canvas.height / 2 - beatCutoff * 400;
+      let mapped_cutOff = graph_y - beatCutoff * 400;
       // console.log("beatCutoff " + mapped_cutOff);
       canvasCtx.moveTo(0, mapped_cutOff);
       canvasCtx.lineTo(canvas.width, mapped_cutOff);
@@ -147,7 +148,7 @@ function spectrum(stream) {
       canvasCtx.strokeStyle = "rgb(100,100,100)";
       canvasCtx.beginPath();
 
-      let mapped_beatThres = canvas.height / 2 - beatThreshold * 400;
+      let mapped_beatThres = graph_y - beatThreshold * 400;
       // console.log("mapped_beatThres " + mapped_beatThres);
       canvasCtx.moveTo(0, mapped_beatThres);
       canvasCtx.lineTo(canvas.width, mapped_beatThres);
