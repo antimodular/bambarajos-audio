@@ -42,6 +42,7 @@ function update() {
   noise.checked = set.noiseSuppression;
   gain.checked = set.autoGainControl;
   muted.checked = !track.enabled;
+  console.log("audioOutputLevel "+track.audioOutputLevel);
 }
 
 echo.onclick = e => apply({ echoCancellation: echo.checked });
@@ -61,6 +62,8 @@ async function apply(c) {
 function spectrum(stream) {
   // var audioCtx = new AudioContext();
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  
+  
   //   var audioCtx =  new AudioContext // Default
   //     || window.webkitAudioContext // Safari and old versions of Chrome
   //     || false;
