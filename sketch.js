@@ -269,10 +269,10 @@ jumpCounter++;
 
   console.log("jumpt to idx", idx);
 
-  new_startTime = Math.random()*200;
-  // new_startTime = Math.round(jsonData[idx].timecode_vid * 1e6) / 1e6;
-new_duration = 2 + Math.random() * 5;
-  // new_duration = Math.round(jsonData[idx].duration_vid * 1e6) / 1e6;
+  // new_startTime = Math.random()*200;
+  new_startTime = Math.round(jsonData[idx].timecode_vid * 1e6) / 1e6;
+// new_duration = 2 + Math.random() * 5;
+  new_duration = Math.round(jsonData[idx].duration_vid * 1e6) / 1e6;
   new_endTime = new_startTime + new_duration; //jsonData[idx].duration_vid;
 
   loopDirection = 1;
@@ -408,16 +408,16 @@ function time_updated() {
   //        temp_time.map(new_startTime,new_endTime,0,100);
   var map_time =
     (player.currentTime() - new_startTime) / (new_endTime - new_startTime);
-  console.log(
-    "map_time " +
-      map_time +
-      " new_startTime " +
-      new_startTime +
-      " new_endTime " +
-      new_endTime +
-      " currentTime " +
-      player.currentTime()
-  );
+  // console.log(
+  //   "map_time " +
+  //     map_time +
+  //     " new_startTime " +
+  //     new_startTime +
+  //     " new_endTime " +
+  //     new_endTime +
+  //     " currentTime " +
+  //     player.currentTime()
+  // );
   document.getElementById("chapter_slider").value = map_time;
 
   info_current_time.innerHTML = player.currentTime();

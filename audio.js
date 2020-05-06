@@ -19,6 +19,8 @@ var beatRectSize = 100;
 var bAudioTrigger = false;
 
 var audioLevel;
+var volume;
+var vol_smoothing = 0.5;
 let levelHistory = [];
 
 var track,
@@ -83,12 +85,17 @@ function spectrum(stream) {
       canvasCtx.fillStyle = "#a0a0a0";
       canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
       audioLevel = 0;
+      var total = 0;
+      var sum = 0;
       analyser.getByteFrequencyData(data);
       canvasCtx.lineWidth = 1;
 
       data.forEach((y, x) => {
         var yy = y;
         audioLevel += yy / 128;
+        total += yy;
+        sum += yy * yy;
+
         y = canvas.height - ((y / 128) * canvas.height) / 4;
         var c = Math.floor((x * 255) / canvas.width);
         canvasCtx.fillStyle = "rgb(" + c + ",0," + (255 - x) + ")";
@@ -108,9 +115,20 @@ function spectrum(stream) {
       canvasCtx.stroke();
 
       //---calculate audioLevel line
+       // var average = total/ data.length;
+          // ... then take the square root of the sum.
+    var rms = Math.sqrt(sum / data.length);
+      // volume = Math.max(rms, volume); //*vol_smoothing);
+      // console.log("volume "+rms);
       audioLevel = audioLevel / data.length;
       audioLevel = audioLevel / 2;
+      
+       var average = total/ data.length;
+
+      //  value = int(vol_smoothing * oldValue + (1 - vol_smoothing) * audioLevel);
+
       detectBeat(audioLevel);
+      // detectBeat(rms);
 
       //
       canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
