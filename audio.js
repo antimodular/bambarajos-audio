@@ -7,7 +7,7 @@
 var beatHoldFrames = 30;
 
 // what amplitude level can trigger a beat?
-var beatThreshold = 0.15; //0.05; //0.11;
+var beatThreshold = 0.25; //0.05; //0.11;
 
 // When we have a beat, beatCutoff will be reset to 1.1*beatThreshold, and then decay
 // Level must be greater than beatThreshold and beatCutoff before the next beat can trigger.
@@ -25,6 +25,7 @@ var volNorm = 0;
 var volume;
 var vol_smoothing = 0.5;
 let levelHistory = [];
+var millisStart;
 
 var track,
   gUM = c => navigator.mediaDevices.getUserMedia(c);
@@ -133,11 +134,11 @@ function spectrum(stream) {
   
       // audioLevel = audioLevel / 2;
       
-vol_smoothing = 1; //0.1; //999999;
-      var  average = vol_smoothing * old_audioLevel + (1 - vol_smoothing) * volNorm;
+vol_smoothing = 0.0000001; //0.1; //999999;
+      var  average = (vol_smoothing * old_audioLevel) + ((1 - vol_smoothing) * volNorm);
       
-      console.log("average "+average + " raw " + audioLevel + " old " + old_audioLevel);
-  detectBeat(volNorm);
+      // console.log("average "+average + " raw " + audioLevel + " old " + old_audioLevel);
+  detectBeat(average);
       // detectBeat(audioLevel);
       old_audioLevel = volNorm;
       // detectBeat(rms);
@@ -147,7 +148,7 @@ vol_smoothing = 1; //0.1; //999999;
       // canvasCtx.clearRect(45, 45, 60, 60);
       canvasCtx.strokeRect(25, 25, beatRectSize, beatRectSize);
       
-
+var graph_scaler = 100;
       //---draw audioLevel line
       var graph_y = canvas.height /4 * 3;
       canvasCtx.strokeStyle = "rgb(0, 0, 0)";
@@ -157,7 +158,7 @@ vol_smoothing = 1; //0.1; //999999;
       // console.log("levelHistory "+levelHistory.length + " [0] " +levelHistory[0].y);
 
       for (let i = 1; i < levelHistory.length; i++) {
-        let y = graph_y - levelHistory[i].y * 400;
+        let y = graph_y - levelHistory[i].y * graph_scaler;
         let x = i;
         canvasCtx.lineTo(x, y);
         canvasCtx.moveTo(x, y);
@@ -168,7 +169,7 @@ vol_smoothing = 1; //0.1; //999999;
       canvasCtx.strokeStyle = "rgb(255,255,255)";
       canvasCtx.beginPath();
 
-      let mapped_cutOff = graph_y - beatCutoff * 400;
+      let mapped_cutOff = graph_y - beatCutoff * graph_scaler;
       // console.log("beatCutoff " + mapped_cutOff);
       canvasCtx.moveTo(0, mapped_cutOff);
       canvasCtx.lineTo(canvas.width, mapped_cutOff);
@@ -179,7 +180,7 @@ vol_smoothing = 1; //0.1; //999999;
       canvasCtx.strokeStyle = "rgb(100,100,100)";
       canvasCtx.beginPath();
 
-      let mapped_beatThres = graph_y - beatThreshold * 400;
+      let mapped_beatThres = graph_y - beatThreshold * graph_scaler;
       // console.log("mapped_beatThres " + mapped_beatThres);
       canvasCtx.moveTo(0, mapped_beatThres);
       canvasCtx.lineTo(canvas.width, mapped_beatThres);
@@ -229,7 +230,11 @@ function onBeat() {
   beatRectSize = 100;
   bAudioTrigger = true;
 
-  jumpTo(-1);
+  var millisSince = Date.now();
+  var millisDiff = millisSince - millisStart;
+  
+  if(millisDiff > 200) jumpTo(-1);
   console.log("onBeat == true");
+  millisStart = Date.now();
   // onEnd();
 }
