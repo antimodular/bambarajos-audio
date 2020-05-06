@@ -19,6 +19,9 @@ var beatRectSize = 100;
 var bAudioTrigger = false;
 
 var audioLevel;
+var old_audioLevel;
+var volMax = 0.001;
+var volNorm = 0;
 var volume;
 var vol_smoothing = 0.5;
 let levelHistory = [];
@@ -120,14 +123,23 @@ function spectrum(stream) {
     var rms = Math.sqrt(sum / data.length);
       // volume = Math.max(rms, volume); //*vol_smoothing);
       // console.log("volume "+rms);
-      audioLevel = audioLevel / data.length;
-      audioLevel = audioLevel / 2;
+        audioLevel = audioLevel / data.length;
       
-       var average = total/ data.length;
-
-      //  value = int(vol_smoothing * oldValue + (1 - vol_smoothing) * audioLevel);
-
-      detectBeat(audioLevel);
+      volMax = Math.max(audioLevel,volMax);
+  
+      volNorm= Math.min(1, Math.max(0, audioLevel));
+      // volNorm = Math.constrain(audioLevel/volMax, 0, 1);
+      
+  
+      // audioLevel = audioLevel / 2;
+      
+vol_smoothing = 1; //0.1; //999999;
+      var  average = vol_smoothing * old_audioLevel + (1 - vol_smoothing) * volNorm;
+      
+      console.log("average "+average + " raw " + audioLevel + " old " + old_audioLevel);
+  detectBeat(volNorm);
+      // detectBeat(audioLevel);
+      old_audioLevel = volNorm;
       // detectBeat(rms);
 
       //
