@@ -127,8 +127,10 @@ function spectrum(stream) {
 
     setInterval(() => {
       //---draw FFT bins
-      canvasCtx.fillStyle = "#a0a0a0";
-      canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+      // canvasCtx.fillStyle = "#a0a0a0";
+      // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+      canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+      canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
       audioLevel = 0;
       var total = 0;
       var sum = 0;
