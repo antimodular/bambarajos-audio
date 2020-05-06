@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
-
+<link rel="stylesheet" type="text/css" href="sketch.css">
     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
     <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
     <script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
@@ -17,20 +17,29 @@
     <label><input type="checkbox" id="noise" />noiseSuppression</label>
     <label><input type="checkbox" id="gain" />autoGainControl</label>
     <label><input type="checkbox" id="muted" />mute</label>
-        <div id="container"></div>
+<!--         <div id="container"></div> -->
       </div>
     
    
 
-    <div id="div"></div>
+    <div id="divLog"></div>
 
-    <div class="wrapper">
+    <div id="video">
+      
+    <div style="z-index: 1" class="wrapper">
       <video-js id="vid" controls preload="auto"> </video-js>
+       
     </div>
+    
+       
+    </div>
+   <div style="z-index: 2" id="container"></div>
 
+    
       <div id="info">
+        
     <div id="version">...</div>
-    <div id="info">key [j] = jump, key [n] = next chapter</div>
+    <div id="keys">key [j] = jump, key [n] = next chapter</div>
     <div id="fps">...</div>
     <div id="jumpCounter">...</div>
     <!--    if i remove the word controls then no control bar will be visible-->

@@ -37,7 +37,7 @@ var track,
 })().catch(e => log(e));
 
 function log(msg) {
-  div.innerHTML += "<br>" + msg;
+  divLog.innerHTML += "<br>" + msg;
 }
 
 function update() {

@@ -1,0 +1,14 @@
+/* .container {
+  position: absolute;
+} */
+
+.video {
+  position: relative;
+  margin-top: 20px;
+}
+
+.container {
+  position: absolute;
+  margin-top: -10px;
+  background-color: green;
+}
