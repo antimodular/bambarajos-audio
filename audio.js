@@ -87,7 +87,7 @@ function spectrum(stream) {
     var canvasCtx = canvas.getContext("2d");
     canvas.width = window.innerWidth / 4 - 20;
     canvas.height = window.innerHeight / 4 - 20;
-    container.appendChild(canvas);
+    audio_Canvas.appendChild(canvas);
 
     var data = new Uint8Array(400); //canvas.width);
 
