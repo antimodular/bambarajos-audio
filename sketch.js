@@ -185,10 +185,12 @@ document.addEventListener("keyup", function(e) {
     if (bShowInfo == true){
       show("info");
       show("audioInfo");
+      setFullScreen(false);
     }
     else {
       hide("info");
       hide("audioInfo");
+      setFullScreen(true);
     }
     
   }
@@ -606,4 +608,16 @@ function onTouchEnd(event) {
     window.removeEventListener('touchmove', onTouchMove, false);
     window.removeEventListener('touchend', onTouchEnd, false);
     isTouching = false;
+}
+
+function setFullScreen(fullScreen) {
+  // console.log("fullScreen "+fullScreen);
+  // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
+  if (fullScreen == true) {
+    player.width(screen.width);
+    player.height(screen.height);
+  } else {
+    player.width(400);
+    player.height(300);
+  }
 }
