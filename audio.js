@@ -37,7 +37,8 @@ var track,
 })().catch(e => log(e));
 
 function log(msg) {
-  divLog.innerHTML += "<br>" + msg;
+  // divLog.innerHTML += "<br>" + msg;
+  // document.getElementById("divLog").innerHTML += "<br>" + msg;
 }
 
 function update() {
@@ -45,7 +46,9 @@ function update() {
   echo.checked = set.echoCancellation;
   noise.checked = set.noiseSuppression;
   gain.checked = set.autoGainControl;
+
   muted.checked = !track.enabled;
+
   // console.log("audioOutputLevel "+track.audioOutputLevel);
 }
 
@@ -66,8 +69,7 @@ async function apply(c) {
 function spectrum(stream) {
   // var audioCtx = new AudioContext();
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  
-  
+
   //   var audioCtx =  new AudioContext // Default
   //     || window.webkitAudioContext // Safari and old versions of Chrome
   //     || false;
@@ -114,38 +116,38 @@ function spectrum(stream) {
       });
 
       //---draw line?
-//       analyser.getByteTimeDomainData(data);
-//       canvasCtx.strokeStyle = "rgb(0, 125, 0)";
-//       canvasCtx.lineWidth = 1;
-//       canvasCtx.beginPath();
+      //       analyser.getByteTimeDomainData(data);
+      //       canvasCtx.strokeStyle = "rgb(0, 125, 0)";
+      //       canvasCtx.lineWidth = 1;
+      //       canvasCtx.beginPath();
 
-//       data.forEach((y, x) => {
-//         y = canvas.height - ((y / 128) * canvas.height) / 2;
-//         x ? canvasCtx.lineTo(x, y) : canvasCtx.moveTo(x, y);
-//       });
-//       canvasCtx.stroke();
+      //       data.forEach((y, x) => {
+      //         y = canvas.height - ((y / 128) * canvas.height) / 2;
+      //         x ? canvasCtx.lineTo(x, y) : canvasCtx.moveTo(x, y);
+      //       });
+      //       canvasCtx.stroke();
 
       //---calculate audioLevel line
-       // var average = total/ data.length;
-          // ... then take the square root of the sum.
-    var rms = Math.sqrt(sum / data.length);
+      // var average = total/ data.length;
+      // ... then take the square root of the sum.
+      var rms = Math.sqrt(sum / data.length);
       // volume = Math.max(rms, volume); //*vol_smoothing);
       // console.log("volume "+rms);
-        audioLevel = audioLevel / data.length;
-      
-      volMax = Math.max(audioLevel,volMax);
-  
-      volNorm= Math.min(1, Math.max(0, audioLevel));
+      audioLevel = audioLevel / data.length;
+
+      volMax = Math.max(audioLevel, volMax);
+
+      volNorm = Math.min(1, Math.max(0, audioLevel));
       // volNorm = Math.constrain(audioLevel/volMax, 0, 1);
-      
-  
+
       // audioLevel = audioLevel / 2;
-      
-vol_smoothing = 0.95; //0.1; //999999;
-      var  average = (vol_smoothing * old_audioLevel) + ((1 - vol_smoothing) * volNorm);
-      
+
+      vol_smoothing = 0.95; //0.1; //999999;
+      var average =
+        vol_smoothing * old_audioLevel + (1 - vol_smoothing) * volNorm;
+
       // console.log("average "+average + " raw " + audioLevel + " old " + old_audioLevel);
-  detectBeat(average);
+      detectBeat(average);
       // detectBeat(audioLevel);
       old_audioLevel = volNorm;
       // detectBeat(rms);
@@ -154,10 +156,10 @@ vol_smoothing = 0.95; //0.1; //999999;
       canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
       // canvasCtx.clearRect(45, 45, 60, 60);
       canvasCtx.strokeRect(25, 25, beatRectSize, beatRectSize);
-      
-var graph_scaler = 100;
+
+      var graph_scaler = 100;
       //---draw audioLevel line
-      var graph_y = canvas.height /4 * 3;
+      var graph_y = (canvas.height / 4) * 3;
       canvasCtx.strokeStyle = "rgb(0, 0, 0)";
       canvasCtx.lineWidth = 1;
       canvasCtx.beginPath();
@@ -192,13 +194,11 @@ var graph_scaler = 100;
       canvasCtx.moveTo(0, mapped_beatThres);
       canvasCtx.lineTo(canvas.width, mapped_beatThres);
       canvasCtx.stroke();
-// console.log((1000 * canvas.width) / audioCtx.sampleRate); is equal 2
+      // console.log((1000 * canvas.width) / audioCtx.sampleRate); is equal 2
       var bogus = source; // avoid GC or the whole thing stops
     }, 30); //(1000 * canvas.width) / audioCtx.sampleRate);
   }
 }
-
-
 
 function detectBeat(level) {
   // console.log("level "+level);
@@ -225,7 +225,7 @@ function detectBeat(level) {
   }
 
   beatRectSize -= 1;
-      if (beatRectSize < 50) beatRectSize = 50;
+  if (beatRectSize < 50) beatRectSize = 50;
   // line(0, temp_cutOff, levelHistory.length, temp_cutOff);
 }
 
@@ -237,8 +237,8 @@ function onBeat() {
 
   var millisSince = Date.now();
   var millisDiff = millisSince - millisStart;
-  
-  if(millisDiff > 200) jumpTo(-1);
+
+  if (millisDiff > 200) jumpTo(-1);
   console.log("onBeat == true");
   millisStart = Date.now();
   // onEnd();
