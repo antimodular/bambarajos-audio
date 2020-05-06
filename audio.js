@@ -46,7 +46,7 @@ function update() {
   noise.checked = set.noiseSuppression;
   gain.checked = set.autoGainControl;
   muted.checked = !track.enabled;
-  console.log("audioOutputLevel "+track.audioOutputLevel);
+  // console.log("audioOutputLevel "+track.audioOutputLevel);
 }
 
 echo.onclick = e => apply({ echoCancellation: echo.checked });

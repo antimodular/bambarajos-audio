@@ -28,6 +28,8 @@ var new_eye_contact = 0;
 var speed = 1;
 var loopDirection = 1;
 
+var bShowInfo = true;
+
 //player.src([{src:'//vjs.zencdn.net/v/oceans.mp4',type:'video/mp4'},
 //            {src:'//vjs.zencdn.net/v/oceans.webm',type:'video/webm'},
 //            {src:'//vjs.zencdn.net/v/oceans.ogv',type:'video/ogg'}
@@ -115,7 +117,7 @@ player.controlBar.fullscreenToggle.hide();
 
 document.addEventListener("keyup", function(e) {
   //uncommnet the following line so the pressed key info is printed to the console and you can see which is its code or key value if you want to add more behaviors.
-  //console.log(e);
+  console.log("key event " + e);
 
   if (e.code === "Space") {
     if (player.paused()) {
@@ -177,8 +179,30 @@ document.addEventListener("keyup", function(e) {
     speed = 1;
     rewinding = false;
     player.playbackRate(speed);
+    
+  } else if (e.key === "d") {
+    bShowInfo = !bShowInfo;
+    if (bShowInfo == true){
+      show("info");
+      show("audioInfo");
+    }
+    else {
+      hide("info");
+      hide("audioInfo");
+    }
+    
   }
 });
+
+function show(target) {
+    console.log("show " +target);
+    document.getElementById(target).style.display = 'block';
+}
+
+function hide(target) {
+     console.log("hide " +target);
+    document.getElementById(target).style.display = 'none';
+}
 
 //negative playback http://jsfiddle.net/uvLgbqoa/
 //https://stackoverflow.com/questions/18053261/play-a-video-in-reverse-using-html5-video-element/24587893
