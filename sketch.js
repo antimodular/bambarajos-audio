@@ -5,8 +5,10 @@
 
 var version = "v10";
 
-var player = videojs("vid", {});
+window.player = videojs("vid", {});
 
+//  window.playerW = 400;
+//  window.playerH = 320;
 
 var json_src = "l-001-200_047.json";
 // var vid_src = "l-001-200_047.mp4";

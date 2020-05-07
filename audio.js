@@ -121,8 +121,12 @@ function spectrum(stream) {
     // var canvas = document.getElementsByClassName('audio_Canvas');
         var canvas = document.getElementById('audio_Canvas');
     var canvasCtx = canvas.getContext("2d");
-    canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
-    canvas.height = 360; //window.player.height; //window.innerHeight / 4 - 20;
+    // canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
+    // canvas.height = 320; //window.player.height; //window.innerHeight / 4 - 20;
+ canvas.width = window.player.width; //window.innerWidth / 4 - 20;
+    canvas.height = window.player.height; //window.innerHeight / 4 - 20;
+
+    console.log("canvas.width "+canvas.width);
     // window.audio_Canvas.appendChild(canvas);
 
     var data = new Uint8Array(400); //canvas.width);
