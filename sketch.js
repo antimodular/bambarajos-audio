@@ -7,8 +7,8 @@ var version = "v10";
 
 var player = videojs("vid", {});
 
- window.playerW = 400;
- window.playerH = 320;
+ window.playerW = window.screen.width; //400;
+ window.playerH = window.screen.height; //320;
 
 var json_src = "l-001-200_047.json";
 // var vid_src = "l-001-200_047.mp4";
@@ -356,10 +356,13 @@ function jumpTo(idx) {
     new_eye_contact = Math.round(jsonData[idx].eye_contact_start * 1e6) / 1e6; //jsonData[idx].eye_contact_start;
    
     var temp_time = new_startTime + new_eye_contact + startOffsetTime;
-    player.currentTime(temp_time);
+      player.currentTime(temp_time);
+     // player.play();
     console.log("new time: " + temp_time);
   } else {
+    //for some reason the json fetch() is not always ready or executed when we get to this jumpTo function
     console.log("NOT jsonData_length > idx: " + jsonData_length + " > " + idx);
+    loadJsonData();
   }
 }
 
@@ -652,8 +655,8 @@ function setFullWindow(_fullWindow) {
   // bShowInfo = !_fullWindow;
   isFullScreen = _fullWindow;
   if (isFullScreen == true) {
-    window.playerW = screen.width;
-    window.playerH = screen.height;
+    window.playerW = window.screen.width;
+    window.playerH = window.screen.height;
     
       hide("info");
      hide("audioInfo");
