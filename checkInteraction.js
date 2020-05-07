@@ -81,6 +81,7 @@ document.addEventListener("mousemove", function(e) {
 //click event happens when the mouse is pressed and released over the same element. In this case, as we are using the "document" it will always trigger
 document.addEventListener("click", function(e) {
   info_mouse_clicked_position.innerHTML = "x: " + e.x + " y: " + e.y;
+   // toggleFullScreen();
 });
 
 //----touch screen interaction via touch-------
@@ -125,7 +126,9 @@ window.addEventListener(
     // bShowInfo = !bShowInfo;
     // setFullWindow(false);
     // toggleFullWindow();
-    toggleFullScreen();
+    
+    // toggleFullScreen();
+    toggleFullWindow();
   },
   false
 );
@@ -161,3 +164,23 @@ function onTouchEnd(event) {
   info_touch_state.innerHTML = "touchend ";
   isTouching = false;
 }
+
+//https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari
+window.addEventListener('orientationchange', function () {
+    if (window.orientation == -90) {
+        document.getElementById('orient').className = 'orientright';
+      // 
+      setFullWindow(true);
+      setToWindowSize();
+    }
+    if (window.orientation == 90) {
+        document.getElementById('orient').className = 'orientleft';
+      // setToWindowSize();
+      setFullWindow(true);
+      setToWindowSize();
+    }
+    if (window.orientation == 0) {
+        document.getElementById('orient').className = '';
+      setFullWindow(false);
+    }
+}, true);
