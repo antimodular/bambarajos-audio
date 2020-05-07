@@ -7,8 +7,18 @@ var version = "v10";
 
 var player = videojs("vid", {});
 
- window.playerW = window.screen.width; //400;
- window.playerH = window.screen.height; //320;
+//https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
+var screenWidth = window.innerWidth
+|| document.documentElement.clientWidth
+|| document.body.clientWidth;
+
+var screenHeight = window.innerHeight
+|| document.documentElement.clientHeight
+|| document.body.clientHeight;
+
+
+ window.playerW = screenWidth; //window.screen.width; //400;
+ window.playerH = screenHeight; //window.screen.height; //320;
 
 var json_src = "l-001-200_047.json";
 // var vid_src = "l-001-200_047.mp4";
@@ -145,7 +155,8 @@ document.addEventListener("keyup", function(e) {
     }
     player.currentTime(t);
   } else if (e.key === "f") {
-    player.requestFullscreen();
+    // player.requestFullscreen();
+    toggleFullScreen();
   } else if (e.key === "j") {
     player.play();
     jumpTo(-1);
@@ -186,14 +197,7 @@ document.addEventListener("keyup", function(e) {
     player.playbackRate(speed);
     
   } else if (e.key === "d") {
-      toggleFullWindow();
-    // }
-    // else {
-    //   hide("info");
-    //   hide("audioInfo");
-    //   setFullWindow(true);
-    // }
-    
+      toggleFullWindow();    
   }
 });
 
@@ -604,8 +608,8 @@ window.addEventListener('touchstart', function(event) {
 
   info_touch_state.innerHTML = "touchstart ";
   // bShowInfo = !bShowInfo;
-  setFullWindow(false);
-
+  // setFullWindow(false);
+toggleFullWindow();
 
 }, false);
 
@@ -641,22 +645,53 @@ function onTouchEnd(event) {
     isTouching = false;
 }
 
+function toggleFullScreen() {
+  //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
+  var doc = window.document;
+  var docEl = doc.documentElement;
+
+  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+    requestFullScreen.call(docEl);
+      setFullWindow(true);
+    isFullScreen = true;
+  }
+  else {
+    cancelFullScreen.call(doc);
+      setFullWindow(false);
+    isFullScreen= false;
+  }
+}
+
 function toggleFullWindow(){
   // bShowInfo = !bShowInfo;
+  
+  // toggleFullScreen();
   isFullScreen = !isFullScreen;
   setFullWindow(isFullScreen);
 }
+
 function setFullWindow(_fullWindow) {
   // console.log("fullScreen "+fullScreen);
   // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
   //   var w = window.innerWidth;
   // var h = window.innerHeight;
 
+   screenWidth = window.innerWidth
+|| document.documentElement.clientWidth
+|| document.body.clientWidth;
+
+ screenHeight = window.innerHeight
+|| document.documentElement.clientHeight
+|| document.body.clientHeight;
+  
   // bShowInfo = !_fullWindow;
   isFullScreen = _fullWindow;
   if (isFullScreen == true) {
-    window.playerW = window.screen.width;
-    window.playerH = window.screen.height;
+    window.playerW = screenWidth; //window.screen.width;
+    window.playerH = screenHeight; //window.screen.height;
     
       hide("info");
      hide("audioInfo");
