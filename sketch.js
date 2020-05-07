@@ -276,7 +276,7 @@ function loadJsonData(){
     .catch(function(ex) {
       console.log("parsing failed", ex);
     });
-   toggleFullScreen();
+  
 }
 function update_loop() {
   //    var time = new Date();
@@ -650,6 +650,8 @@ function onTouchEnd(event) {
 }
 
 function toggleFullScreen() {
+  console.log("toggleFullScreen()");
+  
   //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
   var doc = window.document;
   var docEl = doc.documentElement;
