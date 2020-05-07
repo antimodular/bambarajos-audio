@@ -41,12 +41,13 @@ html, body {
 /*    opacity: 0.5; */
 }
 
-.audio_Canvas{
+#audio_Canvas{
   position: absolute;
   left: 0;
   top: 0;
-  height: auto;
-  width: auto;
+/*   height: auto;
+  width: auto; */
+  z-index: 10;
   opacity: 0.5;
 } 
 #videoDiv:before {

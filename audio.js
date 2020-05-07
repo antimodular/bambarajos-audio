@@ -117,11 +117,13 @@ function spectrum(stream) {
     var source = audioCtx.createMediaStreamSource(stream);
     source.connect(analyser);
 
-    var canvas = document.createElement("canvas");
+    // var canvas = document.createElement("canvas");
+    // var canvas = document.getElementsByClassName('audio_Canvas');
+        var canvas = document.getElementById('audio_Canvas');
     var canvasCtx = canvas.getContext("2d");
     canvas.width = window.innerWidth / 4 - 20;
     canvas.height = window.innerHeight / 4 - 20;
-    window.audio_Canvas.appendChild(canvas);
+    // window.audio_Canvas.appendChild(canvas);
 
     var data = new Uint8Array(400); //canvas.width);
 
