@@ -2,25 +2,38 @@
   position: absolute;
 } */
 
-.body { margin:0px; }
+/* .body { margin:0px; }
 
 .hidden {
   visibility: collapse;
-}
-html,
-body {
-  height: fit;
-  background: #e2dede;
-  margin: 0px;
-}
-div {
-  width: fit;
-  overflow: hidden;
+} */
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
-.wrapper {
-  position: relative;
-  margin-top: 20px;
+div {
+/*   position: relative;
+  margin-top: 0px; */
+/*   min-height: 100%;
+    min-width: 100%;
+    height: auto;
+    width: auto; */
+   position: relative;
+    height: 100vh;
+}
+
+div:before {
+    position: absolute;
+    content:"test";
+    height: 100px;
+    width: 100px;
+    border-radius: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: purple;
 }
 
 .container {
