@@ -30,7 +30,8 @@ var new_eye_contact = 0;
 var speed = 1;
 var loopDirection = 1;
 
-var bShowInfo = false; //true;
+// var bShowInfo = false; //true;
+var isFullScreen = true;
 
 var playSpeed = 1; //0.5;
 
@@ -185,8 +186,7 @@ document.addEventListener("keyup", function(e) {
     player.playbackRate(speed);
     
   } else if (e.key === "d") {
-    bShowInfo = !bShowInfo;
-      setFullWindow(bShowInfo);
+      toggleFullWindow();
     // }
     // else {
     //   hide("info");
@@ -617,15 +617,20 @@ function onTouchEnd(event) {
     isTouching = false;
 }
 
+function toggleFullWindow(){
+  // bShowInfo = !bShowInfo;
+  isFullScreen = !isFullScreen;
+  setFullWindow(isFullScreen);
+}
 function setFullWindow(_fullWindow) {
   // console.log("fullScreen "+fullScreen);
   // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
   //   var w = window.innerWidth;
   // var h = window.innerHeight;
 
-  bShowInfo = !_fullWindow;
-  
-  if (bShowInfo == false) {
+  // bShowInfo = !_fullWindow;
+  isFullScreen = _fullWindow;
+  if (isFullScreen == true) {
     window.playerW = screen.width;
     window.playerH = screen.height;
     
