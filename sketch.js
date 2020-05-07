@@ -229,9 +229,9 @@ var jsonData_length;
 window.onload = function(e) {
   millisStart = Date.now();
 
-  bShowInfo = false;
-   hide("info");
-      hide("audioInfo");
+  // bShowInfo = false;
+   // hide("info");
+   //    hide("audioInfo");
       setFullWindow(true);
   
   fetch(json_src)
@@ -246,7 +246,7 @@ window.onload = function(e) {
       jsonData_length = jsonData.length;
       console.log("fetch json with length " + jsonData_length);
       display_jsonObj(jsonData[idx]);
-      console.log("parsed json", json);
+      // console.log("parsed json", json);
     })
     .catch(function(ex) {
       console.log("parsing failed", ex);
@@ -294,42 +294,52 @@ document.getElementById("chapter_eye_contact").innerHTML = new_eye_contact;
 
 
 function jumpTo(idx) {
-  rewinding = false;
-
-  player.play();
-  player.playbackRate(playSpeed);
-  jumpCounter++;
-  document.getElementById("jumpCounter").innerHTML = jumpCounter;
   
-  if (idx == -1) {
-    var temp_r = Math.random();
-    idx =  temp_r * jsonData_length; //jsonData.length;
-    idx = parseInt(idx);
-    vidCounter = idx;
-    
-    console.log("jumpt to jsonData_length" + jsonData_length + " idx " + idx + " temp_r "+temp_r);
+  //it seems to take a bit of time before json file is loaded
+  //either add wait time or check json.length
+  if (performance.now() > 5000) {
+    // if (json_length > idx) {
+    rewinding = false;
+
+    player.play();
+    player.playbackRate(playSpeed);
+    jumpCounter++;
+    document.getElementById("jumpCounter").innerHTML = jumpCounter;
+
+    if (idx == -1) {
+      // var temp_r = Math.random();
+      idx = Math.random() * jsonData_length; //jsonData.length;
+      idx = parseInt(idx);
+      vidCounter = idx;
+
+      // console.log(
+      //   "jumpt to jsonData_length " +
+      //     jsonData_length +
+      //     " idx " +
+      //     idx
+      // );
+    }
+
+    console.log("jumpt to idx", idx);
+
+    // new_startTime = Math.random()*200;
+    new_startTime = Math.round(jsonData[idx].timecode_vid * 1e6) / 1e6;
+    // new_duration = 2 + Math.random() * 5;
+    new_duration = Math.round(jsonData[idx].duration_vid * 1e6) / 1e6;
+    new_endTime = new_startTime + new_duration; //jsonData[idx].duration_vid;
+
+    loopDirection = 1;
+    // Math.round(someNumber * 1e2) / 1e2
+
+    console.log(
+      jsonData[idx].name + " , start " + new_startTime + " , end " + new_endTime
+    );
+
+    display_jsonObj(jsonData[idx]);
+
+    new_eye_contact = Math.round(jsonData[idx].eye_contact_start * 1e6) / 1e6; //jsonData[idx].eye_contact_start;
+    player.currentTime(new_startTime + new_eye_contact + startOffsetTime);
   }
-
-  console.log("jumpt to idx", idx);
-
-  // new_startTime = Math.random()*200;
-  new_startTime = Math.round(jsonData[idx].timecode_vid * 1e6) / 1e6;
-// new_duration = 2 + Math.random() * 5;
-  new_duration = Math.round(jsonData[idx].duration_vid * 1e6) / 1e6;
-  new_endTime = new_startTime + new_duration; //jsonData[idx].duration_vid;
-
-  loopDirection = 1;
-  // Math.round(someNumber * 1e2) / 1e2
-
-  console.log(
-    jsonData[idx].name + " , start " + new_startTime + " , end " + new_endTime
-  );
-
-  display_jsonObj(jsonData[idx]);
-  
-new_eye_contact = Math.round(jsonData[idx].eye_contact_start * 1e6) / 1e6; //jsonData[idx].eye_contact_start;
-  player.currentTime(new_startTime + new_eye_contact + startOffsetTime);
-  
 }
 
 //get the elements defined in the HTML file using their id so we can change these programatically
@@ -613,21 +623,20 @@ function setFullWindow(_fullWindow) {
   //   var w = window.innerWidth;
   // var h = window.innerHeight;
 
-  bShowInfo = _fullWindow;
-   if (bShowInfo == true){
-      show("info");
-      show("audioInfo");
-   }else{
-     hide("info");
-    hide("audioInfo");
-   }
+  bShowInfo = !_fullWindow;
   
   if (bShowInfo == false) {
     window.playerW = screen.width;
     window.playerH = screen.height;
+    
+      hide("info");
+     hide("audioInfo");
   } else {
     window.playerW = 400;
     window.playerH = 320;
+    
+     show("info");
+      show("audioInfo");
     // player.width(400); //80
     // player.height(320); //64
   }
