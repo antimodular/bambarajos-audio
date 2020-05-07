@@ -5,10 +5,10 @@
 
 var version = "v10";
 
-window.player = videojs("vid", {});
+var player = videojs("vid", {});
 
-//  window.playerW = 400;
-//  window.playerH = 320;
+ window.playerW = 400;
+ window.playerH = 320;
 
 var json_src = "l-001-200_047.json";
 // var vid_src = "l-001-200_047.mp4";
@@ -30,7 +30,7 @@ var new_eye_contact = 0;
 var speed = 1;
 var loopDirection = 1;
 
-var bShowInfo = true;
+var bShowInfo = false; //true;
 
 var playSpeed = 1; //0.5;
 
@@ -59,8 +59,8 @@ player.poster("https://stephanschulz.ca/bamba/l-001-20min_h264.png");
 player.autoplay(true);
 //https://coolestguidesontheplanet.com/videodrome/videojs/
 //player.fluid(true); //set to window size
-player.width(400); //80
-player.height(320); //64
+player.width(window.playerW); //80
+player.height(window.playerH); //64
 
 /// player GUI controls
 //use the following functions to show or hide the controls
@@ -189,12 +189,12 @@ document.addEventListener("keyup", function(e) {
     if (bShowInfo == true){
       show("info");
       show("audioInfo");
-      setFullScreen(false);
+      setFullWindow(false);
     }
     else {
       hide("info");
       hide("audioInfo");
-      setFullScreen(true);
+      setFullWindow(true);
     }
     
   }
@@ -207,7 +207,7 @@ function show(target) {
 
 function hide(target) {
      console.log("hide " +target);
-    document.getElementById(target).style.display = 'none';
+    document.getElementById(target).d = 'none';
 }
 
 //negative playback http://jsfiddle.net/uvLgbqoa/
@@ -231,6 +231,10 @@ var jsonData; // this is defined here, outside the function below so it becomes 
 window.onload = function(e) {
   millisStart = Date.now();
 
+   hide("info");
+      hide("audioInfo");
+      setFullWindow(true);
+  
   fetch(json_src)
     //    fetch('vData2.json')
     .then(function(response) {
@@ -249,6 +253,8 @@ window.onload = function(e) {
     });
   
   document.getElementById("version").innerHTML = "version "+version;
+  
+ 
 };
 
 function update_loop() {
@@ -588,17 +594,23 @@ function onTouchEnd(event) {
     isTouching = false;
 }
 
-function setFullScreen(fullScreen) {
+function setFullWindow(fullWindow) {
   // console.log("fullScreen "+fullScreen);
   // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
-//   var w = window.innerWidth;
-// var h = window.innerHeight;
-  
-  if (fullScreen == true) {
-    player.width(screen.width);
-    player.height(screen.height);
+  //   var w = window.innerWidth;
+  // var h = window.innerHeight;
+
+  if (fullWindow == true) {
+    window.playerW = screen.width;
+    window.playerH = screen.height;
   } else {
-    player.width(400); //80
-    player.height(320); //64
-  } 
+    window.playerW = 400;
+    window.playerH = 320;
+    // player.width(400); //80
+    // player.height(320); //64
+  }
+  player.width(window.playerW);
+  player.height(window.playerH);
+  
+  updateCanvasSize(window.playerW,window.playerH);
 }

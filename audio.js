@@ -27,6 +27,8 @@ var vol_smoothing = 0.5;
 let levelHistory = [];
 var millisStart;
 
+var canvas;
+
 var track,
   gUM = c => navigator.mediaDevices.getUserMedia(c);
 
@@ -98,6 +100,10 @@ async function apply(c) {
 
 // var audioCtx = new AudioContext();
 
+function updateCanvasSize(w,h){
+  canvas.width = w; //window.innerWidth / 4 - 20;
+    canvas.height = h;
+}
 function spectrum(stream) {
   // var audioCtx = new AudioContext();
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -119,12 +125,12 @@ function spectrum(stream) {
 
     // var canvas = document.createElement("canvas");
     // var canvas = document.getElementsByClassName('audio_Canvas');
-        var canvas = document.getElementById('audio_Canvas');
+       canvas = document.getElementById('audio_Canvas');
     var canvasCtx = canvas.getContext("2d");
     // canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
     // canvas.height = 320; //window.player.height; //window.innerHeight / 4 - 20;
- canvas.width = window.player.width; //window.innerWidth / 4 - 20;
-    canvas.height = window.player.height; //window.innerHeight / 4 - 20;
+ canvas.width = window.playerW; //window.innerWidth / 4 - 20;
+    canvas.height = window.playerH; //window.innerHeight / 4 - 20;
 
     console.log("canvas.width "+canvas.width);
     // window.audio_Canvas.appendChild(canvas);
