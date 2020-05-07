@@ -242,10 +242,10 @@ window.onload = function(e) {
     .then(function(json) {
       jsonData = json;
       // var myJson = JSON.stringify(json);
-      var idx = 20;
+      // var idx = 20;
       jsonData_length = jsonData.length;
       console.log("fetch json with length " + jsonData_length);
-      display_jsonObj(jsonData[idx]);
+      display_jsonObj(jsonData[1]);
       // console.log("parsed json", json);
     })
     .catch(function(ex) {
@@ -293,6 +293,7 @@ document.getElementById("chapter_eye_contact").innerHTML = new_eye_contact;
 }
 
 
+//jumpTo function
 function jumpTo(idx) {
   
   //it seems to take a bit of time before json file is loaded
@@ -320,7 +321,7 @@ function jumpTo(idx) {
       // );
     }
 
-    console.log("jumpt to idx", idx);
+    console.log("jumpt to idx:", idx);
 
     // new_startTime = Math.random()*200;
     new_startTime = Math.round(jsonData[idx].timecode_vid * 1e6) / 1e6;

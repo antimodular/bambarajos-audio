@@ -310,8 +310,9 @@ function onBeat() {
   var millisSince = Date.now();
   var millisDiff = millisSince - millisStart;
 
+   console.log("onBeat == true");
   if (millisDiff > 200) jumpTo(-1);
-  console.log("onBeat == true");
+ 
   millisStart = Date.now();
   // onEnd();
 }
