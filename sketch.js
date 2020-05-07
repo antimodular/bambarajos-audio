@@ -198,6 +198,8 @@ document.addEventListener("keyup", function(e) {
     
   } else if (e.key === "d") {
       toggleFullWindow();    
+  } else if (e.key === "w") {
+      setToWindowSize();   
   }
 });
 
@@ -274,7 +276,7 @@ function loadJsonData(){
     .catch(function(ex) {
       console.log("parsing failed", ex);
     });
-  
+   toggleFullScreen();
 }
 function update_loop() {
   //    var time = new Date();
@@ -440,6 +442,8 @@ function setup_rewind(_speed) {
 // we use this to avoid an infinite loop between the time_updated function and the timeslider change
 var ignore_time_slider_change = false;
 function time_updated() {
+ 
+  
   if (loopDirection == 1) {
     if (player.currentTime() >= new_endTime - endOffsetTime) {
       //            player.pause();
@@ -609,8 +613,8 @@ window.addEventListener('touchstart', function(event) {
   info_touch_state.innerHTML = "touchstart ";
   // bShowInfo = !bShowInfo;
   // setFullWindow(false);
-toggleFullWindow();
-
+// toggleFullWindow();
+toggleFullScreen();
 }, false);
 
 function getTouch(event) {
@@ -655,13 +659,13 @@ function toggleFullScreen() {
 
   if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
     requestFullScreen.call(docEl);
-      setFullWindow(true);
+    // setFullWindow(true);
     isFullScreen = true;
   }
   else {
     cancelFullScreen.call(doc);
-      setFullWindow(false);
-    isFullScreen= false;
+    // setFullWindow(false);
+    isFullScreen = false;
   }
 }
 
@@ -674,6 +678,7 @@ function toggleFullWindow(){
 }
 
 function setFullWindow(_fullWindow) {
+  isFullScreen = _fullWindow;
   // console.log("fullScreen "+fullScreen);
   // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
   //   var w = window.innerWidth;
@@ -688,7 +693,6 @@ function setFullWindow(_fullWindow) {
 || document.body.clientHeight;
   
   // bShowInfo = !_fullWindow;
-  isFullScreen = _fullWindow;
   if (isFullScreen == true) {
     window.playerW = screenWidth; //window.screen.width;
     window.playerH = screenHeight; //window.screen.height;
@@ -705,6 +709,24 @@ function setFullWindow(_fullWindow) {
     // player.height(320); //64
   }
   player.width(window.playerW);
+  player.height(window.playerH);
+  
+  updateCanvasSize(window.playerW,window.playerH);
+}
+
+function setToWindowSize(){
+   screenWidth = window.innerWidth
+|| document.documentElement.clientWidth
+|| document.body.clientWidth;
+
+ screenHeight = window.innerHeight
+|| document.documentElement.clientHeight
+|| document.body.clientHeight;
+  
+   window.playerW = screenWidth; //window.screen.width;
+    window.playerH = screenHeight; //window.screen.height;
+  
+    player.width(window.playerW);
   player.height(window.playerH);
   
   updateCanvasSize(window.playerW,window.playerH);
