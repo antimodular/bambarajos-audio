@@ -16,7 +16,8 @@ html, body {
     border: 0;
 }
 
-/* audio_Canvas */
+
+/* . dot for div class= */
 .videoDiv  {
 /*   position: relative;
   margin-top: 0px; */
@@ -28,29 +29,31 @@ html, body {
     position: relative;
 }
 
-.version{
-  position: absolute;
-    left: 0px;
-    top: 0px;
-    margin: 10px;
-    padding: 5px 5px;
-    font-size: 20px;
-    font-family: Helvetica;
-    color: #FFF;
-    background-color: rgba(50, 50, 50, 0.3);
-/*    opacity: 0.5; */
-}
-
+/* # for div id=  */
 #audio_Canvas{
   position: absolute;
   left: 0;
   top: 0;
 /*   height: auto;
   width: auto; */
-  z-index: 10;
+/*   z-index: 10; */
   opacity: 0.5;
 } 
-#videoDiv:before {
+/* .version2{
+/*   position: absolute; */
+/*     left: 0px; */
+/*     top: 0px; */
+/*     margin: 10px; */
+/*     padding: 5px 5px; */
+/*     font-size: 20px; */
+/*     font-family: Helvetica; */
+/*     color: #FFF; */
+/*     background-color: rgba(50, 50, 50, 0.3); */
+/*    opacity: 0.5; */
+/* } */
+
+
+/* #videoDiv:before {
     position: absolute;
     content:"test";
     height: 100px;
@@ -60,7 +63,7 @@ html, body {
     left: 0;
     z-index: 1;
     background-color: purple;
-}
+} */
 
 /* .container {
   position: absolute;
