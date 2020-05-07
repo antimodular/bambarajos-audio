@@ -318,6 +318,7 @@ var info_mouse_clicked_position = document.getElementById(
   "mouse_clicked_position"
 );
 var info_mouse_position = document.getElementById("mouse_position");
+var info_mouse_pressed = document.getElementById("mouse_pressed");
 var info_touch_state = document.getElementById("touch_state");
 
 var play_btn = document.getElementById("play");

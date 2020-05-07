@@ -178,7 +178,7 @@ function spectrum(stream) {
           temp_x += bin_w;
         });
 
-        //---draw line?
+        //---draw line of all 400 samples
         //       analyser.getByteTimeDomainData(data);
         //       canvasCtx.strokeStyle = "rgb(0, 125, 0)";
         //       canvasCtx.lineWidth = 1;

@@ -75,7 +75,7 @@ document.addEventListener("keyup", function(e) {
 
 
 //--------mouse or touch events
- window.mousePressed = false;
+window.mousePressed = false;
 window.mouseStartX;
 window.mouseStartY;
 window.mouseMoveX;
@@ -91,7 +91,7 @@ document.addEventListener("mousedown", function(e) {
 });
 
 document.addEventListener("mouseup", function(e) {
-window.mousePressed = false;
+  window.mousePressed = false;
 });
 
 document.addEventListener("mousemove", function(e) {
@@ -103,6 +103,7 @@ document.addEventListener("mousemove", function(e) {
   
   console.log("mouseChangeY "+window.mouseChangeY);
   
+  info_mouse_pressed.innerHTML = "x: " + e.x + " y: " + e.y;
   info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
 });
 
