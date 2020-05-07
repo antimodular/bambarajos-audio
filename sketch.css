@@ -13,7 +13,8 @@ html, body {
     border: 0;
 }
 
-div {
+/* audio_Canvas */
+#videoDiv, #version  {
 /*   position: relative;
   margin-top: 0px; */
 /*   min-height: 100%;
@@ -21,10 +22,28 @@ div {
     height: auto;
     width: auto; */
    position: relative;
-    height: 100vh;
+   display: inline-block;
+    height: auto;
 }
 
-div:before {
+#version{
+  position: relative;
+  left: 0;
+  top: 0;
+  height: auto;
+  width: auto;
+   opacity: 0.5;
+}
+
+#audio_Canvas{
+  position: relative;
+  left: 0;
+  top: 0;
+  height: auto;
+  width: auto;
+   opacity: 0.5;
+}
+#videoDiv:before {
     position: absolute;
     content:"test";
     height: 100px;
