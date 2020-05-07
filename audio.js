@@ -284,7 +284,7 @@ function detectBeat(level) {
   if (levelHistory.length > 100) levelHistory.shift();
 
   if (level > beatCutoff && level > beatThreshold) {
-    // onBeat();
+    onBeat();
     beatCutoff = level * 1.2;
     framesSinceLastBeat = 0;
   } else {
@@ -310,7 +310,7 @@ function onBeat() {
   var millisSince = Date.now();
   var millisDiff = millisSince - millisStart;
 
-  // if (millisDiff > 200) jumpTo(-1);
+  if (millisDiff > 200) jumpTo(-1);
   console.log("onBeat == true");
   millisStart = Date.now();
   // onEnd();

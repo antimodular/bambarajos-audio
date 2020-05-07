@@ -213,6 +213,7 @@ function hide(target) {
 var info_json = document.getElementById("json");
 
 var jsonData; // this is defined here, outside the function below so it becomes "global"
+var jsonData_length;
 
 //this function gets called when the window has loaded.
 // It is something like the setup function in p5js
@@ -240,9 +241,10 @@ window.onload = function(e) {
     })
     .then(function(json) {
       jsonData = json;
-      var myJson = JSON.stringify(json);
+      // var myJson = JSON.stringify(json);
       var idx = 20;
-
+      jsonData_length = jsonData.length;
+      console.log("fetch json with length " + jsonData_length);
       display_jsonObj(jsonData[idx]);
       console.log("parsed json", json);
     })
@@ -296,13 +298,16 @@ function jumpTo(idx) {
 
   player.play();
   player.playbackRate(playSpeed);
-jumpCounter++;
+  jumpCounter++;
   document.getElementById("jumpCounter").innerHTML = jumpCounter;
   
   if (idx == -1) {
-    idx = Math.random() * jsonData.length;
+    var temp_r = Math.random();
+    idx =  temp_r * jsonData_length; //jsonData.length;
     idx = parseInt(idx);
     vidCounter = idx;
+    
+    console.log("jumpt to jsonData_length" + jsonData_length + " idx " + idx + " temp_r "+temp_r);
   }
 
   console.log("jumpt to idx", idx);
