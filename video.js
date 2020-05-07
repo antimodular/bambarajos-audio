@@ -519,14 +519,14 @@ function toggleFullWindow(){
   setFullWindow(isFullScreen);
 }
 
-function setFullWindow(_fullWindow) {
+function setFullWindow(_fullWindow, _flipWH) {
   isFullScreen = _fullWindow;
   // console.log("fullScreen "+fullScreen);
   // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
   //   var w = window.innerWidth;
   // var h = window.innerHeight;
 
-   screenWidth = window.innerWidth
+     screenWidth = window.innerWidth
 || document.documentElement.clientWidth
 || document.body.clientWidth;
 
@@ -534,6 +534,14 @@ function setFullWindow(_fullWindow) {
 || document.documentElement.clientHeight
 || document.body.clientHeight;
   
+  if(_flipWH == true){
+    //swap to numbers
+    //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
+    screenHeight = [screenWidth, screenWidth = screenHeight][0];
+  }
+
+  
+
   // bShowInfo = !_fullWindow;
   if (isFullScreen == true) {
     window.playerW = screenWidth; //window.screen.width;

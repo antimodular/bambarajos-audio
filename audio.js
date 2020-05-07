@@ -213,7 +213,7 @@ function spectrum(stream) {
          canvasCtx.fillStyle = "white";
         canvasCtx.textAlign = "center";
         canvasCtx.fillText("average: "+average, 300, 50);
-        
+         canvasCtx.fillText("screen: "+window.playerW + " x " + window.playerH, 300, 70);
         //
         canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
         // canvasCtx.clearRect(45, 45, 60, 60);

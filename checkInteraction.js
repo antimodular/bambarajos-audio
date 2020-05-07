@@ -166,21 +166,30 @@ function onTouchEnd(event) {
 }
 
 //https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari
+//important to call any function before setting document.getElementById('orient').className = 
 window.addEventListener('orientationchange', function () {
     if (window.orientation == -90) {
+         setFullWindow(true, true);
+      // setToWindowSize();
+      // jumpTo(1);
+      
         document.getElementById('orient').className = 'orientright';
       // 
-      setFullWindow(true);
-      setToWindowSize();
+   
     }
     if (window.orientation == 90) {
+         setFullWindow(true, true);
+      // setToWindowSize();
+      // jumpTo(10);
         document.getElementById('orient').className = 'orientleft';
       // setToWindowSize();
-      setFullWindow(true);
-      setToWindowSize();
+   
     }
     if (window.orientation == 0) {
+       setFullWindow(false, false);
+       // jumpTo(20);
         document.getElementById('orient').className = '';
-      setFullWindow(false);
+     
+     
     }
 }, true);
