@@ -25,6 +25,8 @@ html, body {
     min-width: 100%;
     height: auto;
     width: auto; */
+  height: auto;
+    width: auto; 
    display: inline-block;
     position: relative;
 }
@@ -36,8 +38,8 @@ html, body {
   top: 0;
 /*   height: auto;
   width: auto; */
-/*   z-index: 10; */
-  opacity: 0.5;
+  z-index: 10;
+  opacity: 1; //0.5;
 } 
 /* .version2{
 /*   position: absolute; */

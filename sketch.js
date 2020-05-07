@@ -186,16 +186,14 @@ document.addEventListener("keyup", function(e) {
     
   } else if (e.key === "d") {
     bShowInfo = !bShowInfo;
-    if (bShowInfo == true){
-      show("info");
-      show("audioInfo");
-      setFullWindow(false);
-    }
-    else {
-      hide("info");
-      hide("audioInfo");
-      setFullWindow(true);
-    }
+   
+      setFullWindow(bShowInfo);
+    // }
+    // else {
+    //   hide("info");
+    //   hide("audioInfo");
+    //   setFullWindow(true);
+    // }
     
   }
 });
@@ -207,7 +205,7 @@ function show(target) {
 
 function hide(target) {
      console.log("hide " +target);
-    document.getElementById(target).d = 'none';
+    document.getElementById(target).style.display = 'none';
 }
 
 //negative playback http://jsfiddle.net/uvLgbqoa/
@@ -231,6 +229,7 @@ var jsonData; // this is defined here, outside the function below so it becomes 
 window.onload = function(e) {
   millisStart = Date.now();
 
+  bShowInfo = false;
    hide("info");
       hide("audioInfo");
       setFullWindow(true);
@@ -561,6 +560,8 @@ window.addEventListener('touchstart', function(event) {
         console.log(" touch in 100x100 ");
     }
 
+  bShowInfo = !bShowInfo;
+  setFullWindow(!bShowInfo);
 
 
 }, false);
@@ -594,13 +595,22 @@ function onTouchEnd(event) {
     isTouching = false;
 }
 
-function setFullWindow(fullWindow) {
+function setFullWindow(_fullWindow) {
   // console.log("fullScreen "+fullScreen);
   // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
   //   var w = window.innerWidth;
   // var h = window.innerHeight;
 
-  if (fullWindow == true) {
+  bShowInfo = _fullWindow;
+   if (bShowInfo == true){
+      show("info");
+      show("audioInfo");
+   }else{
+     hide("info");
+      hide("audioInfo");
+   }
+  
+  if (bShowInfo == true) {
     window.playerW = screen.width;
     window.playerH = screen.height;
   } else {
