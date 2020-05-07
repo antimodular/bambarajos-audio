@@ -138,6 +138,15 @@ function spectrum(stream) {
     var data = new Uint8Array(400); //canvas.width);
 
     setInterval(() => {
+      
+      var mousePressed = false;
+var mouseStartX, mouseStartY;
+var mouseMoveX, mouseMoveY;
+      
+      if(mousePressed == true){
+        
+        beatThreshold += mouseChangeX;
+      }
       //---draw FFT bins
       // canvasCtx.fillStyle = "#a0a0a0";
       // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);

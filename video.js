@@ -3,7 +3,7 @@
 //change buffer amounts 
 //https://github.com/videojs/videojs-contrib-hls/issues/1302
 
-var version = "v11";
+var version = "v12";
 
 var player = videojs("vid", {});
 

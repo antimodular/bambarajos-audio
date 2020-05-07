@@ -72,9 +72,32 @@ document.addEventListener("keyup", function(e) {
   }
 });
 
+
+
 //--------mouse or touch events
+var mousePressed = false;
+var mouseStartX, mouseStartY;
+var mouseMoveX, mouseMoveY;
+var mouseChangeX, mouseChangeY;
+
 // register for the mouse events of the document
+document.addEventListener("mousedown", function(e) {
+  mouseStartX = e.x;
+  mouseStartY = e.y;
+  mousePressed = true;
+});
+
+document.addEventListener("mouseup", function(e) {
+mousePressed = false;
+});
+
 document.addEventListener("mousemove", function(e) {
+  
+  mouseChangeX = e.x - mouseMoveX;
+  mouseChangeX = e.y - mouseMoveY;
+  mouseMoveX = e.x;
+  mouseMoveY =e.y;
+  
   info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
 });
 
