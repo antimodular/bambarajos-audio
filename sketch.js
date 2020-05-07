@@ -229,11 +229,22 @@ var jsonData_length;
 window.onload = function(e) {
   millisStart = Date.now();
 
+  loadJsonData();
+  
   // bShowInfo = false;
    // hide("info");
    //    hide("audioInfo");
       setFullWindow(true);
   
+  
+  
+  document.getElementById("version").innerHTML = "version "+version;
+  
+ 
+};
+
+function loadJsonData(){
+  console.log("fetch(json_src)");
   fetch(json_src)
     //    fetch('vData2.json')
     .then(function(response) {
@@ -245,6 +256,14 @@ window.onload = function(e) {
       // var idx = 20;
       jsonData_length = jsonData.length;
       console.log("fetch json with length " + jsonData_length);
+    
+      // var arr = [];
+  // arr.push({
+  //       key: oFullResponse.results[i].label,
+  //       sortable: true,
+  //       resizeable: true
+  //   });
+    
       display_jsonObj(jsonData[1]);
       // console.log("parsed json", json);
     })
@@ -252,11 +271,7 @@ window.onload = function(e) {
       console.log("parsing failed", ex);
     });
   
-  document.getElementById("version").innerHTML = "version "+version;
-  
- 
-};
-
+}
 function update_loop() {
   //    var time = new Date();
   var millisSince = Date.now();
@@ -298,8 +313,8 @@ function jumpTo(idx) {
   
   //it seems to take a bit of time before json file is loaded
   //either add wait time or check json.length
-  if (performance.now() > 5000) {
-    // if (json_length > idx) {
+  // if (performance.now() > 5000) {
+  if (jsonData_length > idx) {
     rewinding = false;
 
     player.play();
@@ -321,7 +336,7 @@ function jumpTo(idx) {
       // );
     }
 
-    console.log("jumpt to idx:", idx);
+    console.log("jumpt to idx:" + idx);
 
     // new_startTime = Math.random()*200;
     new_startTime = Math.round(jsonData[idx].timecode_vid * 1e6) / 1e6;
@@ -333,13 +348,18 @@ function jumpTo(idx) {
     // Math.round(someNumber * 1e2) / 1e2
 
     console.log(
-      jsonData[idx].name + " , start " + new_startTime + " , end " + new_endTime
+      "name: "+jsonData[idx].name + " , start " + new_startTime + " , end " + new_endTime
     );
 
     display_jsonObj(jsonData[idx]);
 
     new_eye_contact = Math.round(jsonData[idx].eye_contact_start * 1e6) / 1e6; //jsonData[idx].eye_contact_start;
-    player.currentTime(new_startTime + new_eye_contact + startOffsetTime);
+   
+    var temp_time = new_startTime + new_eye_contact + startOffsetTime;
+    player.currentTime(temp_time);
+    console.log("new time: " + temp_time);
+  } else {
+    console.log("NOT jsonData_length > idx: " + jsonData_length + " > " + idx);
   }
 }
 
