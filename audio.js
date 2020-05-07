@@ -152,6 +152,9 @@ function spectrum(stream) {
       analyser.getByteFrequencyData(data);
       canvasCtx.lineWidth = 1;
 
+      if(data.length > 0){
+      var bin_w = canvas.width / data.length;
+      var temp_x = 0;
       data.forEach((y, x) => {
         var yy = y;
         audioLevel += yy / 128;
@@ -161,7 +164,8 @@ function spectrum(stream) {
         y = canvas.height - ((y / 128) * canvas.height) / 4;
         var c = Math.floor((x * 255) / canvas.width);
         canvasCtx.fillStyle = "rgb(" + c + ",0," + (255 - x) + ")";
-        canvasCtx.fillRect(x, y, 2, canvas.height - y);
+        canvasCtx.fillRect(x, y, bin_w, canvas.height - y);
+        temp_x += bin_w;
       });
 
       //---draw line?
@@ -209,18 +213,22 @@ function spectrum(stream) {
       var graph_scaler = 100;
       //---draw audioLevel line
       var graph_y = (canvas.height / 4) * 3;
-      canvasCtx.strokeStyle = rgb(255,255,255)"; 
+      canvasCtx.strokeStyle = "rgb(255,255,255)"; 
       // "rgb(0, 0, 0)";
       canvasCtx.lineWidth = 1;
       canvasCtx.beginPath();
 
       // console.log("levelHistory "+levelHistory.length + " [0] " +levelHistory[0].y);
 
+      var step_w = canvas.width / levelHistory.length;
+      temp_x = 0;
+      
       for (let i = 1; i < levelHistory.length; i++) {
         let y = graph_y - levelHistory[i].y * graph_scaler;
-        let x = i;
-        canvasCtx.lineTo(x, y);
-        canvasCtx.moveTo(x, y);
+        // let x = i;
+        canvasCtx.lineTo(temp_x, y);
+        canvasCtx.moveTo(temp_x, y);
+        temp_x += step_w;
       }
       canvasCtx.stroke();
 
