@@ -125,6 +125,8 @@ function spectrum(stream) {
     // var canvas = document.getElementsByClassName('audio_Canvas');
     canvas = document.getElementById("audio_Canvas");
     var canvasCtx = canvas.getContext("2d");
+    canvasCtx.font = "30px Arial";
+
     // canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
     // canvas.height = 320; //window.player.height; //window.innerHeight / 4 - 20;
     canvas.width = window.playerW; //window.innerWidth / 4 - 20;
@@ -152,6 +154,8 @@ function spectrum(stream) {
 
       var dataLength = data.length;
       if (dataLength > 0) {
+        // console.log("dataLength "+dataLength);
+        
         var bin_w = canvas.width / dataLength;
         var temp_x = 0;
         
@@ -199,12 +203,17 @@ function spectrum(stream) {
         var average =
           vol_smoothing * old_audioLevel + (1 - vol_smoothing) * volNorm;
 
+        // average = Math.min(average,4);
         // console.log("average "+average + " raw " + audioLevel + " old " + old_audioLevel);
         detectBeat(average);
         // detectBeat(audioLevel);
         old_audioLevel = volNorm;
         // detectBeat(rms);
 
+         canvasCtx.fillStyle = "white";
+        canvasCtx.textAlign = "center";
+        canvasCtx.fillText("average: "+average, 300, 50);
+        
         //
         canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
         // canvasCtx.clearRect(45, 45, 60, 60);
@@ -232,6 +241,8 @@ function spectrum(stream) {
         }
         canvasCtx.stroke();
 
+       
+        
         //---draw beatCutoff line
         canvasCtx.strokeStyle = "rgb(255,255,255)";
         canvasCtx.beginPath();
@@ -252,6 +263,8 @@ function spectrum(stream) {
         canvasCtx.moveTo(0, mapped_beatThres);
         canvasCtx.lineTo(canvas.width, mapped_beatThres);
         canvasCtx.stroke();
+        
+        
         // console.log((1000 * canvas.width) / audioCtx.sampleRate); is equal 2
         var bogus = source; // avoid GC or the whole thing stops
       }
@@ -266,12 +279,12 @@ function detectBeat(level) {
     y: level
   });
 
-  console.log("level "+level);
+  // console.log("detectBeat() level "+level);
 
   if (levelHistory.length > 100) levelHistory.shift();
 
   if (level > beatCutoff && level > beatThreshold) {
-    onBeat();
+    // onBeat();
     beatCutoff = level * 1.2;
     framesSinceLastBeat = 0;
   } else {
@@ -297,7 +310,7 @@ function onBeat() {
   var millisSince = Date.now();
   var millisDiff = millisSince - millisStart;
 
-  if (millisDiff > 200) jumpTo(-1);
+  // if (millisDiff > 200) jumpTo(-1);
   console.log("onBeat == true");
   millisStart = Date.now();
   // onEnd();
