@@ -526,13 +526,15 @@ function setFullWindow(_fullWindow, _flipWH) {
   //   var w = window.innerWidth;
   // var h = window.innerHeight;
 
-     screenWidth = window.innerWidth
-|| document.documentElement.clientWidth
-|| document.body.clientWidth;
+     screenWidth =
+       window.innerWidth ||
+       document.documentElement.clientWidth ||
+       document.body.clientWidth;
 
- screenHeight = window.innerHeight
-|| document.documentElement.clientHeight
-|| document.body.clientHeight;
+     screenHeight =
+       window.innerHeight ||
+       document.documentElement.clientHeight ||
+       document.body.clientHeight;
   
   if(_flipWH == true){
     //swap to numbers
