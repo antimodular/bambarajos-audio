@@ -142,7 +142,10 @@ function spectrum(stream) {
       // canvasCtx.fillStyle = "#a0a0a0";
       // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-      canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
+      canvasCtx.lineWidth = 2;
+      canvasCtx.strokeStyle = "rgb(255, 255, 0)";
+      // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
+      canvasCtx.strokeRect(2, 2, canvas.width-4, canvas.height-4);
       audioLevel = 0;
       var total = 0;
       var sum = 0;
@@ -206,7 +209,8 @@ function spectrum(stream) {
       var graph_scaler = 100;
       //---draw audioLevel line
       var graph_y = (canvas.height / 4) * 3;
-      canvasCtx.strokeStyle = "rgb(0, 0, 0)";
+      canvasCtx.strokeStyle = rgb(255,255,255)"; 
+      // "rgb(0, 0, 0)";
       canvasCtx.lineWidth = 1;
       canvasCtx.beginPath();
 

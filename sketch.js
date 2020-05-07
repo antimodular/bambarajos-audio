@@ -186,7 +186,6 @@ document.addEventListener("keyup", function(e) {
     
   } else if (e.key === "d") {
     bShowInfo = !bShowInfo;
-   
       setFullWindow(bShowInfo);
     // }
     // else {
@@ -345,6 +344,7 @@ var info_mouse_clicked_position = document.getElementById(
   "mouse_clicked_position"
 );
 var info_mouse_position = document.getElementById("mouse_position");
+var info_touch_state = document.getElementById("touch_state");
 
 var play_btn = document.getElementById("play");
 var pause_btn = document.getElementById("pause");
@@ -354,6 +354,7 @@ var time_slider = document.getElementById("time_slider");
 
 var info_speed = document.getElementById("speed");
 
+//--------mouse or touch events
 // register for the mouse events of the document
 document.addEventListener("mousemove", function(e) {
   info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
@@ -363,6 +364,8 @@ document.addEventListener("mousemove", function(e) {
 document.addEventListener("click", function(e) {
   info_mouse_clicked_position.innerHTML = "x: " + e.x + " y: " + e.y;
 });
+
+
 
 function update_info_height_width() {
   info_height_width.innerHTML =
@@ -560,8 +563,9 @@ window.addEventListener('touchstart', function(event) {
         console.log(" touch in 100x100 ");
     }
 
-  bShowInfo = !bShowInfo;
-  setFullWindow(!bShowInfo);
+  info_touch_state.innerHTML = "touchstart ";
+  // bShowInfo = !bShowInfo;
+  setFullWindow(false);
 
 
 }, false);
@@ -582,6 +586,7 @@ function onTouchMove(event) {
         return;
     }
     // log('touch move ' + touch.pageX + ' ' + touch.pageY);
+  info_touch_state.innerHTML = "touch moved ";
 }
 
 function onTouchEnd(event) {
@@ -592,6 +597,8 @@ function onTouchEnd(event) {
     //  log('touch _ENDED_ ' + touch.pageX + ' ' + touch.pageY);
     window.removeEventListener('touchmove', onTouchMove, false);
     window.removeEventListener('touchend', onTouchEnd, false);
+  
+  info_touch_state.innerHTML = "touchend ";
     isTouching = false;
 }
 
@@ -607,10 +614,10 @@ function setFullWindow(_fullWindow) {
       show("audioInfo");
    }else{
      hide("info");
-      hide("audioInfo");
+    hide("audioInfo");
    }
   
-  if (bShowInfo == true) {
+  if (bShowInfo == false) {
     window.playerW = screen.width;
     window.playerH = screen.height;
   } else {
