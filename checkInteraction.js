@@ -75,28 +75,33 @@ document.addEventListener("keyup", function(e) {
 
 
 //--------mouse or touch events
-var mousePressed = false;
-var mouseStartX, mouseStartY;
-var mouseMoveX, mouseMoveY;
-var mouseChangeX, mouseChangeY;
+ window.mousePressed = false;
+window.mouseStartX;
+window.mouseStartY;
+window.mouseMoveX;
+window.mouseMoveY;
+window.mouseChangeX;
+window.mouseChangeY;
 
 // register for the mouse events of the document
 document.addEventListener("mousedown", function(e) {
-  mouseStartX = e.x;
-  mouseStartY = e.y;
-  mousePressed = true;
+  window.mouseStartX = e.x;
+  window.mouseStartY = e.y;
+  window.mousePressed = true;
 });
 
 document.addEventListener("mouseup", function(e) {
-mousePressed = false;
+window.mousePressed = false;
 });
 
 document.addEventListener("mousemove", function(e) {
   
-  mouseChangeX = e.x - mouseMoveX;
-  mouseChangeX = e.y - mouseMoveY;
-  mouseMoveX = e.x;
-  mouseMoveY =e.y;
+  window.mouseChangeX = e.x - window.mouseMoveX;
+  window.mouseChangeY = e.y - window.mouseMoveY;
+  window.mouseMoveX = e.x;
+  window.mouseMoveY = e.y;
+  
+  console.log("mouseChangeY "+window.mouseChangeY);
   
   info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
 });
