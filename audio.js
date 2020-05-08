@@ -318,7 +318,7 @@ canvasCtx.lineWidth = 2;
         } else {
           mainAlpha -= 0.1;
         }
-        mainAlpha = ofClamp(mainAlpha, 0, 1);
+        mainAlpha = ofClamp(mainAlpha, 0.3, 1);
 
         var bin_w = canvas.width / dataLength;
         var temp_x = 0;

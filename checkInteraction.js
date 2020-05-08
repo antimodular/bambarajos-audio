@@ -131,13 +131,15 @@ function log( message ) {
 //https://bodyscrolllock.now.sh/
 //https://github.com/willmcpo/body-scroll-lock#readme
 const targetElement = document.querySelector('body');
+// bodyScrollLock.disableBodyScroll(targetElement);
+
 // const targetElement2 = document.querySelector('videoDiv');
 // const targetElement3 = document.querySelector('audio_Canvas');
 // 2. ...in some event handler after showing the target element...disable body scroll
 // bodyScrollLock.disableBodyScroll(targetElement, {
 //   allowTouchMove: el => el.document.getElementById("audio_Canvas").tagName === 'audio_Canvas',
 // });
-// bodyScrollLock.disableBodyScroll(targetElement);
+
 // bodyScrollLock.disableBodyScroll(targetElement, {
 //   allowTouchMove: el => el.tagName === 'audio_Canvas',
 // });
@@ -262,9 +264,14 @@ window.addEventListener('orientationchange', function () {
       setToWindowSize();
       // jumpTo(1);
       
-        document.getElementById('orient').className = 'orientright';
+        // document.getElementById('orient').className = 'orientright';
       // 
-   
+    // element.style.webkitTransform = "rotate(-90deg) translateX(600px) translateY(160px)"
+
+        var element = document.getElementById('shell');
+    element.style.webkitTransform = "translateX(160px) translateY(160px) rotate(90eg)"; //for safari and chrome
+    element.style.MozTransform = "translateX(160px) translateY(160px) rotate(90deg)"; //for firefox
+      
     }
     if (window.orientation == 90) {
       // toggleFullScreen();
@@ -273,8 +280,14 @@ window.addEventListener('orientationchange', function () {
          // setFullWindow(true, true);
       setToWindowSize();
       
+      
+        var element = document.getElementById('shell');
+    element.style.webkitTransform = "translateX(230px) translateY(230px) rotate(-90eg)"; //for safari and chrome
+    element.style.MozTransform = "translateX(230px) translateY(230px) rotate(-90deg)"; //for firefox
+
+      
       // jumpTo(10);
-        document.getElementById('orient').className = 'orientleft';
+        // document.getElementById('orient').className = 'orientleft';
       // setToWindowSize();
    
     }
@@ -282,8 +295,8 @@ window.addEventListener('orientationchange', function () {
        // setFullWindow(false, false);
             setFullScreen(false,false);
        // jumpTo(20);
-        document.getElementById('orient').className = '';
+        // document.getElementById('orient').className = '';
      
      
     }
-}, true);
+ }, true);

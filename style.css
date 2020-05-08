@@ -103,7 +103,7 @@ body.rotation90 {
 } */
 
 /* https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari */
-.orientleft #shell {
+/* .orientleft #shell {
     -webkit-transform: rotate(-90deg);
     -webkit-transform-origin:160px 160px;
 }
@@ -111,4 +111,4 @@ body.rotation90 {
 .orientright #shell {
     -webkit-transform: rotate(90deg);
     -webkit-transform-origin:230px 230px;
-} 
+}  */
