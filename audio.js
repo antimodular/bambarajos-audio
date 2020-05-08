@@ -323,7 +323,7 @@ canvasCtx.lineWidth = 2;
           mainAlpha -= 0.1;
         }
         
-        mainAlpha = ofClamp(mainAlpha, 0.3, 1);
+        mainAlpha = ofClamp(mainAlpha, 0.05, 1);
       }else{
         mainAlpha = 1;
       }

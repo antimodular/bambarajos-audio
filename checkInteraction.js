@@ -1,5 +1,7 @@
 //--------key events
 
+var bShowGui = false;
+
 document.addEventListener("keyup", function(e) {
   //uncommnet the following line so the pressed key info is printed to the console and you can see which is its code or key value if you want to add more behaviors.
   console.log("key event " + e);
@@ -77,7 +79,31 @@ document.addEventListener("keyup", function(e) {
     setFullScreen(false,false);
   }else if (e.key === "g") {
     
-    bShowGui
+    bShowGui = !bShowGui;
+    
+    if(bShowGui == true){
+      show("info");
+  show("audioInfo");
+        screenWidth = 400;
+    screenHeight =  320;
+      
+          window.playerW = screenWidth; //window.screen.width;
+  window.playerH = screenHeight; //window.screen.height;
+  
+  updateCanvasSize(window.playerW, window.playerH);
+      player.fluid(false);
+      player.width(400);
+      player.height(320);
+      
+    }else{
+      hide("info");
+  hide("audioInfo");
+      player.fluid(true);
+   setFullScreen(true);
+      
+    }
+    
+    
   }
   
 });
