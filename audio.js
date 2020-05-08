@@ -204,9 +204,9 @@ canvas.addEventListener("mousemove", function(e) {
       
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       canvasCtx.lineWidth = 2;
-//      canvasCtx.strokeStyle = "rgb(255, 255, 0)";
+     canvasCtx.strokeStyle = "rgb(255, 255, 0)";
       // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
-//      canvasCtx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
+     canvasCtx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
       audioLevel = 0;
       var total = 0;
       var sum = 0;
@@ -271,10 +271,10 @@ canvas.addEventListener("mousemove", function(e) {
         old_audioLevel = volNorm;
         // detectBeat(rms);
 
-//         canvasCtx.fillStyle = "white";
+        canvasCtx.fillStyle = "white";
 //        canvasCtx.textAlign = "center";
 //        canvasCtx.fillText("average: "+average, 300, 50);
-//         canvasCtx.fillText("screen: "+window.playerW + " x " + window.playerH, 300, 70);
+        canvasCtx.fillText("screen: "+window.playerW + " x " + window.playerH, 300, 70);
         //
 //        canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
         // canvasCtx.clearRect(45, 45, 60, 60);

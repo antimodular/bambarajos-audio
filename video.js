@@ -545,12 +545,13 @@ function setFullWindow(_fullWindow, _flipWH) {
   }
 
   
-
+//iphone 1472 x 980
   // bShowInfo = !_fullWindow;
   if (isFullScreen == true) {
-    window.playerW = 1334; //920/2; //screenWidth; //window.screen.width;
-    window.playerH = 750; //1080/2; //screenHeight; //window.screen.height;
-    
+    window.playerW = 960; //1920/2; //screenWidth; //window.screen.width;
+    window.playerH = 540; //1080/2; //screenHeight; //window.screen.height;
+    //  window.playerW = screenWidth; //window.screen.width;
+    // window.playerH = screenHeight; //window.screen.height;
       hide("info");
      hide("audioInfo");
   } else {
