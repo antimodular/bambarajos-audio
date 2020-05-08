@@ -75,11 +75,11 @@ player.poster("https://stephanschulz.ca/bamba/l-001-20min_h264.png");
 player.autoplay(true);
 //https://coolestguidesontheplanet.com/videodrome/videojs/
 
-// player.width(window.playerW); //80
-// player.height(window.playerH); //64
+player.width(window.playerW); //80
+player.height(window.playerH); //64
 // player.controls.aspectRatio("16:9");
 // player.aspectRatio("1:1");
-player.fluid(true); //set to window size
+// player.fluid(true); //set to window size
 
 /// player GUI controls
 //use the following functions to show or hide the controls
@@ -534,8 +534,8 @@ function toggleFullScreen() {
   updateCanvasSize(window.playerW, window.playerH);
 }
 
-function setFullScreen(full) {
-  console.log("setFullScreen() " + full);
+function setFullScreen(full , _flipWH) {
+  console.log("setFullScreen() " + full + " _flipWH "+_flipWH);
 
   //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
   var doc = window.document;
@@ -560,6 +560,8 @@ function setFullScreen(full) {
     
     screenWidth = screen.width;
     screenHeight = screen.height;
+    
+    
     //any other function calls should happen before requestFullScreen.call
     requestFullScreen.call(docEl);
   } else {
@@ -583,9 +585,18 @@ function setFullScreen(full) {
   }
 
  
-  
+    if (_flipWH == true) {
+    //swap to numbers
+    //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
+    screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
+  }
+  console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
+
    window.playerW = screenWidth; //window.screen.width;
   window.playerH = screenHeight; //window.screen.height;
+  
+    player.width(screenWidth);
+    player.height(screenHeight);
   
   updateCanvasSize(window.playerW, window.playerH);
 }
@@ -679,6 +690,7 @@ function setFullWindow(_fullWindow, _flipWH) {
     // player.aspectRatio("1:1");  //5:4
     // player.fluid(true); //set to window size
     // player.fluid(true);
+
   } else {
     // window.playerW = 400;
     // window.playerH = 320;

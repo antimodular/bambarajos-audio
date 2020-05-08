@@ -70,9 +70,9 @@ document.addEventListener("keyup", function(e) {
     // player.requestFullscreen();
     toggleFullScreen();
   }else if (e.key === "[") {
-    setFullScreen(true);
+    setFullScreen(true,true);
   }else if (e.key === "]") {
-    setFullScreen(false);
+    setFullScreen(false,false);
   }
 });
 
@@ -135,7 +135,7 @@ window.touchMoveY;
 const targetElement = document.querySelector('body');
 // const targetElement2 = document.querySelector('videoDiv');
 // 2. ...in some event handler after showing the target element...disable body scroll
-// bodyScrollLock.disableBodyScroll(targetElement);
+bodyScrollLock.disableBodyScroll(targetElement);
 
 // 3. ...in some event handler after hiding the target element...
 // bodyScrollLock.enableBodyScroll(targetElement2);
@@ -230,7 +230,7 @@ window.addEventListener('orientationchange', function () {
     if (window.orientation == -90) {
          // setFullWindow(true, true);
         // toggleFullScreen();
-      setFullScreen(true);
+      setFullScreen(true,true);
       // setToWindowSize();
       // jumpTo(1);
       
@@ -240,7 +240,7 @@ window.addEventListener('orientationchange', function () {
     }
     if (window.orientation == 90) {
       // toggleFullScreen();
-      setFullScreen(true);
+      setFullScreen(true,true);
          // setFullWindow(true, true);
       // setToWindowSize();
       // jumpTo(10);
@@ -250,7 +250,7 @@ window.addEventListener('orientationchange', function () {
     }
     if (window.orientation == 0) {
        // setFullWindow(false, false);
-            setFullScreen(false);
+            setFullScreen(false,false);
        // jumpTo(20);
         document.getElementById('orient').className = '';
      
