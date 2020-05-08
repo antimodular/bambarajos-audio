@@ -28,8 +28,8 @@ https://jsfiddle.net/stephanschulz/3pnkh9t4/2/ */
     min-width: 100%;
     height: auto;
     width: auto; */
-  height: auto;
-    width: auto;
+/*   height: auto;
+    width: auto; */
 /*   player.fluid() can't handle inline-block */
 /*    display: inline-block;  */ 
     position: relative;

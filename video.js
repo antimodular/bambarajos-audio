@@ -76,6 +76,7 @@ player.autoplay(true);
 // player.width(window.playerW); //80
 // player.height(window.playerH); //64
 // player.controls.aspectRatio("16:9");
+// player.aspectRatio("1:1"); 
 player.fluid(true); //set to window size
 
 /// player GUI controls
@@ -598,21 +599,24 @@ function setFullWindow2(_fullWindow, _flipWH) {
     screenHeight = [screenWidth, screenWidth = screenHeight][0];
   }
 
-  
+       window.playerW = screenWidth; //window.screen.width;
+    window.playerH = screenHeight; //window.screen.height;
 //iphone 1472 x 980
   // bShowInfo = !_fullWindow;
   if (isFullScreen == true) {
-    window.playerW = 960; //1920/2; //screenWidth; //window.screen.width;
-    window.playerH = 540; //1080/2; //screenHeight; //window.screen.height;
-    //  window.playerW = screenWidth; //window.screen.width;
-    // window.playerH = screenHeight; //window.screen.height;
+    // window.playerW = 960; //1920/2; //screenWidth; //window.screen.width;
+    // window.playerH = 540; //1080/2; //screenHeight; //window.screen.height;
+     window.playerW = screenWidth; //window.screen.width;
+    window.playerH = screenHeight; //window.screen.height;
       hide("info");
      hide("audioInfo");
     
+    // player.aspectRatio("1:1");  //5:4
+// player.fluid(true); //set to window size
     // player.fluid(true); 
   } else {
-    window.playerW = 400;
-    window.playerH = 320;
+    // window.playerW = 400;
+    // window.playerH = 320;
     
      show("info");
       show("audioInfo");
