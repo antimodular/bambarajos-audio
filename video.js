@@ -24,7 +24,7 @@ window.playerW = 400;
 window.playerH = 320;
 
 var json_src = "l-001-200_047.json";
-// var vid_src = "l-001-200_047.mp4";
+ // var vid_src = "l-001-200_047.mp4";
 var vid_src = "https://cdn.glitch.com/b1e475c8-3489-4513-8664-2d0f29f610de%2Fl-001-200_047.mp4?v=1588351308938";
 // var vid_src = "https://stephanschulz.ca/bamba/l-001-200_047.mp4";
 var millisStart;
@@ -330,8 +330,6 @@ var time_slider = document.getElementById("time_slider");
 var info_speed = document.getElementById("speed");
 
 
-
-
 function update_info_height_width() {
   info_height_width.innerHTML =
     player.currentWidth() + " x " + player.currentWidth();
@@ -341,6 +339,9 @@ function update_info_duration() {
   var temp_dur = player.duration();
   info_duration.innerHTML = temp_dur;
 }
+
+
+
 
 var rewind_startSystemTime;
 var rewind_startVideoTime;

@@ -102,6 +102,17 @@ function updateCanvasSize(w, h) {
   canvas.width = w; //window.innerWidth / 4 - 20;
   canvas.height = h;
 }
+
+window.canvas_mousePressed = false;
+//window.mouseStartX;
+//window.mouseStartY;
+window.canvas_mouseMoveX;
+window.canvas_mouseMoveY;
+//window.mouseChangeX;
+//window.mouseChangeY;
+
+
+
 function spectrum(stream) {
   // var audioCtx = new AudioContext();
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -125,6 +136,31 @@ function spectrum(stream) {
     // var canvas = document.getElementsByClassName('audio_Canvas');
     canvas = document.getElementById("audio_Canvas");
     var canvasCtx = canvas.getContext("2d");
+      
+      // register for the mouse events of the document
+canvas.addEventListener("mousedown", function(e) {
+  window.canvas_mousePressed = true;
+    info_mouse_pressed.innerHTML = "pressed: " + window.canvas_mousePressed;
+});
+
+canvas.addEventListener("mouseup", function(e) {
+  window.canvas_mousePressed = false;
+     info_mouse_pressed.innerHTML = "pressed: " + window.canvas_mousePressed;
+});
+
+canvas.addEventListener("mousemove", function(e) {
+  
+//  window.mouseChangeX = e.x - window.mouseMoveX;
+//  window.mouseChangeY = e.y - window.mouseMoveY;
+  window.canvas_mouseMoveX = e.x;
+  window.canvas_mouseMoveY = e.y;
+  
+//  console.log("mouseChangeY "+window.mouseChangeY);
+  
+  info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
+  
+});
+      
     canvasCtx.font = "30px Arial";
 
     // canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
@@ -138,20 +174,35 @@ function spectrum(stream) {
     var data = new Uint8Array(400); //canvas.width);
 
     setInterval(() => {
-      
+        var graph_y = (canvas.height / 4) * 3;
+  
+        
+      if(window.canvas_mousePressed == true){
+//           var rect = document.querySelector('div').getBoundingClientRect(),
+               var rect = canvas.getBoundingClientRect();
+//          console.log("rect top "+rect.top + " left "+ rect.left);
+          var temp_v = window.canvas_mouseMoveY - rect.top; //-graph_y;
+//          var temp_max = graph_y - rect.top;
+         temp_v = ofClamp(temp_v,0,graph_y);
+//     console.log("temp_v "+temp_v + " mY "+window.canvas_mouseMoveY + " rect.top "+rect.top);
 
-      if(window.mousePressed == true){
-        beatThreshold = mapRange([0, canvas.height], [0.01, 2], window.mouseMoveY);
+        beatThreshold = mapRange(temp_v, [0,graph_y], [2,0]);
         // beatThreshold += mouseChangeX;
       }
+        if(window.isTouching == true){
+  
+            var rect = canvas.getBoundingClientRect();
+          var temp_v = window.touchMoveY - rect.top;
+         temp_v = ofClamp(temp_v,0,graph_y);
+        }
       //---draw FFT bins
       // canvasCtx.fillStyle = "#a0a0a0";
       // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       canvasCtx.lineWidth = 2;
-      canvasCtx.strokeStyle = "rgb(255, 255, 0)";
+//      canvasCtx.strokeStyle = "rgb(255, 255, 0)";
       // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
-      canvasCtx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
+//      canvasCtx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
       audioLevel = 0;
       var total = 0;
       var sum = 0;
@@ -164,7 +215,7 @@ function spectrum(stream) {
         
         var bin_w = canvas.width / dataLength;
         var temp_x = 0;
-        
+         canvasCtx.fillStyle = "rgb(0,0,0,0.5)";
         data.forEach((y, x) => {
           var yy = y;
           audioLevel += yy / 128;
@@ -173,7 +224,7 @@ function spectrum(stream) {
 
           y = canvas.height - ((y / 128) * canvas.height) / 4;
           var c = Math.floor((x * 255) / canvas.width);
-          canvasCtx.fillStyle = "rgb(" + c + ",0," + (255 - x) + ")";
+//          canvasCtx.fillStyle = "rgb(" + c + ",0," + (255 - x) + ")";
           canvasCtx.fillRect(temp_x, y, bin_w, canvas.height - y);
           temp_x += bin_w;
         });
@@ -216,18 +267,18 @@ function spectrum(stream) {
         old_audioLevel = volNorm;
         // detectBeat(rms);
 
-         canvasCtx.fillStyle = "white";
-        canvasCtx.textAlign = "center";
-        canvasCtx.fillText("average: "+average, 300, 50);
-         canvasCtx.fillText("screen: "+window.playerW + " x " + window.playerH, 300, 70);
+//         canvasCtx.fillStyle = "white";
+//        canvasCtx.textAlign = "center";
+//        canvasCtx.fillText("average: "+average, 300, 50);
+//         canvasCtx.fillText("screen: "+window.playerW + " x " + window.playerH, 300, 70);
         //
-        canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
+//        canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
         // canvasCtx.clearRect(45, 45, 60, 60);
-        canvasCtx.strokeRect(25, 25, beatRectSize, beatRectSize);
+//        canvasCtx.strokeRect(25, 25, beatRectSize, beatRectSize);
 
-        var graph_scaler = 100;
+//        var graph_scaler = 100;
         //---draw audioLevel line
-        var graph_y = (canvas.height / 4) * 3;
+      
         canvasCtx.strokeStyle = "rgb(255,255,255)";
         // "rgb(0, 0, 0)";
         canvasCtx.lineWidth = 1;
@@ -239,7 +290,8 @@ function spectrum(stream) {
         temp_x = 0;
 
         for (let i = 1; i < levelHistory.length; i++) {
-          let y = graph_y - levelHistory[i].y * graph_scaler;
+//          let y = graph_y - (levelHistory[i].y * graph_scaler);
+           let y = mapRange(levelHistory[i].y, [0,2], [graph_y,0]);
           // let x = i;
           canvasCtx.lineTo(temp_x, y);
           canvasCtx.moveTo(temp_x, y);
@@ -250,10 +302,12 @@ function spectrum(stream) {
        
         
         //---draw beatCutoff line
-        canvasCtx.strokeStyle = "rgb(255,255,255)";
+        canvasCtx.strokeStyle = "rgb(255,255,255,0.5)";
         canvasCtx.beginPath();
 
-        let mapped_cutOff = graph_y - beatCutoff * graph_scaler;
+//        let mapped_cutOff = graph_y - (beatCutoff * graph_scaler);
+           let mapped_cutOff = mapRange(beatCutoff, [0,2], [graph_y,0]);
+
         // console.log("beatCutoff " + mapped_cutOff);
         canvasCtx.moveTo(0, mapped_cutOff);
         canvasCtx.lineTo(canvas.width, mapped_cutOff);
@@ -261,10 +315,11 @@ function spectrum(stream) {
         canvasCtx.stroke();
 
         //---draw beatThreshold line
-        canvasCtx.strokeStyle = "rgb(100,100,100)";
+        canvasCtx.strokeStyle = "rgb(255,255,255)";
         canvasCtx.beginPath();
 
-        let mapped_beatThres = graph_y - beatThreshold * graph_scaler;
+//        let mapped_beatThres = graph_y - (beatThreshold * graph_scaler);
+          let mapped_beatThres = mapRange(beatThreshold, [0,2], [graph_y,0]);
         // console.log("mapped_beatThres " + mapped_beatThres);
         canvasCtx.moveTo(0, mapped_beatThres);
         canvasCtx.lineTo(canvas.width, mapped_beatThres);

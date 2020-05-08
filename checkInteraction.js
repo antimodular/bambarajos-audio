@@ -75,37 +75,39 @@ document.addEventListener("keyup", function(e) {
 
 
 //--------mouse or touch events
-window.mousePressed = false;
-window.mouseStartX;
-window.mouseStartY;
-window.mouseMoveX;
-window.mouseMoveY;
-window.mouseChangeX;
-window.mouseChangeY;
-
-// register for the mouse events of the document
-document.addEventListener("mousedown", function(e) {
-  window.mouseStartX = e.x;
-  window.mouseStartY = e.y;
-  window.mousePressed = true;
-});
-
-document.addEventListener("mouseup", function(e) {
-  window.mousePressed = false;
-});
-
-document.addEventListener("mousemove", function(e) {
-  
-  window.mouseChangeX = e.x - window.mouseMoveX;
-  window.mouseChangeY = e.y - window.mouseMoveY;
-  window.mouseMoveX = e.x;
-  window.mouseMoveY = e.y;
-  
-  console.log("mouseChangeY "+window.mouseChangeY);
-  
-  info_mouse_pressed.innerHTML = "x: " + e.x + " y: " + e.y;
-  info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
-});
+//window.mousePressed = false;
+//window.mouseStartX;
+//window.mouseStartY;
+//window.mouseMoveX;
+//window.mouseMoveY;
+//window.mouseChangeX;
+//window.mouseChangeY;
+//
+//// register for the mouse events of the document
+//document.addEventListener("mousedown", function(e) {
+//  window.mouseStartX = e.x;
+//  window.mouseStartY = e.y;
+//  window.mousePressed = true;
+//    info_mouse_pressed.innerHTML = "pressed: " + window.mousePressed;
+//});
+//
+//document.addEventListener("mouseup", function(e) {
+//  window.mousePressed = false;
+//     info_mouse_pressed.innerHTML = "pressed: " + window.mousePressed;
+//});
+//
+//document.addEventListener("mousemove", function(e) {
+//  
+//  window.mouseChangeX = e.x - window.mouseMoveX;
+//  window.mouseChangeY = e.y - window.mouseMoveY;
+//  window.mouseMoveX = e.x;
+//  window.mouseMoveY = e.y;
+//  
+////  console.log("mouseChangeY "+window.mouseChangeY);
+//  
+//  info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
+//  
+//});
 
 //click event happens when the mouse is pressed and released over the same element. In this case, as we are using the "document" it will always trigger
 document.addEventListener("click", function(e) {
@@ -121,13 +123,14 @@ function log( message ) {
 }
  */
 var identifier;
-var isTouching = false;
+window.isTouching = false;
+window.touchMoveY;
 
 window.addEventListener(
   "touchstart",
   function(event) {
     // dismiss after-touches
-    if (isTouching == true) {
+    if (window.isTouching == true) {
       return;
     }
     //    event.preventDefault();
@@ -137,7 +140,7 @@ window.addEventListener(
     // log('touch START; indentifer ' + touch.identifier);
     window.addEventListener("touchmove", onTouchMove, false);
     window.addEventListener("touchend", onTouchEnd, false);
-    isTouching = true;
+    window.isTouching = true;
 
     var out = { x: 0, y: 0 };
     out.x = touch.pageX;
@@ -145,10 +148,10 @@ window.addEventListener(
 
     console.log(" touch x " + out.x + " y " + out.y);
 
-    if (out.x < 200 && out.y < 200) {
+    if (out.x < 100 && out.y < 100) {
       jumpTo(-1);
 
-      console.log(" touch in 100x100 ");
+      // console.log(" touch in 100x100 ");
     }
 
     info_touch_state.innerHTML = "touchstart ";
@@ -157,7 +160,7 @@ window.addEventListener(
     // toggleFullWindow();
     
     // toggleFullScreen();
-    toggleFullWindow();
+    // toggleFullWindow();
   },
   false
 );
@@ -174,9 +177,12 @@ function getTouch(event) {
 
 function onTouchMove(event) {
   var touch = getTouch(event);
+    
+ window.touchMoveY = touch.pageY;
   if (!touch) {
     return;
   }
+    
   // log('touch move ' + touch.pageX + ' ' + touch.pageY);
   info_touch_state.innerHTML = "touch moved ";
 }
@@ -191,8 +197,9 @@ function onTouchEnd(event) {
   window.removeEventListener("touchend", onTouchEnd, false);
 
   info_touch_state.innerHTML = "touchend ";
-  isTouching = false;
+  window.isTouching = false;
 }
+
 
 //https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari
 //important to call any function before setting document.getElementById('orient').className = 
