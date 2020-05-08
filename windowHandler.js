@@ -1,3 +1,5 @@
+var isFullScreen = true;
+
 window.addEventListener("resize", displayWindowSize);
 
 function displayWindowSize() {
@@ -279,6 +281,10 @@ function setFullWindow(_fullWindow, _flipWH) {
 }
 
 function setToWindowSize() {
+  
+  //  var w = document.documentElement.clientWidth;
+  // var h = document.documentElement.clientHeight;
+  
   screenWidth =
     window.innerWidth ||
     document.documentElement.clientWidth ||
@@ -292,8 +298,8 @@ function setToWindowSize() {
   window.playerW = screenWidth; //window.screen.width;
   window.playerH = screenHeight; //window.screen.height;
 
-  player.width(window.playerW);
-  player.height(window.playerH);
+  // player.width(window.playerW);
+  // player.height(window.playerH);
 
   updateCanvasSize(window.playerW, window.playerH);
 }

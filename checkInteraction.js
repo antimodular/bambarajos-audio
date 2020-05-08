@@ -137,7 +137,7 @@ const targetElement = document.querySelector('body');
 // bodyScrollLock.disableBodyScroll(targetElement, {
 //   allowTouchMove: el => el.document.getElementById("audio_Canvas").tagName === 'audio_Canvas',
 // });
-bodyScrollLock.disableBodyScroll(targetElement);
+// bodyScrollLock.disableBodyScroll(targetElement);
 // bodyScrollLock.disableBodyScroll(targetElement, {
 //   allowTouchMove: el => el.tagName === 'audio_Canvas',
 // });
@@ -258,7 +258,8 @@ window.addEventListener('orientationchange', function () {
          // setFullWindow(true, true);
         // toggleFullScreen();
       setFullScreen(true,true);
-      // setToWindowSize();
+      // displayWindowSize();
+      setToWindowSize();
       // jumpTo(1);
       
         document.getElementById('orient').className = 'orientright';
@@ -268,8 +269,10 @@ window.addEventListener('orientationchange', function () {
     if (window.orientation == 90) {
       // toggleFullScreen();
       setFullScreen(true,true);
+      // displayWindowSize();
          // setFullWindow(true, true);
-      // setToWindowSize();
+      setToWindowSize();
+      
       // jumpTo(10);
         document.getElementById('orient').className = 'orientleft';
       // setToWindowSize();

@@ -52,7 +52,7 @@ var speed = 1;
 var loopDirection = 1;
 
 // var bShowInfo = false; //true;
-var isFullScreen = true;
+
 
 var playSpeed = 1; //0.5;
 

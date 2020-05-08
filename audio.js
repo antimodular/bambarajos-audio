@@ -298,11 +298,11 @@ var touchMoveY;
       // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-      canvasCtx.lineWidth = 2;
+      canvasCtx.lineWidth = 5;
       canvasCtx.strokeStyle = "rgb(255, 255, 0)";
       // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
-      canvasCtx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
-
+      canvasCtx.strokeRect(2, 2, canvas.width - 7, canvas.height - 7);
+canvasCtx.lineWidth = 2;
       audioLevel = 0;
       var total = 0;
       var sum = 0;
