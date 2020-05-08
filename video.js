@@ -499,6 +499,47 @@ volume_slider.oninput = volume_slider_changed;
 
 function toggleFullScreen() {
   console.log("toggleFullScreen()");
+
+  //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
+  var doc = window.document;
+  var docEl = doc.documentElement;
+
+  var requestFullScreen =
+    docEl.requestFullscreen ||
+    docEl.mozRequestFullScreen ||
+    docEl.webkitRequestFullScreen ||
+    docEl.msRequestFullscreen;
+  var cancelFullScreen =
+    doc.exitFullscreen ||
+    doc.mozCancelFullScreen ||
+    doc.webkitExitFullscreen ||
+    doc.msExitFullscreen;
+
+  if (
+    !doc.fullscreenElement &&
+    !doc.mozFullScreenElement &&
+    !doc.webkitFullscreenElement &&
+    !doc.msFullscreenElement
+  ) {
+    requestFullScreen.call(docEl);
+    console.log("requestFullScreen.call(docEl)");
+    // setFullWindow(true);
+    isFullScreen = true;
+    hide("info");
+    hide("audioInfo");
+  } else {
+    cancelFullScreen.call(doc);
+    console.log("cancelFullScreen.call");
+    // setFullWindow(false);
+    isFullScreen = false;
+    show("info");
+    show("audioInfo");
+    updateCanvasSize(window.playerW, window.playerH);
+  }
+}
+
+function setFullScreen(full) {
+  console.log("setFullScreen() "+full);
   
   //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
   var doc = window.document;
@@ -507,16 +548,22 @@ function toggleFullScreen() {
   var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
   var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
 
-  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+  if(full == true) {
     requestFullScreen.call(docEl);
     // setFullWindow(true);
     isFullScreen = true;
+      hide("info");
+     hide("audioInfo");
   }
   else {
     cancelFullScreen.call(doc);
     // setFullWindow(false);
     isFullScreen = false;
+     show("info");
+      show("audioInfo");
   }
+  
+  updateCanvasSize(window.playerW,window.playerH);
 }
 
 function toggleFullWindow(){

@@ -24,9 +24,6 @@ document.addEventListener("keyup", function(e) {
       t += player.duration();
     }
     player.currentTime(t);
-  } else if (e.key === "f") {
-    // player.requestFullscreen();
-    toggleFullScreen();
   } else if (e.key === "j") {
     // player.play();
     jumpTo(-1);
@@ -69,6 +66,13 @@ document.addEventListener("keyup", function(e) {
     toggleFullWindow();
   } else if (e.key === "w") {
     setToWindowSize();
+  } else if (e.key === "f") {
+    // player.requestFullscreen();
+    toggleFullScreen();
+  }else if (e.key === "[") {
+    setFullScreen(true);
+  }else if (e.key === "]") {
+    setFullScreen(false);
   }
 });
 
@@ -225,7 +229,8 @@ function onTouchEnd(event) {
 window.addEventListener('orientationchange', function () {
     if (window.orientation == -90) {
          // setFullWindow(true, true);
-        toggleFullScreen();
+        // toggleFullScreen();
+      setFullScreen(true);
       // setToWindowSize();
       // jumpTo(1);
       
@@ -234,7 +239,8 @@ window.addEventListener('orientationchange', function () {
    
     }
     if (window.orientation == 90) {
-      toggleFullScreen();
+      // toggleFullScreen();
+      setFullScreen(true);
          // setFullWindow(true, true);
       // setToWindowSize();
       // jumpTo(10);
@@ -243,7 +249,8 @@ window.addEventListener('orientationchange', function () {
    
     }
     if (window.orientation == 0) {
-       setFullWindow(false, false);
+       // setFullWindow(false, false);
+            setFullScreen(false);
        // jumpTo(20);
         document.getElementById('orient').className = '';
      
