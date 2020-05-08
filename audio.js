@@ -254,7 +254,7 @@ var touchMoveY;
       window.isTouching = false;
     }
 
-    canvasCtx.font = "30px Arial";
+    
 
     // canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
     // canvas.height = 320; //window.player.height; //window.innerHeight / 4 - 20;
@@ -374,13 +374,35 @@ canvasCtx.lineWidth = 2;
         old_audioLevel = volNorm;
         // detectBeat(rms);
 
-        canvasCtx.fillStyle = "white";
+         canvasCtx.font = "20px Arial";
+        canvasCtx.fillStyle = "blue";
+       
         //        canvasCtx.textAlign = "center";
         //        canvasCtx.fillText("average: "+average, 300, 50);
         canvasCtx.fillText(
           "screen: " + window.playerW + " x " + window.playerH,
           300,
-          70
+          canvas.height - 60
+        );
+          canvasCtx.fillText(
+          "canvas: " + canvas.width + " x " + canvas.height,
+          300,
+          canvas.height - 30
+        );
+        
+        canvasCtx.fillStyle = "white";
+       
+        //        canvasCtx.textAlign = "center";
+        //        canvasCtx.fillText("average: "+average, 300, 50);
+        canvasCtx.fillText(
+          "screen: " + window.playerW + " x " + window.playerH,
+          300,
+          150
+        );
+          canvasCtx.fillText(
+          "canvas: " + canvas.width + " x " + canvas.height,
+          300,
+          180
         );
         //
         //        canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
