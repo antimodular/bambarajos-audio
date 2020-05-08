@@ -476,15 +476,16 @@ function drawCanvasText(){
 //           210
 //         );
 
+  if()
    canvasCtx.font = "25px Helvetica";
-        canvasCtx.fillStyle = "white";
+        canvasCtx.fillStyle = "rgb(255,255,255," + 1 * mainAlpha + ")";;
   canvasCtx.fillText(
-          "Bambarajos - Kissing to the beat",
+          "Bambarajos (Kissing to the beat)",
           20,
           40
         );
     canvasCtx.fillText(
-          "Rafael LozanoHemmer",
+          "Rafael Lozano-Hemmer",
           20,
           65
         );
