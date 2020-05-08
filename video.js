@@ -3,7 +3,7 @@
 //change buffer amounts 
 //https://github.com/videojs/videojs-contrib-hls/issues/1302
 
-var version = "v12";
+var version = "v13";
 
 var player = videojs("vid", {});
 
@@ -548,8 +548,8 @@ function setFullWindow(_fullWindow, _flipWH) {
 
   // bShowInfo = !_fullWindow;
   if (isFullScreen == true) {
-    window.playerW = screenWidth; //window.screen.width;
-    window.playerH = screenHeight; //window.screen.height;
+    window.playerW = 1334; //920/2; //screenWidth; //window.screen.width;
+    window.playerH = 750; //1080/2; //screenHeight; //window.screen.height;
     
       hide("info");
      hide("audioInfo");

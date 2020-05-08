@@ -126,13 +126,15 @@ var identifier;
 window.isTouching = false;
 window.touchMoveY;
 
+//https://bodyscrolllock.now.sh/
+//https://github.com/willmcpo/body-scroll-lock#readme
 const targetElement = document.querySelector('body');
-
+// const targetElement2 = document.querySelector('videoDiv');
 // 2. ...in some event handler after showing the target element...disable body scroll
 bodyScrollLock.disableBodyScroll(targetElement);
 
 // 3. ...in some event handler after hiding the target element...
-bodyScrollLock.enableBodyScroll(targetElement);
+// bodyScrollLock.enableBodyScroll(targetElement2);
 
 window.addEventListener(
   "touchstart",
