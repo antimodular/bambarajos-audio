@@ -1,5 +1,4 @@
-/* overlay text or graphic on tp video
-https://jsfiddle.net/stephanschulz/3pnkh9t4/2/ */
+
 
 /* .container {
   position: absolute;
@@ -18,6 +17,9 @@ html, body {
 }
 
 
+/* overlay text or graphic on tp video
+https://jsfiddle.net/stephanschulz/3pnkh9t4/2/ */
+/*  doing the below to have canvas on top of video*/
 /* . dot for div class= */
 .videoDiv  {
 /*   position: relative;
@@ -27,8 +29,9 @@ html, body {
     height: auto;
     width: auto; */
   height: auto;
-    width: auto; 
-   display: inline-block;
+    width: auto;
+/*   player.fluid() can't handle inline-block */
+/*    display: inline-block;  */ 
     position: relative;
 }
 
@@ -88,7 +91,7 @@ body.rotation90 {
   transform: rotate(-90deg) translateX(-100%);
 } */
 
-//https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari
+/* https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari */
 .orientleft #shell {
     -webkit-transform: rotate(-90deg);
     -webkit-transform-origin:160px 160px;

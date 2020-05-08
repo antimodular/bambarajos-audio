@@ -131,7 +131,7 @@ window.touchMoveY;
 const targetElement = document.querySelector('body');
 // const targetElement2 = document.querySelector('videoDiv');
 // 2. ...in some event handler after showing the target element...disable body scroll
-bodyScrollLock.disableBodyScroll(targetElement);
+// bodyScrollLock.disableBodyScroll(targetElement);
 
 // 3. ...in some event handler after hiding the target element...
 // bodyScrollLock.enableBodyScroll(targetElement2);
