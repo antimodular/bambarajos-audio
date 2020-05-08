@@ -1,6 +1,6 @@
 // the first argument corresponds to the id of the video tag in the html file
 
-//change buffer amounts 
+//change buffer amounts
 //https://github.com/videojs/videojs-contrib-hls/issues/1302
 
 var version = "v13";
@@ -8,24 +8,26 @@ var version = "v13";
 var player = videojs("vid", {});
 
 //https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
-var screenWidth = window.innerWidth
-|| document.documentElement.clientWidth
-|| document.body.clientWidth;
+var screenWidth =
+  window.innerWidth ||
+  document.documentElement.clientWidth ||
+  document.body.clientWidth;
 
-var screenHeight = window.innerHeight
-|| document.documentElement.clientHeight
-|| document.body.clientHeight;
+var screenHeight =
+  window.innerHeight ||
+  document.documentElement.clientHeight ||
+  document.body.clientHeight;
 
-
- // window.playerW = screenWidth; //window.screen.width; //400;
- // window.playerH = screenHeight; //window.screen.height; //320;
+// window.playerW = screenWidth; //window.screen.width; //400;
+// window.playerH = screenHeight; //window.screen.height; //320;
 
 window.playerW = screenWidth; //400;
 window.playerH = screenHeight; //320;
 
 var json_src = "l-001-200_047.json";
- // var vid_src = "l-001-200_047.mp4";
-var vid_src = "https://cdn.glitch.com/b1e475c8-3489-4513-8664-2d0f29f610de%2Fl-001-200_047.mp4?v=1588351308938";
+// var vid_src = "l-001-200_047.mp4";
+var vid_src =
+  "https://cdn.glitch.com/b1e475c8-3489-4513-8664-2d0f29f610de%2Fl-001-200_047.mp4?v=1588351308938";
 // var vid_src = "https://stephanschulz.ca/bamba/l-001-200_047.mp4";
 var millisStart;
 
@@ -76,7 +78,7 @@ player.autoplay(true);
 // player.width(window.playerW); //80
 // player.height(window.playerH); //64
 // player.controls.aspectRatio("16:9");
-// player.aspectRatio("1:1"); 
+// player.aspectRatio("1:1");
 player.fluid(true); //set to window size
 
 /// player GUI controls
@@ -135,15 +137,14 @@ player.controlBar.fullscreenToggle.hide();
 //  return (this - in_min) * (1) / (in_max - in_min);
 //}
 
-
 function show(target) {
-    console.log("show " +target);
-    document.getElementById(target).style.display = 'block';
+  console.log("show " + target);
+  document.getElementById(target).style.display = "block";
 }
 
 function hide(target) {
-     console.log("hide " +target);
-    document.getElementById(target).style.display = 'none';
+  console.log("hide " + target);
+  document.getElementById(target).style.display = "none";
 }
 
 //negative playback http://jsfiddle.net/uvLgbqoa/
@@ -169,19 +170,16 @@ window.onload = function(e) {
   millisStart = Date.now();
 
   loadJsonData();
-  
+
   // bShowInfo = false;
-   // hide("info");
-   //    hide("audioInfo");
-      // setFullWindow(true);
-  
-  
-  
-  document.getElementById("version").innerHTML = "version "+version;
-  
+  // hide("info");
+  //    hide("audioInfo");
+  // setFullWindow(true);
+
+  document.getElementById("version").innerHTML = "version " + version;
 };
 
-function loadJsonData(){
+function loadJsonData() {
   console.log("fetch(json_src)");
   fetch(json_src)
     //    fetch('vData2.json')
@@ -194,21 +192,20 @@ function loadJsonData(){
       // var idx = 20;
       jsonData_length = jsonData.length;
       console.log("fetch json with length " + jsonData_length);
-    
+
       // var arr = [];
-  // arr.push({
-  //       key: oFullResponse.results[i].label,
-  //       sortable: true,
-  //       resizeable: true
-  //   });
-    
+      // arr.push({
+      //       key: oFullResponse.results[i].label,
+      //       sortable: true,
+      //       resizeable: true
+      //   });
+
       display_jsonObj(jsonData[1]);
       // console.log("parsed json", json);
     })
     .catch(function(ex) {
       console.log("parsing failed", ex);
     });
-  
 }
 function update_loop() {
   //    var time = new Date();
@@ -227,9 +224,8 @@ function display_jsonObj(oneObj) {
   document.getElementById("chapter_duration").innerHTML = new_duration;
   document.getElementById("chapter_startTime").innerHTML = new_startTime;
   document.getElementById("chapter_endTime").innerHTML = new_endTime; //temp_v.toFixed(2);
-document.getElementById("chapter_eye_contact").innerHTML = new_eye_contact; 
+  document.getElementById("chapter_eye_contact").innerHTML = new_eye_contact;
 
-  
   time_slider.value = player.currentTime() / player.duration();
 
   //     document.getElementById("j_duration").innerHTML = oneObj.duration;
@@ -245,10 +241,8 @@ document.getElementById("chapter_eye_contact").innerHTML = new_eye_contact;
   //document.getElementById("j_name").innerHTML = oneObj.name;
 }
 
-
 //jumpTo function
 function jumpTo(idx) {
-  
   //it seems to take a bit of time before json file is loaded
   //either add wait time or check json.length
   // if (performance.now() > 5000) {
@@ -286,16 +280,21 @@ function jumpTo(idx) {
     // Math.round(someNumber * 1e2) / 1e2
 
     console.log(
-      "name: "+jsonData[idx].name + " , start " + new_startTime + " , end " + new_endTime
+      "name: " +
+        jsonData[idx].name +
+        " , start " +
+        new_startTime +
+        " , end " +
+        new_endTime
     );
 
     display_jsonObj(jsonData[idx]);
 
     new_eye_contact = Math.round(jsonData[idx].eye_contact_start * 1e6) / 1e6; //jsonData[idx].eye_contact_start;
-   
+
     var temp_time = new_startTime + new_eye_contact + startOffsetTime;
-      player.currentTime(temp_time);
-     // player.play();
+    player.currentTime(temp_time);
+    // player.play();
     console.log("new time: " + temp_time);
   } else {
     //for some reason the json fetch() is not always ready or executed when we get to this jumpTo function
@@ -332,7 +331,6 @@ var time_slider = document.getElementById("time_slider");
 
 var info_speed = document.getElementById("speed");
 
-
 function update_info_height_width() {
   info_height_width.innerHTML =
     player.currentWidth() + " x " + player.currentWidth();
@@ -342,9 +340,6 @@ function update_info_duration() {
   var temp_dur = player.duration();
   info_duration.innerHTML = temp_dur;
 }
-
-
-
 
 var rewind_startSystemTime;
 var rewind_startVideoTime;
@@ -366,8 +361,6 @@ function setup_rewind(_speed) {
 // we use this to avoid an infinite loop between the time_updated function and the timeslider change
 var ignore_time_slider_change = false;
 function time_updated() {
- 
-  
   if (loopDirection == 1) {
     if (player.currentTime() >= new_endTime - endOffsetTime) {
       //            player.pause();
@@ -448,10 +441,9 @@ player.on("loadeddata", function(e) {
   info_video_name.innerHTML = player.currentSrc();
   update_info_height_width();
   update_info_duration();
-  
+
   // player.play();
   jumpTo(-1);
-  
 });
 
 player.on("resize", update_info_height_width);
@@ -496,7 +488,6 @@ function volume_slider_changed() {
 volume_slider.onchange = volume_slider_changed;
 volume_slider.oninput = volume_slider_changed;
 
-
 function toggleFullScreen() {
   console.log("toggleFullScreen()");
 
@@ -521,52 +512,85 @@ function toggleFullScreen() {
     !doc.webkitFullscreenElement &&
     !doc.msFullscreenElement
   ) {
-    requestFullScreen.call(docEl);
     console.log("requestFullScreen.call(docEl)");
     // setFullWindow(true);
     isFullScreen = true;
     hide("info");
     hide("audioInfo");
+    //any other function calls should happen before requestFullScreen.call
+    requestFullScreen.call(docEl);
   } else {
-    cancelFullScreen.call(doc);
-    console.log("cancelFullScreen.call");
-    // setFullWindow(false);
     isFullScreen = false;
     show("info");
     show("audioInfo");
-    updateCanvasSize(window.playerW, window.playerH);
+    
+    console.log("cancelFullScreen.call");
+    //any other function calls should happen before cancelFullScreen.call
+    cancelFullScreen.call(doc);
+
+    // setFullWindow(false);
   }
+  
+  updateCanvasSize(window.playerW, window.playerH);
 }
 
 function setFullScreen(full) {
-  console.log("setFullScreen() "+full);
-  
+  console.log("setFullScreen() " + full);
+
   //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
   var doc = window.document;
   var docEl = doc.documentElement;
 
-  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
-  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+  var requestFullScreen =
+    docEl.requestFullscreen ||
+    docEl.mozRequestFullScreen ||
+    docEl.webkitRequestFullScreen ||
+    docEl.msRequestFullscreen;
+  var cancelFullScreen =
+    doc.exitFullscreen ||
+    doc.mozCancelFullScreen ||
+    doc.webkitExitFullscreen ||
+    doc.msExitFullscreen;
 
-  if(full == true) {
-    requestFullScreen.call(docEl);
+  if (full == true) {
     // setFullWindow(true);
     isFullScreen = true;
-      hide("info");
-     hide("audioInfo");
-  }
-  else {
-    cancelFullScreen.call(doc);
+    hide("info");
+    hide("audioInfo");
+    
+    screenWidth = screen.width;
+    screenHeight = screen.height;
+    //any other function calls should happen before requestFullScreen.call
+    requestFullScreen.call(docEl);
+  } else {
     // setFullWindow(false);
     isFullScreen = false;
-     show("info");
-      show("audioInfo");
+    show("info");
+    show("audioInfo");
+    //any other function calls should happen before cancelFullScreen.call
+    
+     screenWidth =
+    window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth;
+
+  screenHeight =
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight;
+    
+    cancelFullScreen.call(doc);
   }
+
+ 
   
-  updateCanvasSize(window.playerW,window.playerH);
+   window.playerW = screenWidth; //window.screen.width;
+  window.playerH = screenHeight; //window.screen.height;
+  
+  updateCanvasSize(window.playerW, window.playerH);
 }
 
-function toggleFullWindow(){
+function toggleFullWindow() {
   isFullScreen = !isFullScreen;
   setFullWindow(isFullScreen);
 }
@@ -578,49 +602,50 @@ function setFullWindow2(_fullWindow, _flipWH) {
   //   var w = window.innerWidth;
   // var h = window.innerHeight;
 
-     screenWidth =
-       window.innerWidth ||
-       document.documentElement.clientWidth ||
-       document.body.clientWidth;
+  screenWidth =
+    window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth;
 
-     screenHeight =
-       window.innerHeight ||
-       document.documentElement.clientHeight ||
-       document.body.clientHeight;
+  screenHeight =
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight;
+
+   window.playerW = screenWidth; //window.screen.width;
+  window.playerH = screenHeight; //window.screen.height;
   
-  if(_flipWH == true){
+  if (_flipWH == true) {
     //swap to numbers
     //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
-    screenHeight = [screenWidth, screenWidth = screenHeight][0];
+    screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
   }
 
-  
-//iphone 1472 x 980
+  //iphone 1472 x 980
   // bShowInfo = !_fullWindow;
   if (isFullScreen == true) {
     // window.playerW = 960; //1920/2; //screenWidth; //window.screen.width;
     // window.playerH = 540; //1080/2; //screenHeight; //window.screen.height;
     //  window.playerW = screenWidth; //window.screen.width;
     // window.playerH = screenHeight; //window.screen.height;
-      hide("info");
-     hide("audioInfo");
-    
-    // player.fluid(true); 
+    hide("info");
+    hide("audioInfo");
+
+    // player.fluid(true);
   } else {
     // window.playerW = 400;
     // window.playerH = 320;
-    
-     show("info");
-      show("audioInfo");
+
+    show("info");
+    show("audioInfo");
     // player.width(400); //80
     // player.height(320); //64
-     // player.fluid(false); 
-  //    player.width(window.playerW);
-  // player.height(window.playerH);
+    // player.fluid(false);
+    //    player.width(window.playerW);
+    // player.height(window.playerH);
   }
- 
-  
-  updateCanvasSize(window.playerW,window.playerH);
+
+  updateCanvasSize(window.playerW, window.playerH);
 }
 
 function setFullWindow(_fullWindow, _flipWH) {
@@ -630,68 +655,76 @@ function setFullWindow(_fullWindow, _flipWH) {
   //   var w = window.innerWidth;
   // var h = window.innerHeight;
 
-     screenWidth =
-       window.innerWidth ||
-       document.documentElement.clientWidth ||
-       document.body.clientWidth;
+ 
 
-     screenHeight =
-       window.innerHeight ||
-       document.documentElement.clientHeight ||
-       document.body.clientHeight;
-  
-  if(_flipWH == true){
+  if (_flipWH == true) {
     //swap to numbers
     //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
-    screenHeight = [screenWidth, screenWidth = screenHeight][0];
+    screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
   }
 
-       window.playerW = screenWidth; //window.screen.width;
-    window.playerH = screenHeight; //window.screen.height;
-//iphone 1472 x 980
+ 
+  //iphone 1472 x 980
   // bShowInfo = !_fullWindow;
   if (isFullScreen == true) {
     // window.playerW = 960; //1920/2; //screenWidth; //window.screen.width;
     // window.playerH = 540; //1080/2; //screenHeight; //window.screen.height;
-     window.playerW = screenWidth; //window.screen.width;
-    window.playerH = screenHeight; //window.screen.height;
-      hide("info");
-     hide("audioInfo");
-    
+    // window.playerW = screenWidth; //window.screen.width;
+    // window.playerH = screenHeight; //window.screen.height;
+    hide("info");
+    hide("audioInfo");
+
+    screenWidth = screen.width;
+    screenHeight = screen.height;
     // player.aspectRatio("1:1");  //5:4
-// player.fluid(true); //set to window size
-    // player.fluid(true); 
+    // player.fluid(true); //set to window size
+    // player.fluid(true);
   } else {
     // window.playerW = 400;
     // window.playerH = 320;
+ screenWidth =
+    window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth;
+
+  screenHeight =
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight;
     
-     show("info");
-      show("audioInfo");
+    show("info");
+    show("audioInfo");
     // player.width(400); //80
     // player.height(320); //64
-     // player.fluid(false); 
-  //    player.width(window.playerW);
-  // player.height(window.playerH);
+    // player.fluid(false);
+    //    player.width(window.playerW);
+    // player.height(window.playerH);
   }
- // console.log("player.videoWidth() "+player.videoWidth())
+  // console.log("player.videoWidth() "+player.videoWidth())
   // updateCanvasSize(player.videoWidth(),player.videoHeight());
-  updateCanvasSize(window.playerW,window.playerH);
-}
-
-function setToWindowSize(){
-   screenWidth = window.innerWidth
-|| document.documentElement.clientWidth
-|| document.body.clientWidth;
-
- screenHeight = window.innerHeight
-|| document.documentElement.clientHeight
-|| document.body.clientHeight;
   
    window.playerW = screenWidth; //window.screen.width;
-    window.playerH = screenHeight; //window.screen.height;
+  window.playerH = screenHeight; //window.screen.height;
   
+  updateCanvasSize(window.playerW, window.playerH);
+}
+
+function setToWindowSize() {
+  screenWidth =
+    window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth;
+
+  screenHeight =
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight;
+
+  window.playerW = screenWidth; //window.screen.width;
+  window.playerH = screenHeight; //window.screen.height;
+
   player.width(window.playerW);
   player.height(window.playerH);
-  
-  updateCanvasSize(window.playerW,window.playerH);
+
+  updateCanvasSize(window.playerW, window.playerH);
 }
