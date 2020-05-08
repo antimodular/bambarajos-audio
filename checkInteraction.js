@@ -75,7 +75,11 @@ document.addEventListener("keyup", function(e) {
   }else if (e.key === "]") {
      window.orientationMillis = Date.now();
     setFullScreen(false,false);
+  }else if (e.key === "g") {
+    
+    bShowGui
   }
+  
 });
 
 

@@ -63,7 +63,8 @@ function displayWindowSize() {
 
 function toggleFullScreen() {
   console.log("toggleFullScreen()");
-
+window.orientationMillis = Date.now();
+  
   //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
   var doc = window.document;
   var docEl = doc.documentElement;
@@ -88,14 +89,14 @@ function toggleFullScreen() {
     console.log("requestFullScreen.call(docEl)");
     // setFullWindow(true);
     isFullScreen = true;
-    hide("info");
-    hide("audioInfo");
+    // hide("info");
+    // hide("audioInfo");
     //any other function calls should happen before requestFullScreen.call
     requestFullScreen.call(docEl);
   } else {
     isFullScreen = false;
-    show("info");
-    show("audioInfo");
+    // show("info");
+    // show("audioInfo");
     
     console.log("cancelFullScreen.call");
     //any other function calls should happen before cancelFullScreen.call
@@ -110,6 +111,8 @@ function toggleFullScreen() {
 function setFullScreen(full , _flipWH) {
   console.log("setFullScreen() " + full + " _flipWH "+_flipWH);
 
+  window.orientationMillis = Date.now();
+  
   //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
   var doc = window.document;
   var docEl = doc.documentElement;
@@ -131,7 +134,7 @@ function setFullScreen(full , _flipWH) {
     // setFullWindow(true);
     isFullScreen = true;
     
-    hide("info");
+    // hide("info");
     // hide("audioInfo");
     
     // screenWidth = window.screen.availWidth;
@@ -161,7 +164,7 @@ function setFullScreen(full , _flipWH) {
   } else {
     // setFullWindow(false);
     isFullScreen = false;
-    show("info");
+    // show("info");
     // show("audioInfo");
     //any other function calls should happen before cancelFullScreen.call
     
@@ -283,8 +286,8 @@ function setFullWindow(_fullWindow, _flipWH) {
     // window.playerH = 540; //1080/2; //screenHeight; //window.screen.height;
     // window.playerW = screenWidth; //window.screen.width;
     // window.playerH = screenHeight; //window.screen.height;
-    hide("info");
-    hide("audioInfo");
+    // hide("info");
+    // hide("audioInfo");
 
     screenWidth = screen.width;
     screenHeight = screen.height;
@@ -305,8 +308,8 @@ function setFullWindow(_fullWindow, _flipWH) {
     document.documentElement.clientHeight ||
     document.body.clientHeight;
     
-    show("info");
-    show("audioInfo");
+    // show("info");
+    // show("audioInfo");
     // player.width(400); //80
     // player.height(320); //64
     // player.fluid(false);

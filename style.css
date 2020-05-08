@@ -38,6 +38,13 @@ https://jsfiddle.net/stephanschulz/3pnkh9t4/2/ */
     position: relative;
 }
 
+/* video{
+  -moz-transform:rotate(90deg);
+  -webkit-transform:rotate(90deg);
+  -o-transform:rotate(90deg);
+  -ms-transform:rotate(90deg);
+  transform:rotate(90deg);
+} */
 /* https://github.com/videojs/video.js/issues/5245 */
 /* .video-js,
 .vjs-playlist {
