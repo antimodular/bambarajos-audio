@@ -3,7 +3,8 @@ var isFullScreen = false;
 //https://www.w3schools.com/js/js_json_objects.asp
 window.onload = function(e) {
   millisStart = Date.now();
-
+window.orientationMillis = Date.now();
+  
   loadJsonData();
 
   // bShowInfo = false;
@@ -131,7 +132,7 @@ function setFullScreen(full , _flipWH) {
     isFullScreen = true;
     
     hide("info");
-    hide("audioInfo");
+    // hide("audioInfo");
     
     // screenWidth = window.screen.availWidth;
     // screenHeight = window.screen.availHeight;
@@ -161,7 +162,7 @@ function setFullScreen(full , _flipWH) {
     // setFullWindow(false);
     isFullScreen = false;
     show("info");
-    show("audioInfo");
+    // show("audioInfo");
     //any other function calls should happen before cancelFullScreen.call
     
       // console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);

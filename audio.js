@@ -116,7 +116,7 @@ window.canvas_mouseMoveY;
 var lastTouchMillis;
  var mapped_y = 0;
 var touchMoveY = 0;
-
+var slideAlpha = 1;
 function spectrum(stream) {
   // var audioCtx = new AudioContext();
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -170,8 +170,6 @@ function spectrum(stream) {
     var identifier;
 var isTouching = false;
 
-
-    
     canvas.addEventListener(
       "touchstart",
       function(event) {
@@ -267,7 +265,7 @@ var isTouching = false;
     //  canvas.width = player.width(); //window.innerWidth / 4 - 20;
     // canvas.height = player.height(); //indow.playerH; //window.innerHeight / 4 - 20;
 
-    console.log("canvas.width " + canvas.width);
+    // console.log("canvas.width " + canvas.width);
     // window.audio_Canvas.appendChild(canvas);
 
     var data = new Uint8Array(400); //canvas.width);
@@ -301,10 +299,12 @@ var isTouching = false;
       // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-      canvasCtx.lineWidth = 5;
-      canvasCtx.strokeStyle = "rgb(255, 255, 0)";
-      // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
-      canvasCtx.strokeRect(2, 2, canvas.width - 7, canvas.height - 7);
+      
+      // canvasCtx.lineWidth = 5;
+      // canvasCtx.strokeStyle = "rgb(255, 255, 0)";
+      // // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
+      // canvasCtx.strokeRect(2, 2, canvas.width - 7, canvas.height - 7);
+      
 canvasCtx.lineWidth = 2;
       audioLevel = 0;
       var total = 0;
@@ -316,13 +316,17 @@ canvasCtx.lineWidth = 2;
       if (dataLength > 0) {
         // console.log("dataLength "+dataLength);
 
+        if(slideAlpha == 0) {
         if (Date.now() - lastTouchMillis < 5000) {
           mainAlpha += 0.3;
         } else {
           mainAlpha -= 0.1;
         }
+        
         mainAlpha = ofClamp(mainAlpha, 0.3, 1);
-
+      }else{
+        mainAlpha = 1;
+      }
         var bin_w = canvas.width / dataLength;
         var temp_x = 0;
         canvasCtx.fillStyle = "rgb(0,0,0," + 0.5 * mainAlpha + ")";
@@ -335,7 +339,7 @@ canvasCtx.lineWidth = 2;
           y = canvas.height - ((y / 128) * canvas.height) / 4;
           var c = Math.floor((x * 255) / canvas.width);
           //          canvasCtx.fillStyle = "rgb(" + c + ",0," + (255 - x) + ")";
-          canvasCtx.fillRect(temp_x, y, bin_w, canvas.height - y);
+          // canvasCtx.fillRect(temp_x, y, bin_w, canvas.height - y);
           temp_x += bin_w;
         });
 
@@ -476,26 +480,19 @@ function drawCanvasText(){
 //           210
 //         );
 
-  if()
+   if (Date.now() - window.orientationMillis < 10000) {
+     slideAlpha += 0.3;
+   } else {
+     slideAlpha -= 0.1;
+   }
+   slideAlpha = ofClamp(slideAlpha, 0, 1);
    canvasCtx.font = "25px Helvetica";
-        canvasCtx.fillStyle = "rgb(255,255,255," + 1 * mainAlpha + ")";;
-  canvasCtx.fillText(
-          "Bambarajos (Kissing to the beat)",
-          20,
-          40
-        );
-    canvasCtx.fillText(
-          "Rafael Lozano-Hemmer",
-          20,
-          65
-        );
-  
-  canvasCtx.font = "20px Helvetica";
-      canvasCtx.fillText(
-          "touch screen to adjust sensitivity",
-          20,
-          100
-        );
+   canvasCtx.fillStyle = "rgb(255,255,255," + slideAlpha + ")";
+   canvasCtx.fillText("Bambarajos (Kissing to the beat)", 40, 60);
+   canvasCtx.fillText("Rafael Lozano-Hemmer", 40, 85);
+
+   canvasCtx.font = "20px Helvetica";
+   canvasCtx.fillText("touch screen to adjust sensitivity", 40, 120);
 }
 function detectBeat(level) {
   // console.log("level "+level);
