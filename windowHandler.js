@@ -1,6 +1,6 @@
 var isFullScreen = false;
 
-window.addEventListener("resize", displayWindowSize);
+// window.addEventListener("resize", displayWindowSize);
 
 function displayWindowSize() {
   // Get width and height of the window excluding scrollbars
@@ -18,6 +18,21 @@ function displayWindowSize() {
   
   updateCanvasSize(window.playerW, window.playerH);
   // updateCanvasSize(window.playerW, window.playerW*(4/5));
+}
+
+var iHeight = window.innerHeight;
+function resize() {
+	if(window.innerHeight != iHeight) {
+		iHeight = window.innerHeight;
+		document.body.style.height = iHeight + 'px';
+    
+    displayWindowSize();
+	}
+}
+var timeOut = null;
+window.onresize = function() {
+	if(timeOut) clearTimeout(timeOut);
+	timeOut = setTimeout(resize, 200);
 }
 
 function toggleFullScreen() {
