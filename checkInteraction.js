@@ -190,7 +190,11 @@ function onTouchMove(event) {
 }
 
 function onTouchEnd(event) {
+ 
   var touch = getTouch(event);
+  
+   touch.preventDefault();
+  
   if (!touch) {
     return;
   }
