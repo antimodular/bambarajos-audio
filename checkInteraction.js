@@ -253,6 +253,7 @@ bodyScrollLock.disableBodyScroll(targetElement);
 // }
 
 
+window.orientationMillis;
 //https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari
 //important to call any function before setting document.getElementById('orient').className = 
 window.addEventListener('orientationchange', function () {
@@ -263,7 +264,7 @@ window.addEventListener('orientationchange', function () {
       // displayWindowSize();
       setToWindowSize();
       // jumpTo(1);
-      
+      orientationMillis = Date.now();
         // document.getElementById('orient').className = 'orientright';
       // 
     // element.style.webkitTransform = "rotate(-90deg) translateX(600px) translateY(160px)"
@@ -279,7 +280,7 @@ window.addEventListener('orientationchange', function () {
       // displayWindowSize();
          // setFullWindow(true, true);
       setToWindowSize();
-      
+       orientationMillis = Date.now();
       
         var element = document.getElementById('audio_Canvas');
     element.style.webkitTransform = "translateX(230px) translateY(230px) rotate(-90eg)"; //for safari and chrome
@@ -296,7 +297,7 @@ window.addEventListener('orientationchange', function () {
             setFullScreen(false,false);
        // jumpTo(20);
         // document.getElementById('orient').className = '';
-     
+      orientationMillis = Date.now();
      
     }
  }, true);

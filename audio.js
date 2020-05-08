@@ -28,6 +28,7 @@ let levelHistory = [];
 var millisStart;
 
 var canvas;
+var canvasCtx;
 
 var track,
   gUM = c => navigator.mediaDevices.getUserMedia(c);
@@ -113,6 +114,8 @@ window.canvas_mouseMoveY;
 
 
 var lastTouchMillis;
+ var mapped_y = 0;
+var touchMoveY = 0;
 
 function spectrum(stream) {
   // var audioCtx = new AudioContext();
@@ -136,7 +139,7 @@ function spectrum(stream) {
     // var canvas = document.createElement("canvas");
     // var canvas = document.getElementsByClassName('audio_Canvas');
     canvas = document.getElementById("audio_Canvas");
-    var canvasCtx = canvas.getContext("2d");
+     canvasCtx = canvas.getContext("2d");
 
     // register for the mouse events of the document
     canvas.addEventListener("mousedown", function(e) {
@@ -166,8 +169,8 @@ function spectrum(stream) {
     //these need to be inside function spectrum(stream) otherwise body-scroll-lock library blocks canvas touch
     var identifier;
 var isTouching = false;
-var touchMoveY = 0;
- var mapped_y = 0;
+
+
     
     canvas.addEventListener(
       "touchstart",
@@ -374,43 +377,8 @@ canvasCtx.lineWidth = 2;
         old_audioLevel = volNorm;
         // detectBeat(rms);
 
-         canvasCtx.font = "20px Arial";
-        canvasCtx.fillStyle = "blue";
-       
-        //        canvasCtx.textAlign = "center";
-        //        canvasCtx.fillText("average: "+average, 300, 50);
-        canvasCtx.fillText(
-          "screen: " + window.playerW + " x " + window.playerH,
-          300,
-          canvas.height - 60
-        );
-        
-        canvasCtx.fillStyle = "white";
-       
-        //        canvasCtx.textAlign = "center";
-        //        canvasCtx.fillText("average: "+average, 300, 50);
-        canvasCtx.fillText(
-          "screen: " + window.playerW + " x " + window.playerH,
-          300,
-          150
-        );
-         canvasCtx.fillText(
-          "thres: " + beatThreshold,
-          300,
-          170
-        );
-         canvasCtx.fillText(
-          "y: " + mapped_y,
-          300,
-          190
-        );
-         canvasCtx.fillText(
-          "touchMoveY: " +  touchMoveY,
-          300,
-          210
-        );
-
-       
+      
+       drawCanvasText();
 
         //
         //        canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
@@ -471,6 +439,63 @@ canvasCtx.lineWidth = 2;
   }
 }
 
+function drawCanvasText(){
+//      canvasCtx.font = "20px Arial";
+//         canvasCtx.fillStyle = "blue";
+       
+//         //        canvasCtx.textAlign = "center";
+//         //        canvasCtx.fillText("average: "+average, 300, 50);
+//         canvasCtx.fillText(
+//           "screen: " + window.playerW + " x " + window.playerH,
+//           300,
+//           canvas.height - 60
+//         );
+        
+//         canvasCtx.fillStyle = "white";
+       
+//         //        canvasCtx.textAlign = "center";
+//         //        canvasCtx.fillText("average: "+average, 300, 50);
+//         canvasCtx.fillText(
+//           "screen: " + window.playerW + " x " + window.playerH,
+//           300,
+//           150
+//         );
+//          canvasCtx.fillText(
+//           "thres: " + beatThreshold,
+//           300,
+//           170
+//         );
+//          canvasCtx.fillText(
+//           "y: " + mapped_y,
+//           300,
+//           190
+//         );
+//          canvasCtx.fillText(
+//           "touchMoveY: " +  touchMoveY,
+//           300,
+//           210
+//         );
+
+   canvasCtx.font = "25px Helvetica";
+        canvasCtx.fillStyle = "white";
+  canvasCtx.fillText(
+          "Bambarajos - Kissing to the beat",
+          20,
+          40
+        );
+    canvasCtx.fillText(
+          "Rafael LozanoHemmer",
+          20,
+          65
+        );
+  
+  canvasCtx.font = "20px Helvetica";
+      canvasCtx.fillText(
+          "touch screen to adjust sensitivity",
+          20,
+          100
+        );
+}
 function detectBeat(level) {
   // console.log("level "+level);
 
