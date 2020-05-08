@@ -126,9 +126,7 @@ function log( message ) {
   pre.innerText = message;
 }
  */
-var identifier;
-window.isTouching = false;
-window.touchMoveY;
+
 
 //https://bodyscrolllock.now.sh/
 //https://github.com/willmcpo/body-scroll-lock#readme
@@ -139,23 +137,26 @@ const targetElement = document.querySelector('body');
 // bodyScrollLock.disableBodyScroll(targetElement, {
 //   allowTouchMove: el => el.document.getElementById("audio_Canvas").tagName === 'audio_Canvas',
 // });
-
+bodyScrollLock.disableBodyScroll(targetElement);
 // bodyScrollLock.disableBodyScroll(targetElement, {
 //   allowTouchMove: el => el.tagName === 'audio_Canvas',
 // });
 
-bodyScrollLock.disableBodyScroll(targetElement, {
-  allowTouchMove: el => {
-    while (el && el !== document.body) {
-      if (el.getAttribute('body-scroll-lock-ignore') !== null) {
-        return true;
-      }
+// bodyScrollLock.disableBodyScroll(targetElement, {
+//   allowTouchMove: el => {
+//     while (el && el !== document.body) {
+//       if (el.getAttribute('body-scroll-lock-ignore') !== null) {
+//         return true;
+//       }
 
-      el = el.parentNode;
-    }
-  },
-});
+//       el = el.parentNode;
+//     }
+//   },
+// });
 
+// var identifier;
+// window.isTouching = false;
+// window.touchMoveY;
 
 // disableBodyScroll(container, {
 //   allowTouchMove: el => el.tagName === 'TEXTAREA',
@@ -166,88 +167,88 @@ bodyScrollLock.disableBodyScroll(targetElement, {
 // bodyScrollLock.disableBodyScroll(targetElement2);
 // bodyScrollLock.enableBodyScroll(targetElement3);
 
-window.addEventListener(
-  "touchstart",
-  function(event) {
-    // dismiss after-touches
-    if (window.isTouching == true) {
-      return;
-    }
-    //    event.preventDefault();
-    // only care about the first touch
-    var touch = event.changedTouches[0];
+// window.addEventListener(
+//   "touchstart",
+//   function(event) {
+//     // dismiss after-touches
+//     if (window.isTouching == true) {
+//       return;
+//     }
+//     //    event.preventDefault();
+//     // only care about the first touch
+//     var touch = event.changedTouches[0];
     
-    // 
+//     // 
     
-    identifier = touch.identifier;
-    // log('touch START; indentifer ' + touch.identifier);
-    window.addEventListener("touchmove", onTouchMove, false);
-    window.addEventListener("touchend", onTouchEnd, false);
-    window.isTouching = true;
+//     identifier = touch.identifier;
+//     // log('touch START; indentifer ' + touch.identifier);
+//     window.addEventListener("touchmove", onTouchMove, false);
+//     window.addEventListener("touchend", onTouchEnd, false);
+//     window.isTouching = true;
 
-    var out = { x: 0, y: 0 };
-    out.x = touch.pageX;
-    out.y = touch.pageY;
+//     var out = { x: 0, y: 0 };
+//     out.x = touch.pageX;
+//     out.y = touch.pageY;
 
-    console.log(" touch x " + out.x + " y " + out.y);
+//     console.log(" touch x " + out.x + " y " + out.y);
 
-    if (out.x < 100 && out.y < 100) {
-      jumpTo(-1);
+//     if (out.x < 100 && out.y < 100) {
+//       jumpTo(-1);
 
-      // console.log(" touch in 100x100 ");
-    }
+//       // console.log(" touch in 100x100 ");
+//     }
 
-    info_touch_state.innerHTML = "touchstart ";
-    // bShowInfo = !bShowInfo;
-    // setFullWindow(false);
-    // toggleFullWindow();
+//     info_touch_state.innerHTML = "touchstart ";
+//     // bShowInfo = !bShowInfo;
+//     // setFullWindow(false);
+//     // toggleFullWindow();
     
-    // toggleFullScreen();
-    // toggleFullWindow();
-  },
-  false
-);
+//     // toggleFullScreen();
+//     // toggleFullWindow();
+//   },
+//   false
+// );
 
-function getTouch(event) {
-  // cycle through every change touch and get one that matches
-  for (var i = 0, len = event.changedTouches.length; i < len; i++) {
-    var touch = event.changedTouches[i];
-    if (touch.identifier === identifier) {
-      return touch;
-    }
-  }
-}
+// function getTouch(event) {
+//   // cycle through every change touch and get one that matches
+//   for (var i = 0, len = event.changedTouches.length; i < len; i++) {
+//     var touch = event.changedTouches[i];
+//     if (touch.identifier === identifier) {
+//       return touch;
+//     }
+//   }
+// }
 
-function onTouchMove(event) {
-  var touch = getTouch(event);
+// function onTouchMove(event) {
+//   var touch = getTouch(event);
     
- window.touchMoveY = touch.pageY;
-  if (!touch) {
-    return;
-  }
+//  window.touchMoveY = touch.pageY;
+//   if (!touch) {
+//     return;
+//   }
     
-  // log('touch move ' + touch.pageX + ' ' + touch.pageY);
-  // info_touch_state.innerHTML = "touch moved ";
+//   // log('touch move ' + touch.pageX + ' ' + touch.pageY);
+//   // info_touch_state.innerHTML = "touch moved ";
   
-  info_mouse_position.innerHTML = "x: " + touch.pageX + " y: " + touch.pageY;
-}
+//   info_mouse_position.innerHTML = "x: " + touch.pageX + " y: " + touch.pageY;
+// }
 
-function onTouchEnd(event) {
+// function onTouchEnd(event) {
  
-  var touch = getTouch(event);
+//   var touch = getTouch(event);
   
-   touch.preventDefault();
+//    touch.preventDefault();
   
-  if (!touch) {
-    return;
-  }
-  //  log('touch _ENDED_ ' + touch.pageX + ' ' + touch.pageY);
-  window.removeEventListener("touchmove", onTouchMove, false);
-  window.removeEventListener("touchend", onTouchEnd, false);
+//   if (!touch) {
+//     return;
+//   }
+//   //  log('touch _ENDED_ ' + touch.pageX + ' ' + touch.pageY);
+//   window.removeEventListener("touchmove", onTouchMove, false);
+//   window.removeEventListener("touchend", onTouchEnd, false);
 
-  info_touch_state.innerHTML = "touchend ";
-  window.isTouching = false;
-}
+//   info_touch_state.innerHTML = "touchend ";
+//   window.isTouching = false;
+// }
 
 
 //https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari

@@ -151,65 +151,150 @@ canvas.addEventListener("mouseup", function(e) {
 canvas.addEventListener("mousemove", function(e) {
   
 //  window.mouseChangeX = e.x - window.mouseMoveX;
-//  window.mouseChangeY = e.y - window.mouseMoveY;
+//   window.mouseChangeY = e.y - window.mouseMoveY;
   window.canvas_mouseMoveX = e.x;
   window.canvas_mouseMoveY = e.y;
-  
-//  console.log("mouseChangeY "+window.mouseChangeY);
-  
+
+  //  console.log("mouseChangeY "+window.mouseChangeY);
+
   info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
-  
 });
-      
-    canvasCtx.font = "30px Arial";
 
-    // canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
-    // canvas.height = 320; //window.player.height; //window.innerHeight / 4 - 20;
-    canvas.width = window.playerW; //window.innerWidth / 4 - 20;
-    canvas.height = window.playerH; //window.innerHeight / 4 - 20;
+    var identifier;
+    var isTouching = false;
+ var touchMoveY;
+    canvas.addEventListener(
+  "touchstart",
+  function(event) {
+    // dismiss after-touches
+    if (isTouching == true) {
+      return;
+    }
+    //    event.preventDefault();
+    // only care about the first touch
+    var touch = event.changedTouches[0];
+    
+    // 
+    
+    identifier = touch.identifier;
+    // log('touch START; indentifer ' + touch.identifier);
+    window.addEventListener("touchmove", onTouchMove, false);
+    window.addEventListener("touchend", onTouchEnd, false);
+    window.isTouching = true;
 
-    //  canvas.width = player.width(); //window.innerWidth / 4 - 20;
-    // canvas.height = player.height(); //indow.playerH; //window.innerHeight / 4 - 20;
+    var out = { x: 0, y: 0 };
+    out.x = touch.pageX;
+    out.y = touch.pageY;
 
-    console.log("canvas.width " + canvas.width);
-    // window.audio_Canvas.appendChild(canvas);
+    console.log(" touch x " + out.x + " y " + out.y);
 
-    var data = new Uint8Array(400); //canvas.width);
+    if (out.x < 100 && out.y < 100) {
+      jumpTo(-1);
 
-    setInterval(() => {
-        var graph_y = (canvas.height / 4) * 3;
+      // console.log(" touch in 100x100 ");
+    }
+
+    info_touch_state.innerHTML = "touchstart ";
+    // bShowInfo = !bShowInfo;
+    // setFullWindow(false);
+    // toggleFullWindow();
+    
+    // toggleFullScreen();
+    // toggleFullWindow();
+  },
+  false
+);
+
+function getTouch(event) {
+  // cycle through every change touch and get one that matches
+  for (var i = 0, len = event.changedTouches.length; i < len; i++) {
+    var touch = event.changedTouches[i];
+    if (touch.identifier === identifier) {
+      return touch;
+    }
+  }
+}
+
+function onTouchMove(event) {
+  var touch = getTouch(event);
+    
+ window.touchMoveY = touch.pageY;
+  if (!touch) {
+    return;
+  }
+    
+  // log('touch move ' + touch.pageX + ' ' + touch.pageY);
+  // info_touch_state.innerHTML = "touch moved ";
   
-        
-      if(window.canvas_mousePressed == true){
-//           var rect = document.querySelector('div').getBoundingClientRect(),
-               var rect = canvas.getBoundingClientRect();
-//          console.log("rect top "+rect.top + " left "+ rect.left);
-          var temp_v = window.canvas_mouseMoveY - rect.top; //-graph_y;
-//          var temp_max = graph_y - rect.top;
-         temp_v = ofClamp(temp_v,0,graph_y);
-//     console.log("temp_v "+temp_v + " mY "+window.canvas_mouseMoveY + " rect.top "+rect.top);
+  info_mouse_position.innerHTML = "x: " + touch.pageX + " y: " + touch.pageY;
+}
 
-        beatThreshold = mapRange(temp_v, [0,graph_y], [2,0]);
-        // beatThreshold += mouseChangeX;
-      }else if(window.isTouching == true){
+function onTouchEnd(event) {
+ 
+  var touch = getTouch(event);
   
-            var rect = canvas.getBoundingClientRect();
-          var temp_v = window.touchMoveY - rect.top;
-         temp_v = ofClamp(temp_v,0,graph_y);
-           beatThreshold = mapRange(temp_v, [0,graph_y], [2,0]);
-          // canvasCtx.fillStyle = "#a0a0a0";
-          // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-           // canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-      //---draw FFT bins
-      // canvasCtx.fillStyle = "#a0a0a0";
-      // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+   touch.preventDefault();
+  
+  if (!touch) {
+    return;
+  }
+  //  log('touch _ENDED_ ' + touch.pageX + ' ' + touch.pageY);
+  window.removeEventListener("touchmove", onTouchMove, false);
+  window.removeEventListener("touchend", onTouchEnd, false);
+
+  info_touch_state.innerHTML = "touchend ";
+  window.isTouching = false;
+}
+    
+canvasCtx.font = "30px Arial";
+
+// canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
+// canvas.height = 320; //window.player.height; //window.innerHeight / 4 - 20;
+canvas.width = window.playerW; //window.innerWidth / 4 - 20;
+canvas.height = window.playerH; //window.innerHeight / 4 - 20;
+
+//  canvas.width = player.width(); //window.innerWidth / 4 - 20;
+// canvas.height = player.height(); //indow.playerH; //window.innerHeight / 4 - 20;
+
+console.log("canvas.width " + canvas.width);
+// window.audio_Canvas.appendChild(canvas);
+
+var data = new Uint8Array(400); //canvas.width);
+
+setInterval(() => {
+  var graph_y = (canvas.height / 4) * 3;
+
+  if (window.canvas_mousePressed == true) {
+    //           var rect = document.querySelector('div').getBoundingClientRect(),
+    var rect = canvas.getBoundingClientRect();
+    //          console.log("rect top "+rect.top + " left "+ rect.left);
+    var temp_v = window.canvas_mouseMoveY - rect.top; //-graph_y;
+    //          var temp_max = graph_y - rect.top;
+    temp_v = ofClamp(temp_v, 0, graph_y);
+    //     console.log("temp_v "+temp_v + " mY "+window.canvas_mouseMoveY + " rect.top "+rect.top);
+
+    beatThreshold = mapRange(temp_v, [0, graph_y], [2, 0]);
+    // beatThreshold += mouseChangeX;
+  } else if (window.isTouching == true) {
+    
+    var rect = canvas.getBoundingClientRect();
+    var temp_v = window.touchMoveY - rect.top;
+    temp_v = ofClamp(temp_v, 0, graph_y);
+    beatThreshold = mapRange(temp_v, [0, graph_y], [2, 0]);
+    // canvasCtx.fillStyle = "#a0a0a0";
+    // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+    // canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  //---draw FFT bins
+  // canvasCtx.fillStyle = "#a0a0a0";
+  // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
       
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       canvasCtx.lineWidth = 2;
      canvasCtx.strokeStyle = "rgb(255, 255, 0)";
       // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
      canvasCtx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
+  
       audioLevel = 0;
       var total = 0;
       var sum = 0;
