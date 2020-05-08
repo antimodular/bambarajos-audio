@@ -111,7 +111,11 @@ window.canvas_mouseMoveY;
 //window.mouseChangeX;
 //window.mouseChangeY;
 
+var identifier;
+var isTouching = false;
+var touchMoveY;
 
+var lastTouchMillis;
 
 function spectrum(stream) {
   // var audioCtx = new AudioContext();
@@ -136,165 +140,164 @@ function spectrum(stream) {
     // var canvas = document.getElementsByClassName('audio_Canvas');
     canvas = document.getElementById("audio_Canvas");
     var canvasCtx = canvas.getContext("2d");
-      
-      // register for the mouse events of the document
-canvas.addEventListener("mousedown", function(e) {
-  window.canvas_mousePressed = true;
-    info_mouse_pressed.innerHTML = "pressed: " + window.canvas_mousePressed;
-});
 
-canvas.addEventListener("mouseup", function(e) {
-  window.canvas_mousePressed = false;
-     info_mouse_pressed.innerHTML = "pressed: " + window.canvas_mousePressed;
-});
+    // register for the mouse events of the document
+    canvas.addEventListener("mousedown", function(e) {
+      window.canvas_mousePressed = true;
+      info_mouse_pressed.innerHTML = "pressed: " + window.canvas_mousePressed;
 
-canvas.addEventListener("mousemove", function(e) {
-  
-//  window.mouseChangeX = e.x - window.mouseMoveX;
-//   window.mouseChangeY = e.y - window.mouseMoveY;
-  window.canvas_mouseMoveX = e.x;
-  window.canvas_mouseMoveY = e.y;
+      lastTouchMillis = Date.now();
+    });
 
-  //  console.log("mouseChangeY "+window.mouseChangeY);
+    canvas.addEventListener("mouseup", function(e) {
+      window.canvas_mousePressed = false;
+      info_mouse_pressed.innerHTML = "pressed: " + window.canvas_mousePressed;
+    });
 
-  info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
-});
+    canvas.addEventListener("mousemove", function(e) {
+      //  window.mouseChangeX = e.x - window.mouseMoveX;
+      //   window.mouseChangeY = e.y - window.mouseMoveY;
+      window.canvas_mouseMoveX = e.x;
+      window.canvas_mouseMoveY = e.y;
 
-    var identifier;
-    var isTouching = false;
- var touchMoveY;
+      //  console.log("mouseChangeY "+window.mouseChangeY);
+      lastTouchMillis = Date.now();
+      info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
+    });
+
     canvas.addEventListener(
-  "touchstart",
-  function(event) {
-    // dismiss after-touches
-    if (isTouching == true) {
-      return;
+      "touchstart",
+      function(event) {
+        // dismiss after-touches
+        if (isTouching == true) {
+          return;
+        }
+        //    event.preventDefault();
+        // only care about the first touch
+        var touch = event.changedTouches[0];
+
+        //
+lastTouchMillis = Date.now();
+        identifier = touch.identifier;
+        // log('touch START; indentifer ' + touch.identifier);
+        window.addEventListener("touchmove", onTouchMove, false);
+        window.addEventListener("touchend", onTouchEnd, false);
+        window.isTouching = true;
+
+        var out = { x: 0, y: 0 };
+        out.x = touch.pageX;
+        out.y = touch.pageY;
+
+        console.log(" touch x " + out.x + " y " + out.y);
+
+        if (out.x < 100 && out.y < 100) {
+          jumpTo(-1);
+
+          // console.log(" touch in 100x100 ");
+        }
+
+        info_touch_state.innerHTML = "touchstart ";
+        // bShowInfo = !bShowInfo;
+        // setFullWindow(false);
+        // toggleFullWindow();
+
+        // toggleFullScreen();
+        // toggleFullWindow();
+      },
+      false
+    );
+
+    function getTouch(event) {
+      // cycle through every change touch and get one that matches
+      for (var i = 0, len = event.changedTouches.length; i < len; i++) {
+        var touch = event.changedTouches[i];
+        if (touch.identifier === identifier) {
+          return touch;
+        }
+      }
     }
-    //    event.preventDefault();
-    // only care about the first touch
-    var touch = event.changedTouches[0];
-    
-    // 
-    
-    identifier = touch.identifier;
-    // log('touch START; indentifer ' + touch.identifier);
-    window.addEventListener("touchmove", onTouchMove, false);
-    window.addEventListener("touchend", onTouchEnd, false);
-    window.isTouching = true;
 
-    var out = { x: 0, y: 0 };
-    out.x = touch.pageX;
-    out.y = touch.pageY;
+    function onTouchMove(event) {
+      var touch = getTouch(event);
 
-    console.log(" touch x " + out.x + " y " + out.y);
+      window.touchMoveY = touch.pageY;
+      if (!touch) {
+        return;
+      }
 
-    if (out.x < 100 && out.y < 100) {
-      jumpTo(-1);
+      lastTouchMillis = Date.now();
+      // log('touch move ' + touch.pageX + ' ' + touch.pageY);
+      // info_touch_state.innerHTML = "touch moved ";
 
-      // console.log(" touch in 100x100 ");
+      info_mouse_position.innerHTML =
+        "x: " + touch.pageX + " y: " + touch.pageY;
     }
 
-    info_touch_state.innerHTML = "touchstart ";
-    // bShowInfo = !bShowInfo;
-    // setFullWindow(false);
-    // toggleFullWindow();
-    
-    // toggleFullScreen();
-    // toggleFullWindow();
-  },
-  false
-);
+    function onTouchEnd(event) {
+      var touch = getTouch(event);
 
-function getTouch(event) {
-  // cycle through every change touch and get one that matches
-  for (var i = 0, len = event.changedTouches.length; i < len; i++) {
-    var touch = event.changedTouches[i];
-    if (touch.identifier === identifier) {
-      return touch;
+      touch.preventDefault();
+
+      if (!touch) {
+        return;
+      }
+      //  log('touch _ENDED_ ' + touch.pageX + ' ' + touch.pageY);
+      window.removeEventListener("touchmove", onTouchMove, false);
+      window.removeEventListener("touchend", onTouchEnd, false);
+
+      info_touch_state.innerHTML = "touchend ";
+      window.isTouching = false;
     }
-  }
-}
 
-function onTouchMove(event) {
-  var touch = getTouch(event);
+    canvasCtx.font = "30px Arial";
+
+    // canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
+    // canvas.height = 320; //window.player.height; //window.innerHeight / 4 - 20;
+    canvas.width = window.playerW; //window.innerWidth / 4 - 20;
+    canvas.height = window.playerH; //window.innerHeight / 4 - 20;
+    // canvas.height = canvas.width * (4/5);
+    //  canvas.width = player.width(); //window.innerWidth / 4 - 20;
+    // canvas.height = player.height(); //indow.playerH; //window.innerHeight / 4 - 20;
+
+    console.log("canvas.width " + canvas.width);
+    // window.audio_Canvas.appendChild(canvas);
+
+    var data = new Uint8Array(400); //canvas.width);
+var mainAlpha = 1;
     
- window.touchMoveY = touch.pageY;
-  if (!touch) {
-    return;
-  }
-    
-  // log('touch move ' + touch.pageX + ' ' + touch.pageY);
-  // info_touch_state.innerHTML = "touch moved ";
-  
-  info_mouse_position.innerHTML = "x: " + touch.pageX + " y: " + touch.pageY;
-}
+    setInterval(() => {
+      var graph_y = (canvas.height / 4) * 3;
 
-function onTouchEnd(event) {
- 
-  var touch = getTouch(event);
-  
-   touch.preventDefault();
-  
-  if (!touch) {
-    return;
-  }
-  //  log('touch _ENDED_ ' + touch.pageX + ' ' + touch.pageY);
-  window.removeEventListener("touchmove", onTouchMove, false);
-  window.removeEventListener("touchend", onTouchEnd, false);
+      if (window.canvas_mousePressed == true) {
+        //           var rect = document.querySelector('div').getBoundingClientRect(),
+        var rect = canvas.getBoundingClientRect();
+        //          console.log("rect top "+rect.top + " left "+ rect.left);
+        var temp_v = window.canvas_mouseMoveY - rect.top; //-graph_y;
+        //          var temp_max = graph_y - rect.top;
+        temp_v = ofClamp(temp_v, 0, graph_y);
+        //     console.log("temp_v "+temp_v + " mY "+window.canvas_mouseMoveY + " rect.top "+rect.top);
 
-  info_touch_state.innerHTML = "touchend ";
-  window.isTouching = false;
-}
-    
-canvasCtx.font = "30px Arial";
+        beatThreshold = mapRange(temp_v, [0, graph_y], [2, 0]);
+        // beatThreshold += mouseChangeX;
+      } else if (window.isTouching == true) {
+        var rect = canvas.getBoundingClientRect();
+        var temp_v = window.touchMoveY - rect.top;
+        temp_v = ofClamp(temp_v, 0, graph_y);
+        beatThreshold = mapRange(temp_v, [0, graph_y], [2, 0]);
+        // canvasCtx.fillStyle = "#a0a0a0";
+        // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+        // canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      //---draw FFT bins
+      // canvasCtx.fillStyle = "#a0a0a0";
+      // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
-// canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
-// canvas.height = 320; //window.player.height; //window.innerHeight / 4 - 20;
-canvas.width = window.playerW; //window.innerWidth / 4 - 20;
-// canvas.height = window.playerH; //window.innerHeight / 4 - 20;
-canvas.height = canvas.width * (4/5); 
-//  canvas.width = player.width(); //window.innerWidth / 4 - 20;
-// canvas.height = player.height(); //indow.playerH; //window.innerHeight / 4 - 20;
-
-console.log("canvas.width " + canvas.width);
-// window.audio_Canvas.appendChild(canvas);
-
-var data = new Uint8Array(400); //canvas.width);
-
-setInterval(() => {
-  var graph_y = (canvas.height / 4) * 3;
-
-  if (window.canvas_mousePressed == true) {
-    //           var rect = document.querySelector('div').getBoundingClientRect(),
-    var rect = canvas.getBoundingClientRect();
-    //          console.log("rect top "+rect.top + " left "+ rect.left);
-    var temp_v = window.canvas_mouseMoveY - rect.top; //-graph_y;
-    //          var temp_max = graph_y - rect.top;
-    temp_v = ofClamp(temp_v, 0, graph_y);
-    //     console.log("temp_v "+temp_v + " mY "+window.canvas_mouseMoveY + " rect.top "+rect.top);
-
-    beatThreshold = mapRange(temp_v, [0, graph_y], [2, 0]);
-    // beatThreshold += mouseChangeX;
-  } else if (window.isTouching == true) {
-    
-    var rect = canvas.getBoundingClientRect();
-    var temp_v = window.touchMoveY - rect.top;
-    temp_v = ofClamp(temp_v, 0, graph_y);
-    beatThreshold = mapRange(temp_v, [0, graph_y], [2, 0]);
-    // canvasCtx.fillStyle = "#a0a0a0";
-    // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-    // canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-  }
-  //---draw FFT bins
-  // canvasCtx.fillStyle = "#a0a0a0";
-  // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-      
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       canvasCtx.lineWidth = 2;
-     canvasCtx.strokeStyle = "rgb(255, 255, 0)";
+      canvasCtx.strokeStyle = "rgb(255, 255, 0)";
       // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
-     canvasCtx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
-  
+      canvasCtx.strokeRect(2, 2, canvas.width - 4, canvas.height - 4);
+
       audioLevel = 0;
       var total = 0;
       var sum = 0;
@@ -304,10 +307,17 @@ setInterval(() => {
       var dataLength = data.length;
       if (dataLength > 0) {
         // console.log("dataLength "+dataLength);
+
+        if(Date.now() - lastTouchMillis < 2000){
+          mainAlpha += 0.3;
+        } else{
+          mainAlpha -= 0.1;
+        }
+        mainAlpha = ofClamp(mainAlpha,0,1);
         
         var bin_w = canvas.width / dataLength;
         var temp_x = 0;
-         canvasCtx.fillStyle = "rgb(0,0,0,0.5)";
+        canvasCtx.fillStyle = "rgb(0,0,0,"+ (0.5*mainAlpha)+")";
         data.forEach((y, x) => {
           var yy = y;
           audioLevel += yy / 128;
@@ -316,7 +326,7 @@ setInterval(() => {
 
           y = canvas.height - ((y / 128) * canvas.height) / 4;
           var c = Math.floor((x * 255) / canvas.width);
-//          canvasCtx.fillStyle = "rgb(" + c + ",0," + (255 - x) + ")";
+          //          canvasCtx.fillStyle = "rgb(" + c + ",0," + (255 - x) + ")";
           canvasCtx.fillRect(temp_x, y, bin_w, canvas.height - y);
           temp_x += bin_w;
         });
@@ -360,18 +370,22 @@ setInterval(() => {
         // detectBeat(rms);
 
         canvasCtx.fillStyle = "white";
-//        canvasCtx.textAlign = "center";
-//        canvasCtx.fillText("average: "+average, 300, 50);
-        canvasCtx.fillText("screen: "+window.playerW + " x " + window.playerH, 300, 70);
+        //        canvasCtx.textAlign = "center";
+        //        canvasCtx.fillText("average: "+average, 300, 50);
+        canvasCtx.fillText(
+          "screen: " + window.playerW + " x " + window.playerH,
+          300,
+          70
+        );
         //
-//        canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
+        //        canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
         // canvasCtx.clearRect(45, 45, 60, 60);
-//        canvasCtx.strokeRect(25, 25, beatRectSize, beatRectSize);
+        //        canvasCtx.strokeRect(25, 25, beatRectSize, beatRectSize);
 
-//        var graph_scaler = 100;
+        //        var graph_scaler = 100;
         //---draw audioLevel line
-      
-        canvasCtx.strokeStyle = "rgb(255,255,255)";
+
+        canvasCtx.strokeStyle = "rgb(255,255,255,"+ (1*mainAlpha)+")";
         // "rgb(0, 0, 0)";
         canvasCtx.lineWidth = 1;
         canvasCtx.beginPath();
@@ -382,8 +396,8 @@ setInterval(() => {
         temp_x = 0;
 
         for (let i = 1; i < levelHistory.length; i++) {
-//          let y = graph_y - (levelHistory[i].y * graph_scaler);
-           let y = mapRange(levelHistory[i].y, [0,2], [graph_y,0]);
+          //          let y = graph_y - (levelHistory[i].y * graph_scaler);
+          let y = mapRange(levelHistory[i].y, [0, 2], [graph_y, 0]);
           // let x = i;
           canvasCtx.lineTo(temp_x, y);
           canvasCtx.moveTo(temp_x, y);
@@ -391,14 +405,12 @@ setInterval(() => {
         }
         canvasCtx.stroke();
 
-       
-        
         //---draw beatCutoff line
-        canvasCtx.strokeStyle = "rgb(255,255,255,0.5)";
+        canvasCtx.strokeStyle = "rgb(255,255,255,"+ (0.5*mainAlpha)+")";
         canvasCtx.beginPath();
 
-//        let mapped_cutOff = graph_y - (beatCutoff * graph_scaler);
-           let mapped_cutOff = mapRange(beatCutoff, [0,2], [graph_y,0]);
+        //        let mapped_cutOff = graph_y - (beatCutoff * graph_scaler);
+        let mapped_cutOff = mapRange(beatCutoff, [0, 2], [graph_y, 0]);
 
         // console.log("beatCutoff " + mapped_cutOff);
         canvasCtx.moveTo(0, mapped_cutOff);
@@ -407,17 +419,16 @@ setInterval(() => {
         canvasCtx.stroke();
 
         //---draw beatThreshold line
-        canvasCtx.strokeStyle = "rgb(255,255,255)";
+        canvasCtx.strokeStyle = "rgb(255,255,255,"+ (1*mainAlpha)+")";
         canvasCtx.beginPath();
 
-//        let mapped_beatThres = graph_y - (beatThreshold * graph_scaler);
-          let mapped_beatThres = mapRange(beatThreshold, [0,2], [graph_y,0]);
+        //        let mapped_beatThres = graph_y - (beatThreshold * graph_scaler);
+        let mapped_beatThres = mapRange(beatThreshold, [0, 2], [graph_y, 0]);
         // console.log("mapped_beatThres " + mapped_beatThres);
         canvasCtx.moveTo(0, mapped_beatThres);
         canvasCtx.lineTo(canvas.width, mapped_beatThres);
         canvasCtx.stroke();
-        
-        
+
         // console.log((1000 * canvas.width) / audioCtx.sampleRate); is equal 2
         var bogus = source; // avoid GC or the whole thing stops
       }
@@ -463,9 +474,9 @@ function onBeat() {
   var millisSince = Date.now();
   var millisDiff = millisSince - millisStart;
 
-   console.log("onBeat == true");
+  console.log("onBeat == true");
   if (millisDiff > 200) jumpTo(-1);
- 
+
   millisStart = Date.now();
   // onEnd();
 }
