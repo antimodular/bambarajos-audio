@@ -72,9 +72,11 @@ player.poster("https://stephanschulz.ca/bamba/l-001-20min_h264.png");
 
 player.autoplay(true);
 //https://coolestguidesontheplanet.com/videodrome/videojs/
-//player.fluid(true); //set to window size
-player.width(window.playerW); //80
-player.height(window.playerH); //64
+
+// player.width(window.playerW); //80
+// player.height(window.playerH); //64
+// player.aspectRatio("16:9");
+player.controls.fluid(true); //set to window size
 
 /// player GUI controls
 //use the following functions to show or hide the controls
@@ -554,6 +556,8 @@ function setFullWindow(_fullWindow, _flipWH) {
     // window.playerH = screenHeight; //window.screen.height;
       hide("info");
      hide("audioInfo");
+    
+    // player.fluid(true); 
   } else {
     window.playerW = 400;
     window.playerH = 320;
@@ -562,27 +566,29 @@ function setFullWindow(_fullWindow, _flipWH) {
       show("audioInfo");
     // player.width(400); //80
     // player.height(320); //64
+     // player.fluid(false); 
+  //    player.width(window.playerW);
+  // player.height(window.playerH);
   }
-  player.width(window.playerW);
-  player.height(window.playerH);
+ 
   
   updateCanvasSize(window.playerW,window.playerH);
 }
 
 function setToWindowSize(){
-   screenWidth = window.innerWidth
-|| document.documentElement.clientWidth
-|| document.body.clientWidth;
+//    screenWidth = window.innerWidth
+// || document.documentElement.clientWidth
+// || document.body.clientWidth;
 
- screenHeight = window.innerHeight
-|| document.documentElement.clientHeight
-|| document.body.clientHeight;
+//  screenHeight = window.innerHeight
+// || document.documentElement.clientHeight
+// || document.body.clientHeight;
   
-   window.playerW = screenWidth; //window.screen.width;
-    window.playerH = screenHeight; //window.screen.height;
+//    window.playerW = screenWidth; //window.screen.width;
+//     window.playerH = screenHeight; //window.screen.height;
   
-    player.width(window.playerW);
-  player.height(window.playerH);
+//   player.width(window.playerW);
+//   player.height(window.playerH);
   
-  updateCanvasSize(window.playerW,window.playerH);
+//   updateCanvasSize(window.playerW,window.playerH);
 }
