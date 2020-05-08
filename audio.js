@@ -111,9 +111,6 @@ window.canvas_mouseMoveY;
 //window.mouseChangeX;
 //window.mouseChangeY;
 
-var identifier;
-var isTouching = false;
-var touchMoveY;
 
 var lastTouchMillis;
 
@@ -161,10 +158,17 @@ function spectrum(stream) {
       window.canvas_mouseMoveY = e.y;
 
       //  console.log("mouseChangeY "+window.mouseChangeY);
-      lastTouchMillis = Date.now();
+      if(window.canvas_mousePressed == true) lastTouchMillis = Date.now();
       info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
     });
 
+    
+    //these need to be inside function spectrum(stream) otherwise body-scroll-lock library blocks canvas touch
+    var identifier;
+var isTouching = false;
+var touchMoveY;
+
+    
     canvas.addEventListener(
       "touchstart",
       function(event) {
@@ -177,7 +181,8 @@ function spectrum(stream) {
         var touch = event.changedTouches[0];
 
         //
-lastTouchMillis = Date.now();
+        lastTouchMillis = Date.now();
+        
         identifier = touch.identifier;
         // log('touch START; indentifer ' + touch.identifier);
         window.addEventListener("touchmove", onTouchMove, false);
@@ -190,11 +195,11 @@ lastTouchMillis = Date.now();
 
         console.log(" touch x " + out.x + " y " + out.y);
 
-        if (out.x < 100 && out.y < 100) {
-          jumpTo(-1);
+//         if (out.x < 100 && out.y < 100) {
+//           jumpTo(-1);
 
-          // console.log(" touch in 100x100 ");
-        }
+//           // console.log(" touch in 100x100 ");
+//         }
 
         info_touch_state.innerHTML = "touchstart ";
         // bShowInfo = !bShowInfo;
@@ -263,8 +268,8 @@ lastTouchMillis = Date.now();
     // window.audio_Canvas.appendChild(canvas);
 
     var data = new Uint8Array(400); //canvas.width);
-var mainAlpha = 1;
-    
+    var mainAlpha = 1;
+
     setInterval(() => {
       var graph_y = (canvas.height / 4) * 3;
 
@@ -308,16 +313,16 @@ var mainAlpha = 1;
       if (dataLength > 0) {
         // console.log("dataLength "+dataLength);
 
-        if(Date.now() - lastTouchMillis < 2000){
+        if (Date.now() - lastTouchMillis < 5000) {
           mainAlpha += 0.3;
-        } else{
+        } else {
           mainAlpha -= 0.1;
         }
-        mainAlpha = ofClamp(mainAlpha,0,1);
-        
+        mainAlpha = ofClamp(mainAlpha, 0, 1);
+
         var bin_w = canvas.width / dataLength;
         var temp_x = 0;
-        canvasCtx.fillStyle = "rgb(0,0,0,"+ (0.5*mainAlpha)+")";
+        canvasCtx.fillStyle = "rgb(0,0,0," + 0.5 * mainAlpha + ")";
         data.forEach((y, x) => {
           var yy = y;
           audioLevel += yy / 128;
@@ -385,7 +390,7 @@ var mainAlpha = 1;
         //        var graph_scaler = 100;
         //---draw audioLevel line
 
-        canvasCtx.strokeStyle = "rgb(255,255,255,"+ (1*mainAlpha)+")";
+        canvasCtx.strokeStyle = "rgb(255,255,255," + 1 * mainAlpha + ")";
         // "rgb(0, 0, 0)";
         canvasCtx.lineWidth = 1;
         canvasCtx.beginPath();
@@ -406,7 +411,7 @@ var mainAlpha = 1;
         canvasCtx.stroke();
 
         //---draw beatCutoff line
-        canvasCtx.strokeStyle = "rgb(255,255,255,"+ (0.5*mainAlpha)+")";
+        canvasCtx.strokeStyle = "rgb(255,255,255," + 0.5 * mainAlpha + ")";
         canvasCtx.beginPath();
 
         //        let mapped_cutOff = graph_y - (beatCutoff * graph_scaler);
@@ -419,7 +424,7 @@ var mainAlpha = 1;
         canvasCtx.stroke();
 
         //---draw beatThreshold line
-        canvasCtx.strokeStyle = "rgb(255,255,255,"+ (1*mainAlpha)+")";
+        canvasCtx.strokeStyle = "rgb(255,255,255," + 1 * mainAlpha + ")";
         canvasCtx.beginPath();
 
         //        let mapped_beatThres = graph_y - (beatThreshold * graph_scaler);
