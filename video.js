@@ -20,8 +20,8 @@ var screenHeight = window.innerHeight
  // window.playerW = screenWidth; //window.screen.width; //400;
  // window.playerH = screenHeight; //window.screen.height; //320;
 
-window.playerW = 400;
-window.playerH = 320;
+window.playerW = screenWidth; //400;
+window.playerH = screenHeight; //320;
 
 var json_src = "l-001-200_047.json";
  // var vid_src = "l-001-200_047.mp4";
@@ -524,7 +524,7 @@ function toggleFullWindow(){
   setFullWindow(isFullScreen);
 }
 
-function setFullWindow(_fullWindow, _flipWH) {
+function setFullWindow2(_fullWindow, _flipWH) {
   isFullScreen = _fullWindow;
   // console.log("fullScreen "+fullScreen);
   // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
@@ -576,7 +576,7 @@ function setFullWindow(_fullWindow, _flipWH) {
   updateCanvasSize(window.playerW,window.playerH);
 }
 
-function setFullWindow2(_fullWindow, _flipWH) {
+function setFullWindow(_fullWindow, _flipWH) {
   isFullScreen = _fullWindow;
   // console.log("fullScreen "+fullScreen);
   // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
@@ -626,8 +626,8 @@ function setFullWindow2(_fullWindow, _flipWH) {
   //    player.width(window.playerW);
   // player.height(window.playerH);
   }
- 
-  
+ // console.log("player.videoWidth() "+player.videoWidth())
+  // updateCanvasSize(player.videoWidth(),player.videoHeight());
   updateCanvasSize(window.playerW,window.playerH);
 }
 

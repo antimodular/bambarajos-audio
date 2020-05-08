@@ -224,7 +224,8 @@ function onTouchEnd(event) {
 //important to call any function before setting document.getElementById('orient').className = 
 window.addEventListener('orientationchange', function () {
     if (window.orientation == -90) {
-         setFullWindow(true, true);
+         // setFullWindow(true, true);
+        toggleFullScreen();
       // setToWindowSize();
       // jumpTo(1);
       
@@ -233,7 +234,8 @@ window.addEventListener('orientationchange', function () {
    
     }
     if (window.orientation == 90) {
-         setFullWindow(true, true);
+      toggleFullScreen();
+         // setFullWindow(true, true);
       // setToWindowSize();
       // jumpTo(10);
         document.getElementById('orient').className = 'orientleft';
