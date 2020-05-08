@@ -166,8 +166,8 @@ function spectrum(stream) {
     //these need to be inside function spectrum(stream) otherwise body-scroll-lock library blocks canvas touch
     var identifier;
 var isTouching = false;
-var touchMoveY;
-
+var touchMoveY = 0;
+ var mapped_y = 0;
     
     canvas.addEventListener(
       "touchstart",
@@ -225,7 +225,7 @@ var touchMoveY;
     function onTouchMove(event) {
       var touch = getTouch(event);
 
-      window.touchMoveY = touch.pageY;
+      touchMoveY = touch.pageY;
       if (!touch) {
         return;
       }
@@ -277,18 +277,18 @@ var touchMoveY;
         //           var rect = document.querySelector('div').getBoundingClientRect(),
         var rect = canvas.getBoundingClientRect();
         //          console.log("rect top "+rect.top + " left "+ rect.left);
-        var temp_v = window.canvas_mouseMoveY - rect.top; //-graph_y;
+         mapped_y = window.canvas_mouseMoveY - rect.top; //-graph_y;
         //          var temp_max = graph_y - rect.top;
-        temp_v = ofClamp(temp_v, 0, graph_y);
+        mapped_y = ofClamp(mapped_y, 0, graph_y);
         //     console.log("temp_v "+temp_v + " mY "+window.canvas_mouseMoveY + " rect.top "+rect.top);
 
-        beatThreshold = mapRange(temp_v, [0, graph_y], [2, 0]);
+        beatThreshold = mapRange(mapped_y, [0, graph_y], [2, 0]);
         // beatThreshold += mouseChangeX;
       } else if (window.isTouching == true) {
         var rect = canvas.getBoundingClientRect();
-        var temp_v = window.touchMoveY - rect.top;
-        temp_v = ofClamp(temp_v, 0, graph_y);
-        beatThreshold = mapRange(temp_v, [0, graph_y], [2, 0]);
+        mapped_y= touchMoveY - rect.top;
+        mapped_y = ofClamp(mapped_y, 0, graph_y);
+        beatThreshold = mapRange(mapped_y, [0, graph_y], [2, 0]);
         // canvasCtx.fillStyle = "#a0a0a0";
         // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
         // canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -384,11 +384,6 @@ canvasCtx.lineWidth = 2;
           300,
           canvas.height - 60
         );
-          canvasCtx.fillText(
-          "canvas: " + canvas.width + " x " + canvas.height,
-          300,
-          canvas.height - 30
-        );
         
         canvasCtx.fillStyle = "white";
        
@@ -399,11 +394,24 @@ canvasCtx.lineWidth = 2;
           300,
           150
         );
-          canvasCtx.fillText(
-          "canvas: " + canvas.width + " x " + canvas.height,
+         canvasCtx.fillText(
+          "thres: " + beatThreshold,
           300,
-          180
+          170
         );
+         canvasCtx.fillText(
+          "y: " + mapped_y,
+          300,
+          190
+        );
+         canvasCtx.fillText(
+          "touchMoveY: " +  touchMoveY,
+          300,
+          210
+        );
+
+       
+
         //
         //        canvasCtx.fillRect(25, 25, beatRectSize, beatRectSize);
         // canvasCtx.clearRect(45, 45, 60, 60);
