@@ -15,6 +15,7 @@ html, body {
     border: 0;
   overflow: hidden;
 }
+body {background-color: grey;}
 
 
 /* overlay text or graphic on tp video
@@ -50,11 +51,11 @@ https://jsfiddle.net/stephanschulz/3pnkh9t4/2/ */
 #audio_Canvas{
   position: absolute;
   left: 0;
-  top: 160;
+  top: 0;
 /*   height: auto;
   width: auto; */
   z-index: 10;
-  opacity: 1; //0.5;
+/*   opacity: 1; //0.5; */
 } 
 /* .version2{
 /*   position: absolute; */
