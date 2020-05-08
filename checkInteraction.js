@@ -184,7 +184,9 @@ function onTouchMove(event) {
   }
     
   // log('touch move ' + touch.pageX + ' ' + touch.pageY);
-  info_touch_state.innerHTML = "touch moved ";
+  // info_touch_state.innerHTML = "touch moved ";
+  
+  info_mouse_position.innerHTML = "x: " + touch.pageX + " y: " + touch.pageY;
 }
 
 function onTouchEnd(event) {

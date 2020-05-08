@@ -188,16 +188,20 @@ canvas.addEventListener("mousemove", function(e) {
 
         beatThreshold = mapRange(temp_v, [0,graph_y], [2,0]);
         // beatThreshold += mouseChangeX;
-      }
-        if(window.isTouching == true){
+      }else if(window.isTouching == true){
   
             var rect = canvas.getBoundingClientRect();
           var temp_v = window.touchMoveY - rect.top;
          temp_v = ofClamp(temp_v,0,graph_y);
+           beatThreshold = mapRange(temp_v, [0,graph_y], [2,0]);
+          // canvasCtx.fillStyle = "#a0a0a0";
+          // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+           // canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
         }
       //---draw FFT bins
       // canvasCtx.fillStyle = "#a0a0a0";
       // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+      
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       canvasCtx.lineWidth = 2;
 //      canvasCtx.strokeStyle = "rgb(255, 255, 0)";
