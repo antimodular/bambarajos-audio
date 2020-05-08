@@ -133,12 +133,29 @@ window.touchMoveY;
 //https://bodyscrolllock.now.sh/
 //https://github.com/willmcpo/body-scroll-lock#readme
 const targetElement = document.querySelector('body');
-const targetElement2 = document.querySelector('videoDiv');
-const targetElement3 = document.querySelector('audio_Canvas');
+// const targetElement2 = document.querySelector('videoDiv');
+// const targetElement3 = document.querySelector('audio_Canvas');
 // 2. ...in some event handler after showing the target element...disable body scroll
+// bodyScrollLock.disableBodyScroll(targetElement, {
+//   allowTouchMove: el => el.document.getElementById("audio_Canvas").tagName === 'audio_Canvas',
+// });
+
+// bodyScrollLock.disableBodyScroll(targetElement, {
+//   allowTouchMove: el => el.tagName === 'audio_Canvas',
+// });
+
 bodyScrollLock.disableBodyScroll(targetElement, {
-  allowTouchMove: el => el.tagName === 'audio_Canvas',
+  allowTouchMove: el => {
+    while (el && el !== document.body) {
+      if (el.getAttribute('body-scroll-lock-ignore') !== null) {
+        return true;
+      }
+
+      el = el.parentNode;
+    }
+  },
 });
+
 
 // disableBodyScroll(container, {
 //   allowTouchMove: el => el.tagName === 'TEXTAREA',
