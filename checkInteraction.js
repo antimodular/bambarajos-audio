@@ -132,16 +132,23 @@ window.touchMoveY;
 
 //https://bodyscrolllock.now.sh/
 //https://github.com/willmcpo/body-scroll-lock#readme
-// const targetElement = document.querySelector('body');
+const targetElement = document.querySelector('body');
 const targetElement2 = document.querySelector('videoDiv');
-const targetElement3 = document.querySelector('videoDiv');
+const targetElement3 = document.querySelector('audio_Canvas');
 // 2. ...in some event handler after showing the target element...disable body scroll
-// bodyScrollLock.disableBodyScroll(targetElement);
+bodyScrollLock.disableBodyScroll(targetElement, {
+  allowTouchMove: el => el.tagName === 'audio_Canvas',
+});
+
+// disableBodyScroll(container, {
+//   allowTouchMove: el => el.tagName === 'TEXTAREA',
+// });
 
 // 3. ...in some event handler after hiding the target element...
 // bodyScrollLock.enableBodyScroll(targetElement2);
-bodyScrollLock.disableBodyScroll(targetElement2);
-bodyScrollLock.enableBodyScroll(targetElement3);
+// bodyScrollLock.disableBodyScroll(targetElement2);
+// bodyScrollLock.enableBodyScroll(targetElement3);
+
 window.addEventListener(
   "touchstart",
   function(event) {
