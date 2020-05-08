@@ -14,7 +14,8 @@ function displayWindowSize() {
         window.playerW = screenWidth; //window.screen.width;
   window.playerH = screenHeight; //window.screen.height;
   
-  updateCanvasSize(window.playerW, window.playerH);
+  // updateCanvasSize(window.playerW, window.playerH);
+  updateCanvasSize(window.playerW, window.playerW*(4/5));
 }
 
 function toggleFullScreen() {
