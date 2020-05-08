@@ -8,15 +8,19 @@ var version = "v13";
 var player = videojs("vid", {});
 
 //https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
-var screenWidth =
-  window.innerWidth ||
-  document.documentElement.clientWidth ||
-  document.body.clientWidth;
+// var screenWidth =
+//   window.innerWidth ||
+//   document.documentElement.clientWidth ||
+//   document.body.clientWidth;
 
-var screenHeight =
-  window.innerHeight ||
-  document.documentElement.clientHeight ||
-  document.body.clientHeight;
+// var screenHeight =
+//   window.innerHeight ||
+//   document.documentElement.clientHeight ||
+//   document.body.clientHeight;
+
+var screenWidth = window.screen.width * window.devicePixelRatio;
+
+var screenHeight = window.screen.height * window.devicePixelRatio;
 
 // window.playerW = screenWidth; //window.screen.width; //400;
 // window.playerH = screenHeight; //window.screen.height; //320;
@@ -558,9 +562,11 @@ function setFullScreen(full , _flipWH) {
     hide("info");
     hide("audioInfo");
     
-    screenWidth = screen.width;
-    screenHeight = screen.height;
-    
+    // screenWidth = screen.width;
+    // screenHeight = screen.height;
+     screenWidth = window.screen.width * window.devicePixelRatio;
+
+ screenHeight = window.screen.height * window.devicePixelRatio;
     
     //any other function calls should happen before requestFullScreen.call
     requestFullScreen.call(docEl);
@@ -585,11 +591,11 @@ function setFullScreen(full , _flipWH) {
   }
 
  
-    if (_flipWH == true) {
-    //swap to numbers
-    //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
-    screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
-  }
+  //   if (_flipWH == true) {
+  //   //swap to numbers
+  //   //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
+  //   screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
+  // }
   console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
 
    window.playerW = screenWidth; //window.screen.width;
@@ -606,58 +612,58 @@ function toggleFullWindow() {
   setFullWindow(isFullScreen);
 }
 
-function setFullWindow2(_fullWindow, _flipWH) {
-  isFullScreen = _fullWindow;
-  // console.log("fullScreen "+fullScreen);
-  // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
-  //   var w = window.innerWidth;
-  // var h = window.innerHeight;
+// function setFullWindow2(_fullWindow, _flipWH) {
+//   isFullScreen = _fullWindow;
+//   // console.log("fullScreen "+fullScreen);
+//   // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
+//   //   var w = window.innerWidth;
+//   // var h = window.innerHeight;
 
-  screenWidth =
-    window.innerWidth ||
-    document.documentElement.clientWidth ||
-    document.body.clientWidth;
+//   screenWidth =
+//     window.innerWidth ||
+//     document.documentElement.clientWidth ||
+//     document.body.clientWidth;
 
-  screenHeight =
-    window.innerHeight ||
-    document.documentElement.clientHeight ||
-    document.body.clientHeight;
+//   screenHeight =
+//     window.innerHeight ||
+//     document.documentElement.clientHeight ||
+//     document.body.clientHeight;
 
-   window.playerW = screenWidth; //window.screen.width;
-  window.playerH = screenHeight; //window.screen.height;
+//    window.playerW = screenWidth; //window.screen.width;
+//   window.playerH = screenHeight; //window.screen.height;
   
-  if (_flipWH == true) {
-    //swap to numbers
-    //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
-    screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
-  }
+//   if (_flipWH == true) {
+//     //swap to numbers
+//     //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
+//     screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
+//   }
 
-  //iphone 1472 x 980
-  // bShowInfo = !_fullWindow;
-  if (isFullScreen == true) {
-    // window.playerW = 960; //1920/2; //screenWidth; //window.screen.width;
-    // window.playerH = 540; //1080/2; //screenHeight; //window.screen.height;
-    //  window.playerW = screenWidth; //window.screen.width;
-    // window.playerH = screenHeight; //window.screen.height;
-    hide("info");
-    hide("audioInfo");
+//   //iphone 1472 x 980
+//   // bShowInfo = !_fullWindow;
+//   if (isFullScreen == true) {
+//     // window.playerW = 960; //1920/2; //screenWidth; //window.screen.width;
+//     // window.playerH = 540; //1080/2; //screenHeight; //window.screen.height;
+//     //  window.playerW = screenWidth; //window.screen.width;
+//     // window.playerH = screenHeight; //window.screen.height;
+//     hide("info");
+//     hide("audioInfo");
 
-    // player.fluid(true);
-  } else {
-    // window.playerW = 400;
-    // window.playerH = 320;
+//     // player.fluid(true);
+//   } else {
+//     // window.playerW = 400;
+//     // window.playerH = 320;
 
-    show("info");
-    show("audioInfo");
-    // player.width(400); //80
-    // player.height(320); //64
-    // player.fluid(false);
-    //    player.width(window.playerW);
-    // player.height(window.playerH);
-  }
+//     show("info");
+//     show("audioInfo");
+//     // player.width(400); //80
+//     // player.height(320); //64
+//     // player.fluid(false);
+//     //    player.width(window.playerW);
+//     // player.height(window.playerH);
+//   }
 
-  updateCanvasSize(window.playerW, window.playerH);
-}
+//   updateCanvasSize(window.playerW, window.playerH);
+// }
 
 function setFullWindow(_fullWindow, _flipWH) {
   isFullScreen = _fullWindow;
