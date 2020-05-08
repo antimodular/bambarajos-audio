@@ -1,6 +1,31 @@
 var isFullScreen = false;
 
+//https://www.w3schools.com/js/js_json_objects.asp
+window.onload = function(e) {
+  millisStart = Date.now();
+
+  loadJsonData();
+
+  // bShowInfo = false;
+  // hide("info");
+  //    hide("audioInfo");
+  // setFullWindow(true);
+
+  document.getElementById("version").innerHTML = "version " + version;
+  document.getElementById("audioInfo").style.display = "none";
+};
+
 window.addEventListener("resize", displayWindowSize);
+
+function show(target) {
+  console.log("show " + target);
+  document.getElementById(target).style.display = "block";
+}
+
+function hide(target) {
+  console.log("hide " + target);
+  document.getElementById(target).style.display = "none";
+}
 
 function displayWindowSize() {
   // Get width and height of the window excluding scrollbars

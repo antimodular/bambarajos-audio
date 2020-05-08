@@ -143,15 +143,7 @@ player.controlBar.fullscreenToggle.hide();
 //  return (this - in_min) * (1) / (in_max - in_min);
 //}
 
-function show(target) {
-  console.log("show " + target);
-  document.getElementById(target).style.display = "block";
-}
 
-function hide(target) {
-  console.log("hide " + target);
-  document.getElementById(target).style.display = "none";
-}
 
 //negative playback http://jsfiddle.net/uvLgbqoa/
 //https://stackoverflow.com/questions/18053261/play-a-video-in-reverse-using-html5-video-element/24587893
@@ -171,19 +163,7 @@ var jsonData_length;
 //
 //    info_json.innerHTML = jsonData.text();
 
-//https://www.w3schools.com/js/js_json_objects.asp
-window.onload = function(e) {
-  millisStart = Date.now();
 
-  loadJsonData();
-
-  // bShowInfo = false;
-  // hide("info");
-  //    hide("audioInfo");
-  // setFullWindow(true);
-
-  document.getElementById("version").innerHTML = "version " + version;
-};
 
 function loadJsonData() {
   console.log("fetch(json_src)");
