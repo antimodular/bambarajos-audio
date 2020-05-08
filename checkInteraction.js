@@ -126,6 +126,14 @@ var identifier;
 window.isTouching = false;
 window.touchMoveY;
 
+const targetElement = document.querySelector('body');
+
+// 2. ...in some event handler after showing the target element...disable body scroll
+bodyScrollLock.disableBodyScroll(targetElement);
+
+// 3. ...in some event handler after hiding the target element...
+bodyScrollLock.enableBodyScroll(targetElement);
+
 window.addEventListener(
   "touchstart",
   function(event) {
@@ -136,6 +144,9 @@ window.addEventListener(
     //    event.preventDefault();
     // only care about the first touch
     var touch = event.changedTouches[0];
+    
+    // 
+    
     identifier = touch.identifier;
     // log('touch START; indentifer ' + touch.identifier);
     window.addEventListener("touchmove", onTouchMove, false);

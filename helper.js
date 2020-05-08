@@ -14,3 +14,16 @@ var clampBetween = function(min, max, val) {
 var ofClamp = function(value, min, max) {
 	return value < min ? min : value > max ? max : value;
 }
+
+
+//https://markus.oberlehner.net/blog/simple-solution-to-prevent-body-scrolling-on-ios/
+// const $body = document.querySelector('body');
+
+// export default {
+//   enable() {
+//     $body.style.overflow = 'hidden';
+//   },
+//   disable() {
+//     $body.style.removeProperty('overflow');
+//   }
+// };
