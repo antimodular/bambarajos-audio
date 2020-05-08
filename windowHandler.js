@@ -1,4 +1,4 @@
-var isFullScreen = true;
+var isFullScreen = false;
 
 window.addEventListener("resize", displayWindowSize);
 
@@ -74,14 +74,14 @@ function setFullScreen(full , _flipWH) {
   var docEl = doc.documentElement;
 
   var requestFullScreen =
+        docEl.webkitRequestFullScreen ||
     docEl.requestFullscreen ||
     docEl.mozRequestFullScreen ||
-    docEl.webkitRequestFullScreen ||
     docEl.msRequestFullscreen;
   var cancelFullScreen =
+      doc.webkitExitFullscreen ||
     doc.exitFullscreen ||
     doc.mozCancelFullScreen ||
-    doc.webkitExitFullscreen ||
     doc.msExitFullscreen;
 
   
@@ -89,6 +89,7 @@ function setFullScreen(full , _flipWH) {
   if (full == true) {
     // setFullWindow(true);
     isFullScreen = true;
+    
     hide("info");
     hide("audioInfo");
     
@@ -111,7 +112,7 @@ function setFullScreen(full , _flipWH) {
   
 //     player.width(screenWidth);
 //     player.height(screenHeight);
-  
+
 //   updateCanvasSize(window.playerW, window.playerH);
     
     //any other function calls should happen before requestFullScreen.call
@@ -123,7 +124,7 @@ function setFullScreen(full , _flipWH) {
     show("audioInfo");
     //any other function calls should happen before cancelFullScreen.call
     
-      console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
+      // console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
 
  
   

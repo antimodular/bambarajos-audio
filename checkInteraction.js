@@ -131,7 +131,7 @@ function log( message ) {
 //https://bodyscrolllock.now.sh/
 //https://github.com/willmcpo/body-scroll-lock#readme
 const targetElement = document.querySelector('body');
-// bodyScrollLock.disableBodyScroll(targetElement);
+bodyScrollLock.disableBodyScroll(targetElement);
 
 // const targetElement2 = document.querySelector('videoDiv');
 // const targetElement3 = document.querySelector('audio_Canvas');

@@ -34,7 +34,7 @@ https://jsfiddle.net/stephanschulz/3pnkh9t4/2/ */
 /*    display: inline-block;  */ 
 /*       width: 100%;
      height: 1000vh; */
-    position: relative;
+    position: absolute;
 }
 
 /* https://github.com/videojs/video.js/issues/5245 */
