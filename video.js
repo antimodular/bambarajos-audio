@@ -8,19 +8,19 @@ var version = "v13";
 var player = videojs("vid", {});
 
 //https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
-// var screenWidth =
-//   window.innerWidth ||
-//   document.documentElement.clientWidth ||
-//   document.body.clientWidth;
+var screenWidth =
+  window.innerWidth ||
+  document.documentElement.clientWidth ||
+  document.body.clientWidth;
 
-// var screenHeight =
-//   window.innerHeight ||
-//   document.documentElement.clientHeight ||
-//   document.body.clientHeight;
+var screenHeight =
+  window.innerHeight ||
+  document.documentElement.clientHeight ||
+  document.body.clientHeight;
 
-var screenWidth = window.screen.width * window.devicePixelRatio;
+// var screenWidth = window.screen.width * window.devicePixelRatio;
 
-var screenHeight = window.screen.height * window.devicePixelRatio;
+// var screenHeight = window.screen.height * window.devicePixelRatio;
 
 // window.playerW = screenWidth; //window.screen.width; //400;
 // window.playerH = screenHeight; //window.screen.height; //320;
@@ -556,6 +556,8 @@ function setFullScreen(full , _flipWH) {
     doc.webkitExitFullscreen ||
     doc.msExitFullscreen;
 
+  
+  
   if (full == true) {
     // setFullWindow(true);
     isFullScreen = true;
@@ -564,9 +566,19 @@ function setFullScreen(full , _flipWH) {
     
     // screenWidth = screen.width;
     // screenHeight = screen.height;
-     screenWidth = window.screen.width * window.devicePixelRatio;
+//      screenWidth = window.screen.width * window.devicePixelRatio;
 
- screenHeight = window.screen.height * window.devicePixelRatio;
+//  screenHeight = window.screen.height * window.devicePixelRatio;
+    
+      console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
+
+//    window.playerW = screenWidth; //window.screen.width;
+//   window.playerH = screenHeight; //window.screen.height;
+  
+//     player.width(screenWidth);
+//     player.height(screenHeight);
+  
+//   updateCanvasSize(window.playerW, window.playerH);
     
     //any other function calls should happen before requestFullScreen.call
     requestFullScreen.call(docEl);
@@ -577,7 +589,14 @@ function setFullScreen(full , _flipWH) {
     show("audioInfo");
     //any other function calls should happen before cancelFullScreen.call
     
-     screenWidth =
+      console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
+
+ 
+    
+    cancelFullScreen.call(doc);
+  }
+
+   screenWidth =
     window.innerWidth ||
     document.documentElement.clientWidth ||
     document.body.clientWidth;
@@ -586,25 +605,22 @@ function setFullScreen(full , _flipWH) {
     window.innerHeight ||
     document.documentElement.clientHeight ||
     document.body.clientHeight;
-    
-    cancelFullScreen.call(doc);
-  }
-
- 
-  //   if (_flipWH == true) {
-  //   //swap to numbers
-  //   //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
-  //   screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
-  // }
-  console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
-
-   window.playerW = screenWidth; //window.screen.width;
+  
+  screenHeight = window.innerHeight ;
+    window.playerW = screenWidth; //window.screen.width;
   window.playerH = screenHeight; //window.screen.height;
   
     player.width(screenWidth);
     player.height(screenHeight);
   
   updateCanvasSize(window.playerW, window.playerH);
+ 
+  //   if (_flipWH == true) {
+  //   //swap to numbers
+  //   //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
+  //   screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
+  // }
+
 }
 
 function toggleFullWindow() {
