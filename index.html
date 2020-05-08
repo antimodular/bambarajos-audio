@@ -7,10 +7,22 @@
     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
     <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
     <script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
-     <script src="lib/bodyScrollLock.js"></script>
+    <script src="lib/bodyScrollLock.js"></script>
   </head>
 
   <body>
+    <!-- <canvas id="audio_Canvas"></canvas> -->
+    <div id="divLog"></div>
+
+    <div class="videoDiv">
+      <!--       <div class="wrapper"> -->
+      <video-js id="vid" controls preload="auto"> </video-js>
+      <!--       </div> -->
+      <!--        <div class="audio_Canvas"></div>
+ -->
+      <canvas id="audio_Canvas"></canvas>
+    </div>
+
     <div id="audioInfo">
       <!--       <audio id="audio" controls width="160" height="120" autoplay> -->
       <audio id="audio" controls width="160" height="120"></audio><br />
@@ -18,31 +30,17 @@
       <label><input type="checkbox" id="noise" />noiseSuppression</label>
       <label><input type="checkbox" id="gain" />autoGainControl</label>
       <label><input type="checkbox" id="mutedMic" />mute</label>
-<!--       <div class="audio_Canvas"></div> -->
+      <!--       <div class="audio_Canvas"></div> -->
     </div>
 
-<!-- <canvas id="audio_Canvas"></canvas> -->
-    <div id="divLog"></div>
-
-    <div class="videoDiv">
-<!--       <div class="wrapper"> -->
-              <video-js id="vid" controls preload="auto"> </video-js>
-<!--       </div> -->
-<!--        <div class="audio_Canvas"></div>
- -->
-      <canvas id="audio_Canvas"></canvas>
-        
-
-    </div>
-
-        <div id="info">
-<!--       <div id="version">...</div> -->
-           <div id="version">...</div>
+    <div id="info">
+      <!--       <div id="version">...</div> -->
+      <div id="version">...</div>
       <div id="keys">
         key [j] = jump, key [n] = next chapter, key [d] = debug, key [f] =
         fullscreen
       </div>
-     
+
       <div id="fps">...</div>
       <div id="jumpCounter">...</div>
       <!--    if i remove the word controls then no control bar will be visible-->
@@ -110,11 +108,11 @@
             <th>mouse clicked position</th>
             <td><span id="mouse_clicked_position"></span></td>
           </tr>
-            <tr>
+          <tr>
             <th>mouse pressed</th>
             <td><span id="mouse_pressed"></span></td>
           </tr>
-             <tr>
+          <tr>
             <th>touch state</th>
             <td><span id="touch_state"></span></td>
           </tr>
@@ -204,7 +202,6 @@
               />
             </td>
           </tr>
-          
 
           <!--
             <tr>
@@ -236,11 +233,10 @@
 
     <!--    <div myJson></div>-->
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-   
+
     <script src="helper.js"></script>
     <script src="video.js"></script>
-<script src="audio.js"></script>
+    <script src="audio.js"></script>
     <script src="checkInteraction.js"></script>
-    
   </body>
 </html>

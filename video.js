@@ -28,6 +28,8 @@ var screenHeight =
 window.playerW = screenWidth; //400;
 window.playerH = screenHeight; //320;
 
+ window.addEventListener("resize", displayWindowSize);
+
 var json_src = "l-001-200_047.json";
 // var vid_src = "l-001-200_047.mp4";
 var vid_src =
@@ -79,11 +81,11 @@ player.poster("https://stephanschulz.ca/bamba/l-001-20min_h264.png");
 player.autoplay(true);
 //https://coolestguidesontheplanet.com/videodrome/videojs/
 
-player.width(window.playerW); //80
-player.height(window.playerH); //64
+// player.width(window.playerW); //80
+// player.height(window.playerH); //64
 // player.controls.aspectRatio("16:9");
 // player.aspectRatio("1:1");
-// player.fluid(true); //set to window size
+player.fluid(true); //set to window size
 
 /// player GUI controls
 //use the following functions to show or hide the controls
@@ -564,12 +566,18 @@ function setFullScreen(full , _flipWH) {
     hide("info");
     hide("audioInfo");
     
-    // screenWidth = screen.width;
-    // screenHeight = screen.height;
+    // screenWidth = window.screen.availWidth;
+    // screenHeight = window.screen.availHeight;
+    screenWidth = window.screen.width;
+    screenHeight = window.screen.height;
 //      screenWidth = window.screen.width * window.devicePixelRatio;
 
 //  screenHeight = window.screen.height * window.devicePixelRatio;
-    
+      window.playerW = screenWidth; //window.screen.width;
+  window.playerH = screenHeight; //window.screen.height;
+  
+    // player.videoWidth(screenWidth);
+    // player.height(screenHeight);
       console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
 
 //    window.playerW = screenWidth; //window.screen.width;
@@ -592,26 +600,29 @@ function setFullScreen(full , _flipWH) {
       console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
 
  
-    
+  
+    // player.videoWidth(screenWidth);
+    // player.height(screenHeight);
     cancelFullScreen.call(doc);
+    
+     screenWidth =  window.innerWidth;
+  screenHeight = window.innerHeight ;
+      window.playerW = screenWidth; //window.screen.width;
+  window.playerH = screenHeight; //window.screen.height;
   }
 
-   screenWidth =
-    window.innerWidth ||
-    document.documentElement.clientWidth ||
-    document.body.clientWidth;
+//    screenWidth =
+//     window.innerWidth ||
+//     document.documentElement.clientWidth ||
+//     document.body.clientWidth;
 
-  screenHeight =
-    window.innerHeight ||
-    document.documentElement.clientHeight ||
-    document.body.clientHeight;
+//   screenHeight =
+//     window.innerHeight ||
+//     document.documentElement.clientHeight ||
+//     document.body.clientHeight;
   
-  screenHeight = window.innerHeight ;
-    window.playerW = screenWidth; //window.screen.width;
-  window.playerH = screenHeight; //window.screen.height;
+ 
   
-    player.width(screenWidth);
-    player.height(screenHeight);
   
   updateCanvasSize(window.playerW, window.playerH);
  
