@@ -117,7 +117,7 @@ var lastTouchMillis;
  var mapped_y = 0;
 var touchMoveY = 0;
 var slideAlpha = 1;
-var deviceOrientation = 0;
+// var deviceOrientation = 0;
 
 function spectrum(stream) {
   // var audioCtx = new AudioContext();
@@ -262,7 +262,7 @@ var isTouching = false;
       window.isTouching = false;
     }
 
-    deviceOrientation = window.orientation
+    // deviceOrientation = window.orientation
 
     // canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
     // canvas.height = 320; //window.player.height; //window.innerHeight / 4 - 20;
@@ -281,9 +281,9 @@ var isTouching = false;
 
     setInterval(() => {
       
-      if(deviceOrientation != 0){
+//       if(deviceOrientation != 0){
         
-      }
+//       }
       var graph_y = (canvas.height / 2); // * 3;
 
       if (window.canvas_mousePressed == true) {
