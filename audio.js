@@ -133,6 +133,7 @@ function spectrum(stream) {
     );
   } else {
     var analyser = audioCtx.createAnalyser();
+    //https://webaudioapi.com/book/Web_Audio_API_Boris_Smus_html/ch07.html
       var filter = audioCtx.createBiquadFilter();
   filter.type = filter.LOWPASS;
   filter.frequency.value = 600; //440;
@@ -369,7 +370,7 @@ canvasCtx.lineWidth = 2;
         // volume = Math.max(rms, volume); //*vol_smoothing);
         // console.log("volume "+rms);
         audioLevel = audioLevel / dataLength;
-
+audioLevel *= 4; //scale level for better drawing
         volMax = Math.max(audioLevel, volMax);
 
         volNorm = Math.min(1, Math.max(0, audioLevel));

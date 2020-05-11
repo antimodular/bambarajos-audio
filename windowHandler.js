@@ -37,10 +37,10 @@ function displayWindowSize() {
   // document.getElementById("result").innerHTML =
   //   "Width: " + w + ", " + "Height: " + h;
   console.log("Width: " + w + ", " + "Height: " + h);
-  screenWidth = w;
-    screenHeight =  h;
-        window.playerW = screenWidth; //window.screen.width;
-  window.playerH = screenHeight; //window.screen.height;
+//   screenWidth = w;
+//     screenHeight =  h;
+//         window.playerW = screenWidth; //window.screen.width;
+//   window.playerH = screenHeight; //window.screen.height;
   
    updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
   
@@ -107,7 +107,8 @@ window.orientationMillis = Date.now();
     // setFullWindow(false);
   }
   
-  updateCanvasSize(window.playerW, window.playerH);
+  // updateCanvasSize(window.playerW, window.playerH);
+  updateCanvasSize(window.player.currentWidth, window.player.currentHeight);
 }
 
 function setFullScreen(full , _flipWH) {
@@ -151,7 +152,7 @@ function setFullScreen(full , _flipWH) {
   
     // player.videoWidth(screenWidth);
     // player.height(screenHeight);
-      console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
+      // console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
 
 //    window.playerW = screenWidth; //window.screen.width;
 //   window.playerH = screenHeight; //window.screen.height;
@@ -291,8 +292,8 @@ function setFullWindow(_fullWindow, _flipWH) {
     // hide("info");
     // hide("audioInfo");
 
-    screenWidth = screen.width;
-    screenHeight = screen.height;
+    // screenWidth = screen.width;
+    // screenHeight = screen.height;
     // player.aspectRatio("1:1");  //5:4
     // player.fluid(true); //set to window size
     // player.fluid(true);
@@ -300,15 +301,15 @@ function setFullWindow(_fullWindow, _flipWH) {
   } else {
     // window.playerW = 400;
     // window.playerH = 320;
- screenWidth =
-    window.innerWidth ||
-    document.documentElement.clientWidth ||
-    document.body.clientWidth;
+//  screenWidth =
+//     window.innerWidth ||
+//     document.documentElement.clientWidth ||
+//     document.body.clientWidth;
 
-  screenHeight =
-    window.innerHeight ||
-    document.documentElement.clientHeight ||
-    document.body.clientHeight;
+//   screenHeight =
+//     window.innerHeight ||
+//     document.documentElement.clientHeight ||
+//     document.body.clientHeight;
     
     // show("info");
     // show("audioInfo");
@@ -321,10 +322,10 @@ function setFullWindow(_fullWindow, _flipWH) {
   // console.log("player.videoWidth() "+player.videoWidth())
   // updateCanvasSize(player.videoWidth(),player.videoHeight());
   
-   window.playerW = screenWidth; //window.screen.width;
-  window.playerH = screenHeight; //window.screen.height;
+  //  window.playerW = screenWidth; //window.screen.width;
+  // window.playerH = screenHeight; //window.screen.height;
   
-  updateCanvasSize(window.playerW, window.playerH);
+  // updateCanvasSize(window.playerW, window.playerH);
 }
 
 function setToWindowSize() {
@@ -332,18 +333,18 @@ function setToWindowSize() {
   //  var w = document.documentElement.clientWidth;
   // var h = document.documentElement.clientHeight;
   
-  screenWidth =
-    window.innerWidth ||
-    document.documentElement.clientWidth ||
-    document.body.clientWidth;
+//   screenWidth =
+//     window.innerWidth ||
+//     document.documentElement.clientWidth ||
+//     document.body.clientWidth;
 
-  screenHeight =
-    window.innerHeight ||
-    document.documentElement.clientHeight ||
-    document.body.clientHeight;
+//   screenHeight =
+//     window.innerHeight ||
+//     document.documentElement.clientHeight ||
+//     document.body.clientHeight;
 
-  window.playerW = screenWidth; //window.screen.width;
-  window.playerH = screenHeight; //window.screen.height;
+//   window.playerW = screenWidth; //window.screen.width;
+//   window.playerH = screenHeight; //window.screen.height;
 
   // player.width(window.playerW);
   // player.height(window.playerH);

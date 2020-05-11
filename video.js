@@ -8,15 +8,15 @@ var version = "v14";
 var player = videojs("vid", {});
 
 //https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
-var screenWidth =
-  window.innerWidth ||
-  document.documentElement.clientWidth ||
-  document.body.clientWidth;
+// var screenWidth =
+//   window.innerWidth ||
+//   document.documentElement.clientWidth ||
+//   document.body.clientWidth;
 
-var screenHeight =
-  window.innerHeight ||
-  document.documentElement.clientHeight ||
-  document.body.clientHeight;
+// var screenHeight =
+//   window.innerHeight ||
+//   document.documentElement.clientHeight ||
+//   document.body.clientHeight;
 
 // var screenWidth = window.screen.width * window.devicePixelRatio;
 
@@ -25,10 +25,8 @@ var screenHeight =
 // window.playerW = screenWidth; //window.screen.width; //400;
 // window.playerH = screenHeight; //window.screen.height; //320;
 
-window.playerW = screenWidth; //400;
-window.playerH = screenHeight; //320;
-
-
+// window.playerW = screenWidth; //400;
+// window.playerH = screenHeight; //320;
 
 var json_src = "l-001-200_047.json";
 // var vid_src = "l-001-200_047.mp4";
@@ -53,7 +51,6 @@ var loopDirection = 1;
 
 // var bShowInfo = false; //true;
 
-
 var playSpeed = 1; //0.5;
 
 //player.src([{src:'//vjs.zencdn.net/v/oceans.mp4',type:'video/mp4'},
@@ -64,17 +61,48 @@ var playSpeed = 1; //0.5;
 //player.src([{src:'https://stephanschulz.ca/bamba/l-001-20min_h264.mp4',type:'video/mp4'}
 //            ]);
 
-//var URL = window.URL || window.webkitURL;
-//var src_url = URL.createObjectURL(vid_src);
+var req = new XMLHttpRequest();
+req.open("GET", vid_src, true);
+req.responseType = "blob";
+
+req.onload = function() {
+  // Onload is triggered even on 404
+  // so we need to check the status code
+  if (this.status === 200) {
+    var videoBlob = this.response;
+    var blob_src = URL.createObjectURL(videoBlob); // IE10+
+    // Video is now downloaded
+    // and we can set it as source on the video element
+    // video.src = vid;
+console.log("blob_src "+blob_src);
+    //       player.src([
+    // //   { src: blob_src, type: "video/mp4" }
+    // //   //            ]);
+    //    { src: blob_src, type: "blob.type" }
+    // ]);
+  }
+};
+req.onerror = function() {
+  // Error
+};
+
+req.send();
+
 player.src([
   { src: vid_src, type: "video/mp4" }
-  //            ]);
-
-  //player.src([{src:src_url,type:'video/mp4'}
-  //            ]);
-
-  //player.src([{src:src_url,type: blob.type}
 ]);
+
+//var URL = window.URL || window.webkitURL;
+//var src_url = URL.createObjectURL(vid_src);
+// player.src([
+//   { src: vid_src, type: "video/mp4" }
+//   //            ]);
+
+//   //player.src([{src:src_url,type:'video/mp4'}
+//   //            ]);
+
+//   //player.src([{src:src_url,type: blob.type}
+// ]);
 
 player.poster("https://stephanschulz.ca/bamba/l-001-20min_h264.png");
 
@@ -143,8 +171,6 @@ player.controlBar.fullscreenToggle.hide();
 //  return (this - in_min) * (1) / (in_max - in_min);
 //}
 
-
-
 //negative playback http://jsfiddle.net/uvLgbqoa/
 //https://stackoverflow.com/questions/18053261/play-a-video-in-reverse-using-html5-video-element/24587893
 
@@ -162,8 +188,6 @@ var jsonData_length;
 //  .then(json => jsonData = json);
 //
 //    info_json.innerHTML = jsonData.text();
-
-
 
 function loadJsonData() {
   console.log("fetch(json_src)");
@@ -347,8 +371,6 @@ function setup_rewind(_speed) {
 // we use this to avoid an infinite loop between the time_updated function and the timeslider change
 var ignore_time_slider_change = false;
 function time_updated() {
-  
-  
   if (loopDirection == 1) {
     if (player.currentTime() >= new_endTime - endOffsetTime) {
       //            player.pause();
@@ -442,10 +464,9 @@ player.on("progress", function(e) {
   info_progress.innerHTML = temp_buf;
 });
 
-
 //https://docs.videojs.com/player#event:playerresize
-player.on("playerresize",  function(e) {
- updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+player.on("playerresize", function(e) {
+  updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
 });
 
 //player.on('ready', function(e)
