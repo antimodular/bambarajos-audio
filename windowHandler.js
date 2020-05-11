@@ -5,11 +5,6 @@ window.onload = function(e) {
   millisStart = Date.now();
 window.orientationMillis = Date.now();
   
-  show("info");
-  show("audioInfo");
-    // hide("info");
-    // hide("audioInfo");
-  
   loadJsonData();
 
   // bShowInfo = false;
@@ -17,9 +12,8 @@ window.orientationMillis = Date.now();
   //    hide("audioInfo");
   // setFullWindow(true);
 
-
   document.getElementById("version").innerHTML = "version " + version;
-  // document.getElementById("audioInfo").style.display = "none";
+  document.getElementById("audioInfo").style.display = "none";
 };
 
 window.addEventListener("resize", displayWindowSize);

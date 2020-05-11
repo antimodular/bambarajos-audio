@@ -268,7 +268,7 @@ var isTouching = false;
     // console.log("canvas.width " + canvas.width);
     // window.audio_Canvas.appendChild(canvas);
 
-    var data = new Uint8Array(400); //canvas.width); //512
+    var data = new Uint8Array(400); //canvas.width);
     var mainAlpha = 1;
 
     setInterval(() => {
@@ -309,7 +309,7 @@ canvasCtx.lineWidth = 2;
       audioLevel = 0;
       var total = 0;
       var sum = 0;
-      analyser.getByteFrequency3(data);
+      analyser.getByteFrequencyData(data);
       canvasCtx.lineWidth = 1;
 
       var dataLength = data.length;
@@ -323,7 +323,7 @@ canvasCtx.lineWidth = 2;
           mainAlpha -= 0.1;
         }
         
-        mainAlpha = ofClamp(mainAlpha, 0.05, 1);
+        mainAlpha = ofClamp(mainAlpha, 0.3, 1);
       }else{
         mainAlpha = 1;
       }
