@@ -7,6 +7,9 @@ window.orientationMillis = Date.now();
   
   loadJsonData();
 
+  hide("info");
+  hide("audioInfo");
+  
   // bShowInfo = false;
   // hide("info");
   //    hide("audioInfo");
