@@ -61,35 +61,73 @@ var playSpeed = 1; //0.5;
 //player.src([{src:'https://stephanschulz.ca/bamba/l-001-20min_h264.mp4',type:'video/mp4'}
 //            ]);
 
-var req = new XMLHttpRequest();
-req.open("GET", "https://stephanschulz.ca/bamba/l-001-20min_h264.mp4", true);
-req.responseType = "blob";
+// var req = new XMLHttpRequest();
+// req.open("GET", "https://stephanschulz.ca/bamba/mp4/g-001.mp4", true);
+// // req.open("GET", vid_src, true);
 
-req.onload = function() {
-  // Onload is triggered even on 404
-  // so we need to check the status code
-  if (this.status === 200) {
-    var videoBlob = this.response;
-    var blob_src = URL.createObjectURL(videoBlob); // IE10+
-    // Video is now downloaded
-    // and we can set it as source on the video element
-    // video.src = vid;
-console.log("blob_src "+blob_src);
-    //       player.src([
-    // //   { src: blob_src, type: "video/mp4" }
-    // //   //            ]);
-    //    { src: blob_src, type: "blob.type" }
-    // ]);
-  }else{
-    console.log("else blob_src ");
-  }
-};
-req.onerror = function() {
-  // Error
-  console.log("this.status === 200");
-};
+// req.responseType = "blob";
 
-req.send();
+// req.onload = function() {
+//   // Onload is triggered even on 404
+//   // so we need to check the status code
+//   if (this.status === 200) {
+//     var videoBlob = this.response;
+//     var blob_src = URL.createObjectURL(videoBlob); // IE10+
+//     // Video is now downloaded
+//     // and we can set it as source on the video element
+//     // video.src = vid;
+// console.log("blob_src "+blob_src);
+//           player.src([
+//     //   { src: blob_src, type: "video/mp4" }
+//     //   //            ]);
+//        { src: blob_src, type: "blob" }
+//     ]);
+//   }else{
+//     console.log("else blob_src ");
+//   }
+// };
+// req.onerror = function() {
+//   // Error
+//   console.log("this.status === 200");
+// };
+
+// req.send();
+
+// fetch(vid_src)
+//   .then(result => result.blob())
+//   .then(blob => {
+//     // const player = videojs("my_video");
+//     const blobURL = URL.createObjectURL(blob);
+  
+//   player.src({src: blobURL, type: blob.type});
+//   console.log("blobURL "+blobURL);
+//     // Doesn't work
+//     // player.src(blobURL);
+  
+//     // Works
+//     // player.src({ src: blobURL, type: "blob" });
+//   }
+// )
+
+console.log("fetch(vid blob)");
+  fetch("https://stephanschulz.ca/bamba/mp4/g-001.mp4")
+    //    fetch('vData2.json')
+    .then(function(response) {
+      return response.blob();
+    })
+    .then(function(blob) {
+      // jsonData = json;
+      // var myJson = JSON.stringify(json);
+      // var idx = 20;
+      // jsonData_length = jsonData.length;
+    const blobURL = URL.createObjectURL(blob);
+      // console.log("fetch json with length " + jsonData_length);
+console.log("blobURL "+blobURL);
+
+    })
+    .catch(function(ex) {
+      console.log("blob failed", ex);
+    });
 
 player.src([
   { src: vid_src, type: "video/mp4" }
