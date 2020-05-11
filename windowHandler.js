@@ -5,8 +5,10 @@ window.onload = function(e) {
   millisStart = Date.now();
 window.orientationMillis = Date.now();
   
-    hide("info");
-    hide("audioInfo");
+  show("info");
+  show("audioInfo");
+    // hide("info");
+    // hide("audioInfo");
   
   loadJsonData();
 
