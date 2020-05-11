@@ -276,7 +276,7 @@ window.addEventListener('orientationchange', function () {
     // element.style.webkitTransform = "rotate(-90deg) translateX(600px) translateY(160px)"
 
         var element = document.getElementById('audio_Canvas');
-    element.style.webkitTransform = "translateX(160px) translateY(0px) rotate(90eg)"; //for safari and chrome
+    element.style.webkitTransform = "translateX(160px) translateY(160px) rotate(90eg)"; //for safari and chrome
     element.style.MozTransform = "translateX(160px) translateY(160px) rotate(90deg)"; //for firefox
       
     }

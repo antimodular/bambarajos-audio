@@ -300,10 +300,10 @@ var isTouching = false;
 
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       
-      // canvasCtx.lineWidth = 5;
-      // canvasCtx.strokeStyle = "rgb(255, 255, 0)";
+      canvasCtx.lineWidth = 5;
+      canvasCtx.strokeStyle = "rgb(255, 255, 0)";
       // // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
-      // canvasCtx.strokeRect(2, 2, canvas.width - 7, canvas.height - 7);
+      canvasCtx.strokeRect(2, 2, canvas.width - 7, canvas.height - 7);
       
 canvasCtx.lineWidth = 2;
       audioLevel = 0;
