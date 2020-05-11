@@ -39,7 +39,7 @@ function displayWindowSize() {
   // // Display result inside a div element
   // document.getElementById("result").innerHTML =
   //   "Width: " + w + ", " + "Height: " + h;
-  console.log("Width: " + w + ", " + "Height: " + h);
+  // console.log("Width: " + w + ", " + "Height: " + h);
 //   screenWidth = w;
 //     screenHeight =  h;
 //         window.playerW = screenWidth; //window.screen.width;

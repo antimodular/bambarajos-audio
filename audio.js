@@ -306,11 +306,12 @@ var isTouching = false;
 
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       
+      //rects
       canvasCtx.lineWidth = 4;
       canvasCtx.strokeStyle = "rgb(255, 255, 0)";
       // // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
-      canvasCtx.strokeRect(2, 2, canvas.width - 7, canvas.height/2 -4);
-     canvasCtx.strokeRect(2, canvas.height/2+2, canvas.width - 7, canvas.height/2 - 4);
+     //  canvasCtx.strokeRect(2, 2, canvas.width - 7, canvas.height/2 -4);
+     // canvasCtx.strokeRect(2, canvas.height/2+2, canvas.width - 7, canvas.height/2 - 4);
       
 canvasCtx.lineWidth = 2;
       audioLevel = 0;
