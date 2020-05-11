@@ -300,6 +300,7 @@ window.addEventListener(
       setFullScreen(false, false);
       // jumpTo(20);
       // document.getElementById('orient').className = '';
+      console.log("window.orientation == 0");
       window.orientationMillis = Date.now();
     }
   },

@@ -1,5 +1,8 @@
 var isFullScreen = false;
 
+ hide("info");
+  hide("audioInfo");
+
 //https://www.w3schools.com/js/js_json_objects.asp
 window.onload = function(e) {
   millisStart = Date.now();
@@ -7,8 +10,8 @@ window.orientationMillis = Date.now();
   
   loadJsonData();
 
-  hide("info");
-  hide("audioInfo");
+  // hide("info");
+  // hide("audioInfo");
   
   // bShowInfo = false;
   // hide("info");
