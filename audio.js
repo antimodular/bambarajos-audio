@@ -303,16 +303,18 @@ function spectrum(stream) {
         mapped_y = window.canvas_mouseMoveY - rect.top; //-graph_y;
         //          var temp_max = graph_y - rect.top;
         mapped_y = ofClamp(mapped_y, 0, graph_y);
-        //     console.log("temp_v "+temp_v + " mY "+window.canvas_mouseMoveY + " rect.top "+rect.top);
+          var diff = graph_y - mapped_y;
+        beatThreshold = (diff/graph_y); //mapRange(mapped_y, [0,graph_y], [1, 0]);
+     
+          console.log("diff "+diff+" graph_y "+graph_y + " mapped_y "+mapped_y + " beatThreshold "+beatThreshold);
 
-        beatThreshold = mapRange(mapped_y, [graph_y,0], [2, 0]);
         // beatThreshold += mouseChangeX;
       } else if (window.isTouching == true) {
         
         var rect = canvas.getBoundingClientRect();
         mapped_y = touchMoveY - rect.top;
         mapped_y = ofClamp(mapped_y, 0, graph_y);
-        beatThreshold = mapRange(mapped_y, [0, graph_y], [2, 0]);
+        beatThreshold = 1 - mapped_y/graph_y; //mapRange(mapped_y, [0, graph_y], [1, 0]);
         // canvasCtx.fillStyle = "#a0a0a0";
         // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
         // canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -459,8 +461,8 @@ let mapped_cutOff = beatCutoff * 300;
         // let mapped_beatThres = mapRange(beatThreshold, [0, 2], [graph_y, 0]);
         let mapped_beatThres = beatThreshold * 300;
         // console.log("mapped_beatThres " + mapped_beatThres);
-        canvasCtx.moveTo(0, graph_y - mapped_beatThres);
-        canvasCtx.lineTo(canvas.width, graph_y - mapped_beatThres);
+        // canvasCtx.moveTo(0, graph_y - mapped_beatThres);
+        // canvasCtx.lineTo(canvas.width, graph_y - mapped_beatThres);
         canvasCtx.stroke();
 
         // console.log((1000 * canvas.width) / audioCtx.sampleRate); is equal 2
