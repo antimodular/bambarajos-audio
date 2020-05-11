@@ -8,15 +8,15 @@ var version = "v14";
 var player = videojs("vid", {});
 
 //https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
-var screenWidth =
-  window.innerWidth ||
-  document.documentElement.clientWidth ||
-  document.body.clientWidth;
+// var screenWidth =
+//   window.innerWidth ||
+//   document.documentElement.clientWidth ||
+//   document.body.clientWidth;
 
-var screenHeight =
-  window.innerHeight ||
-  document.documentElement.clientHeight ||
-  document.body.clientHeight;
+// var screenHeight =
+//   window.innerHeight ||
+//   document.documentElement.clientHeight ||
+//   document.body.clientHeight;
 
 // var screenWidth = window.screen.width * window.devicePixelRatio;
 
@@ -25,8 +25,8 @@ var screenHeight =
 // window.playerW = screenWidth; //window.screen.width; //400;
 // window.playerH = screenHeight; //window.screen.height; //320;
 
-window.playerW = screenWidth; //400;
-window.playerH = screenHeight; //320;
+// window.playerW = screenWidth; //400;
+// window.playerH = screenHeight; //320;
 
 
 
@@ -445,7 +445,9 @@ player.on("progress", function(e) {
 
 //https://docs.videojs.com/player#event:playerresize
 player.on("playerresize",  function(e) {
- updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+ // updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+  canvas.width = window.player.currentWidth();
+  canvas.height = window.player.currentHeight();
 });
 
 //player.on('ready', function(e)

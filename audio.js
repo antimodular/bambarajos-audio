@@ -99,10 +99,10 @@ async function apply(c) {
 
 // var audioCtx = new AudioContext();
 
-function updateCanvasSize(w, h) {
-  canvas.width = w; //window.innerWidth / 4 - 20;
-  canvas.height = h;
-}
+// function updateCanvasSize(w, h) {
+//   canvas.width = w; //window.innerWidth / 4 - 20;
+//   canvas.height = h;
+// }
 
 window.canvas_mousePressed = false;
 //window.mouseStartX;
@@ -272,7 +272,7 @@ var isTouching = false;
     var mainAlpha = 1;
 
     setInterval(() => {
-      var graph_y = (canvas.height / 4) * 3;
+      var graph_y = (canvas.height / 2);
 
       if (window.canvas_mousePressed == true) {
         //           var rect = document.querySelector('div').getBoundingClientRect(),
@@ -300,10 +300,12 @@ var isTouching = false;
 
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       
-      canvasCtx.lineWidth = 5;
+      canvasCtx.lineWidth = 4;
       canvasCtx.strokeStyle = "rgb(255, 255, 0)";
       // // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
-      canvasCtx.strokeRect(2, 2, canvas.width - 7, canvas.height - 7);
+      canvasCtx.strokeRect(2, 2, canvas.width - 4, canvas.height/2-4);
+      canvasCtx.strokeRect(2, canvas.height/2, canvas.width - 4, (canvas.height/2)-4);
+
       
 canvasCtx.lineWidth = 2;
       audioLevel = 0;
