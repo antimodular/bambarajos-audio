@@ -468,7 +468,9 @@ player.on("progress", function(e) {
 player.on("playerresize", function(e) {
   updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
 });
-
+player.on("playerresize", function(e) {
+  updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+});
 //player.on('ready', function(e)
 //{
 //    console.log(e);
