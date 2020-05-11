@@ -100,7 +100,6 @@ async function apply(c) {
 // var audioCtx = new AudioContext();
 
 function updateCanvasSize(w, h) {
-  console.log("updateCanvasSize() "+w+","+h)
   canvas.width = w; //window.innerWidth / 4 - 20;
   canvas.height = h;
 }
@@ -134,16 +133,9 @@ function spectrum(stream) {
     );
   } else {
     var analyser = audioCtx.createAnalyser();
-     // Connect the input to a filter.
-    var filter = context.createBiquadFilter();
-  filter.type = filter.LOWPASS;
-  filter.frequency.value = 440;
     var source = audioCtx.createMediaStreamSource(stream);
-    // source.connect(analyser);
-    // source.connect(this.filter);
-  // Connect graph.
-  source.connect(filter).connect(analyser);
-    
+    source.connect(analyser);
+
     // var canvas = document.createElement("canvas");
     // var canvas = document.getElementsByClassName('audio_Canvas');
     canvas = document.getElementById("audio_Canvas");
@@ -267,8 +259,8 @@ var isTouching = false;
 
     // canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
     // canvas.height = 320; //window.player.height; //window.innerHeight / 4 - 20;
-    canvas.width = player.currentWidth(); //window.playerW; //window.innerWidth / 4 - 20;
-    canvas.height = player.currentHeight(); //window.playerH; //window.innerHeight / 4 - 20;
+    canvas.width = window.playerW; //window.innerWidth / 4 - 20;
+    canvas.height = window.playerH; //window.innerHeight / 4 - 20;
     // canvas.height = canvas.width * (4/5);
     //  canvas.width = player.width(); //window.innerWidth / 4 - 20;
     // canvas.height = player.height(); //indow.playerH; //window.innerHeight / 4 - 20;
@@ -280,7 +272,7 @@ var isTouching = false;
     var mainAlpha = 1;
 
     setInterval(() => {
-      var graph_y = (canvas.height / 2);
+      var graph_y = (canvas.height / 4) * 3;
 
       if (window.canvas_mousePressed == true) {
         //           var rect = document.querySelector('div').getBoundingClientRect(),
@@ -308,12 +300,10 @@ var isTouching = false;
 
       canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
       
-      canvasCtx.lineWidth = 4;
+      canvasCtx.lineWidth = 5;
       canvasCtx.strokeStyle = "rgb(255, 255, 0)";
       // // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
-      canvasCtx.strokeRect(2, 2, canvas.width - 4, canvas.height/2-4);
-      canvasCtx.strokeRect(2, canvas.height/2, canvas.width - 4, (canvas.height/2)-4);
-
+      canvasCtx.strokeRect(2, 2, canvas.width - 7, canvas.height - 7);
       
 canvasCtx.lineWidth = 2;
       audioLevel = 0;

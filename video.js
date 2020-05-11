@@ -3,20 +3,20 @@
 //change buffer amounts
 //https://github.com/videojs/videojs-contrib-hls/issues/1302
 
-var version = "v14";
+var version = "v13";
 
 var player = videojs("vid", {});
 
 //https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
-// var screenWidth =
-//   window.innerWidth ||
-//   document.documentElement.clientWidth ||
-//   document.body.clientWidth;
+var screenWidth =
+  window.innerWidth ||
+  document.documentElement.clientWidth ||
+  document.body.clientWidth;
 
-// var screenHeight =
-//   window.innerHeight ||
-//   document.documentElement.clientHeight ||
-//   document.body.clientHeight;
+var screenHeight =
+  window.innerHeight ||
+  document.documentElement.clientHeight ||
+  document.body.clientHeight;
 
 // var screenWidth = window.screen.width * window.devicePixelRatio;
 
@@ -25,8 +25,8 @@ var player = videojs("vid", {});
 // window.playerW = screenWidth; //window.screen.width; //400;
 // window.playerH = screenHeight; //window.screen.height; //320;
 
-// window.playerW = screenWidth; //400;
-// window.playerH = screenHeight; //320;
+window.playerW = screenWidth; //400;
+window.playerH = screenHeight; //320;
 
 
 
@@ -347,8 +347,6 @@ function setup_rewind(_speed) {
 // we use this to avoid an infinite loop between the time_updated function and the timeslider change
 var ignore_time_slider_change = false;
 function time_updated() {
-  
-  
   if (loopDirection == 1) {
     if (player.currentTime() >= new_endTime - endOffsetTime) {
       //            player.pause();
@@ -441,21 +439,6 @@ player.on("progress", function(e) {
   var temp_buf = player.bufferedPercent();
   info_progress.innerHTML = temp_buf;
 });
-
-
-//https://docs.videojs.com/player#event:playerresize
-player.on("playerresize",  function(e) {
- // updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
-  canvas.width = window.player.currentWidth();
-  canvas.height = window.player.currentHeight();
-});
-
-// player.on("loadstart",  function(e) {
-//  // updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
-//   canvas.width = window.player.currentWidth();
-//   canvas.height = window.player.currentHeight();
-// });
-
 
 //player.on('ready', function(e)
 //{
