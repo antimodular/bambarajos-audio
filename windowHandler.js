@@ -33,6 +33,9 @@ function displayWindowSize() {
   var w = document.documentElement.clientWidth;
   var h = document.documentElement.clientHeight;
 
+  // canvas.width = window.player.currentWidth();
+  // canvas.height = window.player.currentHeight();
+
   // // Display result inside a div element
   // document.getElementById("result").innerHTML =
   //   "Width: " + w + ", " + "Height: " + h;
@@ -42,7 +45,7 @@ function displayWindowSize() {
 //         window.playerW = screenWidth; //window.screen.width;
 //   window.playerH = screenHeight; //window.screen.height;
   
-//    updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+   updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
   
   // updateCanvasSize(window.playerW, window.playerH);
   // updateCanvasSize(window.playerW, window.playerW*(4/5));

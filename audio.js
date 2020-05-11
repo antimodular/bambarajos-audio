@@ -99,10 +99,11 @@ async function apply(c) {
 
 // var audioCtx = new AudioContext();
 
-// function updateCanvasSize(w, h) {
-//   canvas.width = w; //window.innerWidth / 4 - 20;
-//   canvas.height = h;
-// }
+function updateCanvasSize(w, h) {
+  console.log("updateCanvasSize() "+w+","+h)
+  canvas.width = w; //window.innerWidth / 4 - 20;
+  canvas.height = h;
+}
 
 window.canvas_mousePressed = false;
 //window.mouseStartX;
@@ -133,9 +134,16 @@ function spectrum(stream) {
     );
   } else {
     var analyser = audioCtx.createAnalyser();
+     // Connect the input to a filter.
+    var filter = context.createBiquadFilter();
+  filter.type = filter.LOWPASS;
+  filter.frequency.value = 440;
     var source = audioCtx.createMediaStreamSource(stream);
-    source.connect(analyser);
-
+    // source.connect(analyser);
+    // source.connect(this.filter);
+  // Connect graph.
+  source.connect(filter).connect(analyser);
+    
     // var canvas = document.createElement("canvas");
     // var canvas = document.getElementsByClassName('audio_Canvas');
     canvas = document.getElementById("audio_Canvas");

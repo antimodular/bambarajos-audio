@@ -450,6 +450,13 @@ player.on("playerresize",  function(e) {
   canvas.height = window.player.currentHeight();
 });
 
+// player.on("loadstart",  function(e) {
+//  // updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+//   canvas.width = window.player.currentWidth();
+//   canvas.height = window.player.currentHeight();
+// });
+
+
 //player.on('ready', function(e)
 //{
 //    console.log(e);
