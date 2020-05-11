@@ -133,9 +133,13 @@ function spectrum(stream) {
     );
   } else {
     var analyser = audioCtx.createAnalyser();
+      var filter = audioCtx.createBiquadFilter();
+  filter.type = filter.LOWPASS;
+  filter.frequency.value = 600; //440;
+    
     var source = audioCtx.createMediaStreamSource(stream);
-    source.connect(analyser);
-
+    source.connect(filter).connect(analyser);
+// source.connect(analyser);
     // var canvas = document.createElement("canvas");
     // var canvas = document.getElementsByClassName('audio_Canvas');
     canvas = document.getElementById("audio_Canvas");
@@ -268,7 +272,8 @@ var isTouching = false;
     // console.log("canvas.width " + canvas.width);
     // window.audio_Canvas.appendChild(canvas);
 
-    var data = new Uint8Array(400); //canvas.width);
+    // var data = new Uint8Array(400); //canvas.width);
+     var data = new Uint8Array(512); 
     var mainAlpha = 1;
 
     setInterval(() => {
@@ -359,6 +364,7 @@ canvasCtx.lineWidth = 2;
         //---calculate audioLevel line
         // var average = total/ data.length;
         // ... then take the square root of the sum.
+        // sum *= 100;
         var rms = Math.sqrt(sum / dataLength);
         // volume = Math.max(rms, volume); //*vol_smoothing);
         // console.log("volume "+rms);
