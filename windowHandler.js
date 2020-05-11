@@ -351,6 +351,6 @@ function setToWindowSize() {
   
    // updateCanvasSize(window.player.currentWidth, window.player.currentHeight);
   // updateCanvasSize(window.playerW, window.playerH);
-  updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+  // updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
 
 }
