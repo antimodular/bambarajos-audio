@@ -7,7 +7,7 @@
 var beatHoldFrames = 10; //30;
 
 // what amplitude level can trigger a beat?
-var beatThreshold = 0.5; //1.75; //0.05; //0.11;
+var beatThreshold = 0.28; //1.75; //0.05; //0.11;
 
 // When we have a beat, beatCutoff will be reset to 1.1*beatThreshold, and then decay
 // Level must be greater than beatThreshold and beatCutoff before the next beat can trigger.
@@ -117,6 +117,7 @@ var mapped_y = 0;
 var touchMoveY = 0;
 var slideAlpha = 1;
 var deviceOrientation = 0;
+var old_deviceOrientation = -1;
 
 function spectrum(stream) {
   // var audioCtx = new AudioContext();
@@ -296,25 +297,34 @@ function spectrum(stream) {
         text_y = 0;
       }
 
-      if (window.canvas_mousePressed == true) {
+      var orientationChanged = false;
+      if(old_deviceOrientation != deviceOrientation){
+old_deviceOrientation = deviceOrientation;
+        orientationChanged = true;
+      }
+      if (window.canvas_mousePressed == true ) {
         //           var rect = document.querySelector('div').getBoundingClientRect(),
         var rect = canvas.getBoundingClientRect();
         //          console.log("rect top "+rect.top + " left "+ rect.left);
         mapped_y = window.canvas_mouseMoveY - rect.top; //-graph_y;
         //          var temp_max = graph_y - rect.top;
         mapped_y = ofClamp(mapped_y, 0, graph_y);
+        
           var diff = graph_y - mapped_y;
         beatThreshold = (diff/graph_y); //mapRange(mapped_y, [0,graph_y], [1, 0]);
      
           console.log("diff "+diff+" graph_y "+graph_y + " mapped_y "+mapped_y + " beatThreshold "+beatThreshold);
 
         // beatThreshold += mouseChangeX;
-      } else if (window.isTouching == true) {
+      } else if (window.isTouching == true || orientationChanged == true) {
         
         var rect = canvas.getBoundingClientRect();
         mapped_y = touchMoveY - rect.top;
         mapped_y = ofClamp(mapped_y, 0, graph_y);
-        beatThreshold = 1 - mapped_y/graph_y; //mapRange(mapped_y, [0, graph_y], [1, 0]);
+        
+         var diff = graph_y - mapped_y;
+        beatThreshold = (diff/graph_y);
+        // beatThreshold = 1 - mapped_y/graph_y; //mapRange(mapped_y, [0, graph_y], [1, 0]);
         // canvasCtx.fillStyle = "#a0a0a0";
         // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
         // canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
@@ -433,7 +443,7 @@ function spectrum(stream) {
           //          let y = graph_y - (levelHistory[i].y * graph_scaler);
           // let y = mapRange(levelHistory[i].y, [0, 2], [graph_y, 0]);
           // let x = i;
-          let y = levelHistory[i].y * 300;
+          let y = levelHistory[i].y * graph_y;
           canvasCtx.lineTo(temp_x, graph_y - y);
           canvasCtx.moveTo(temp_x, graph_y - y);
           temp_x += step_w;
@@ -446,7 +456,7 @@ function spectrum(stream) {
 
         //        let mapped_cutOff = graph_y - (beatCutoff * graph_scaler);
         // let mapped_cutOff = mapRange(beatCutoff, [0, 2], [graph_y, 0]);
-let mapped_cutOff = beatCutoff * 300;
+let mapped_cutOff = beatCutoff * graph_y;
         // console.log("beatCutoff " + mapped_cutOff);
         canvasCtx.moveTo(0, graph_y - mapped_cutOff);
         canvasCtx.lineTo(canvas.width, graph_y - mapped_cutOff);
@@ -459,10 +469,10 @@ let mapped_cutOff = beatCutoff * 300;
 
         //        let mapped_beatThres = graph_y - (beatThreshold * graph_scaler);
         // let mapped_beatThres = mapRange(beatThreshold, [0, 2], [graph_y, 0]);
-        let mapped_beatThres = beatThreshold * 300;
+        let mapped_beatThres = beatThreshold * graph_y;
         // console.log("mapped_beatThres " + mapped_beatThres);
-        // canvasCtx.moveTo(0, graph_y - mapped_beatThres);
-        // canvasCtx.lineTo(canvas.width, graph_y - mapped_beatThres);
+        canvasCtx.moveTo(0, graph_y - mapped_beatThres);
+        canvasCtx.lineTo(canvas.width, graph_y - mapped_beatThres);
         canvasCtx.stroke();
 
         // console.log((1000 * canvas.width) / audioCtx.sampleRate); is equal 2
