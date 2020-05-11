@@ -66,15 +66,37 @@ var playSpeed = 1; //0.5;
 
 //var URL = window.URL || window.webkitURL;
 //var src_url = URL.createObjectURL(vid_src);
-player.src([
-  { src: vid_src, type: "video/mp4" }
-  //            ]);
 
-  //player.src([{src:src_url,type:'video/mp4'}
-  //            ]);
+var req = new XMLHttpRequest();
+req.open('GET', 'video.mp4', true);
+req.responseType = 'blob';
 
-  //player.src([{src:src_url,type: blob.type}
-]);
+req.onload = function() {
+   // Onload is triggered even on 404
+   // so we need to check the status code
+   if (this.status === 200) {
+      var videoBlob = this.response;
+      var vid = URL.createObjectURL(videoBlob); // IE10+
+      // Video is now downloaded
+      // and we can set it as source on the video element
+      video.src = vid;
+   }
+}
+req.onerror = function() {
+   // Error
+}
+
+req.send();
+
+// player.src([
+//   { src: vid_src, type: "video/mp4" }
+//   //            ]);
+
+//   //player.src([{src:src_url,type:'video/mp4'}
+//   //            ]);
+
+//   //player.src([{src:src_url,type: blob.type}
+// ]);
 
 player.poster("https://stephanschulz.ca/bamba/l-001-20min_h264.png");
 
