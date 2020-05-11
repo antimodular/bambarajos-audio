@@ -259,8 +259,8 @@ var isTouching = false;
 
     // canvas.width = 400; //window.player.width; //window.innerWidth / 4 - 20;
     // canvas.height = 320; //window.player.height; //window.innerHeight / 4 - 20;
-    canvas.width = window.playerW; //window.innerWidth / 4 - 20;
-    canvas.height = window.playerH; //window.innerHeight / 4 - 20;
+    canvas.width = player.currentWidth(); //window.playerW; //window.innerWidth / 4 - 20;
+    canvas.height = player.currentHeight(); //window.playerH; //window.innerHeight / 4 - 20;
     // canvas.height = canvas.width * (4/5);
     //  canvas.width = player.width(); //window.innerWidth / 4 - 20;
     // canvas.height = player.height(); //indow.playerH; //window.innerHeight / 4 - 20;

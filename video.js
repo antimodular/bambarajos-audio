@@ -347,6 +347,8 @@ function setup_rewind(_speed) {
 // we use this to avoid an infinite loop between the time_updated function and the timeslider change
 var ignore_time_slider_change = false;
 function time_updated() {
+  
+  
   if (loopDirection == 1) {
     if (player.currentTime() >= new_endTime - endOffsetTime) {
       //            player.pause();
@@ -438,6 +440,10 @@ player.on("durationchange", update_info_duration);
 player.on("progress", function(e) {
   var temp_buf = player.bufferedPercent();
   info_progress.innerHTML = temp_buf;
+});
+
+player.on("playerresize",  function(e) {
+ updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
 });
 
 //player.on('ready', function(e)
