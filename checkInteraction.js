@@ -260,6 +260,7 @@ window.addEventListener(
   "orientationchange",
   function() {
     if (window.orientation == -90) {
+      deviceOrientation = -90;
       // setFullWindow(true, true);
       // toggleFullScreen();
       setFullScreen(true, true);
@@ -278,6 +279,7 @@ window.addEventListener(
         "translateX(160px) translateY(160px) rotate(90deg)"; //for firefox
     }
     if (window.orientation == 90) {
+      deviceOrientation = 90;
       // toggleFullScreen();
       setFullScreen(true, true);
       // displayWindowSize();
@@ -296,6 +298,7 @@ window.addEventListener(
       // setToWindowSize();
     }
     if (window.orientation == 0) {
+      deviceOrientation = 0;
       // setFullWindow(false, false);
       setFullScreen(false, false);
       // jumpTo(20);
