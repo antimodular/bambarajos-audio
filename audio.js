@@ -268,7 +268,7 @@ var isTouching = false;
     // console.log("canvas.width " + canvas.width);
     // window.audio_Canvas.appendChild(canvas);
 
-    var data = new Uint8Array(400); //canvas.width);
+    var data = new Uint8Array(400); //canvas.width); //512
     var mainAlpha = 1;
 
     setInterval(() => {
