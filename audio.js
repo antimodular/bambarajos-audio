@@ -7,7 +7,7 @@
 var beatHoldFrames = 10; //30;
 
 // what amplitude level can trigger a beat?
-var beatThreshold = 0.28; //1.75; //0.05; //0.11;
+window.beatThreshold = 0.28; //1.75; //0.05; //0.11;
 
 // When we have a beat, beatCutoff will be reset to 1.1*beatThreshold, and then decay
 // Level must be greater than beatThreshold and beatCutoff before the next beat can trigger.
@@ -29,6 +29,8 @@ var millisStart;
 
 var canvas;
 var canvasCtx;
+
+    var graph_y = 0;
 
 var track,
   gUM = c => navigator.mediaDevices.getUserMedia(c);
@@ -113,7 +115,7 @@ window.canvas_mouseMoveY;
 //window.mouseChangeY;
 
 var lastTouchMillis;
-var mapped_y = 0;
+// var mapped_y = 0;
 var touchMoveY = 0;
 var slideAlpha = 1;
 var deviceOrientation = 0;
@@ -175,7 +177,7 @@ function spectrum(stream) {
     //these need to be inside function spectrum(stream) otherwise body-scroll-lock library blocks canvas touch
     var identifier;
     var isTouching = false;
-    var graph_y = 0;
+
     var text_y = 0;
 
     canvas.addEventListener(
@@ -280,8 +282,9 @@ function spectrum(stream) {
     var data = new Uint8Array(512);
     var mainAlpha = 1;
 
+     // console.log("beatThreshold "+beatThreshold);
     setInterval(() => {
-      
+      // console.log("beatThreshold "+beatThreshold);
       if (deviceOrientation == 0) {
         // canvasCtx.fillText("touch screen to adjust sensitivity", 40, 200);
         canvas.height =
@@ -304,26 +307,31 @@ old_deviceOrientation = deviceOrientation;
       }
       if (window.canvas_mousePressed == true ) {
         //           var rect = document.querySelector('div').getBoundingClientRect(),
-        var rect = canvas.getBoundingClientRect();
-        //          console.log("rect top "+rect.top + " left "+ rect.left);
-        mapped_y = window.canvas_mouseMoveY - rect.top; //-graph_y;
-        //          var temp_max = graph_y - rect.top;
-        mapped_y = ofClamp(mapped_y, 0, graph_y);
+//         var rect = canvas.getBoundingClientRect();
+//         //          console.log("rect top "+rect.top + " left "+ rect.left);
+//         mapped_y = window.canvas_mouseMoveY - rect.top; //-graph_y;
+//         //          var temp_max = graph_y - rect.top;
+//         mapped_y = ofClamp(mapped_y, 0, graph_y);
         
-          var diff = graph_y - mapped_y;
-        beatThreshold = (diff/graph_y); //mapRange(mapped_y, [0,graph_y], [1, 0]);
-     
-          console.log("diff "+diff+" graph_y "+graph_y + " mapped_y "+mapped_y + " beatThreshold "+beatThreshold);
+//           var diff = graph_y - mapped_y;
+//         beatThreshold = (diff/graph_y); //mapRange(mapped_y, [0,graph_y], [1, 0]);
+        
+        setBeatThreshold(window.canvas_mouseMoveY);
+      // console.log("beatThreshold "+beatThreshold);
+          // console.log("diff "+diff+" graph_y "+graph_y + " mapped_y "+mapped_y + " beatThreshold "+beatThreshold);
 
         // beatThreshold += mouseChangeX;
-      } else if (window.isTouching == true || orientationChanged == true) {
+      } else if (window.isTouching == true ) { //|| orientationChanged == true
         
-        var rect = canvas.getBoundingClientRect();
-        mapped_y = touchMoveY - rect.top;
-        mapped_y = ofClamp(mapped_y, 0, graph_y);
+        setBeatThreshold(touchMoveY);
+//         var rect = canvas.getBoundingClientRect();
+//         mapped_y = touchMoveY - rect.top;
+//         mapped_y = ofClamp(mapped_y, 0, graph_y);
         
-         var diff = graph_y - mapped_y;
-        beatThreshold = (diff/graph_y);
+//          var diff = graph_y - mapped_y;
+//         beatThreshold = (diff/graph_y);
+
+        // console.log("beatThreshold "+beatThreshold);
         // beatThreshold = 1 - mapped_y/graph_y; //mapRange(mapped_y, [0, graph_y], [1, 0]);
         // canvasCtx.fillStyle = "#a0a0a0";
         // canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
@@ -467,6 +475,7 @@ let mapped_cutOff = beatCutoff * graph_y;
         canvasCtx.strokeStyle = "rgb(255,255,255," + 1 * mainAlpha + ")";
         canvasCtx.beginPath();
 
+        // console.log("beatThreshold "+beatThreshold);
         //        let mapped_beatThres = graph_y - (beatThreshold * graph_scaler);
         // let mapped_beatThres = mapRange(beatThreshold, [0, 2], [graph_y, 0]);
         let mapped_beatThres = beatThreshold * graph_y;
@@ -482,6 +491,19 @@ let mapped_cutOff = beatCutoff * graph_y;
   }
 }
 
+function setBeatThreshold(temp_y){
+   var rect = canvas.getBoundingClientRect();
+        //          console.log("rect top "+rect.top + " left "+ rect.left);
+       var mapped_y = temp_y - rect.top; //-graph_y;
+        //          var temp_max = graph_y - rect.top;
+        mapped_y = ofClamp(mapped_y, 0, graph_y);
+        
+          var diff = graph_y - mapped_y;
+        window.beatThreshold = (diff/graph_y); //mapRange(mapped_y, [0,graph_y], [1, 0]);
+      // console.log("beatThreshold "+beatThreshold);
+          console.log("diff "+diff+" graph_y "+graph_y + " mapped_y "+mapped_y + " beatThreshold "+beatThreshold);
+
+}
 function drawCanvasText(yOffset) {
   //      canvasCtx.font = "20px Arial";
   //         canvasCtx.fillStyle = "blue";
