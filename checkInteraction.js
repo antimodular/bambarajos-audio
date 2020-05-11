@@ -69,20 +69,16 @@ document.addEventListener("keyup", function(e) {
   } else if (e.key === "f") {
     // player.requestFullscreen();
     toggleFullScreen();
-  }else if (e.key === "[") {
-     window.orientationMillis = Date.now();
-    setFullScreen(true,true);
-  }else if (e.key === "]") {
-     window.orientationMillis = Date.now();
-    setFullScreen(false,false);
-  }else if (e.key === "g") {
-    
-    bShowGui
+  } else if (e.key === "[") {
+    window.orientationMillis = Date.now();
+    setFullScreen(true, true);
+  } else if (e.key === "]") {
+    window.orientationMillis = Date.now();
+    setFullScreen(false, false);
+  } else if (e.key === "g") {
+    bShowGui;
   }
-  
 });
-
-
 
 //--------mouse or touch events
 //window.mousePressed = false;
@@ -107,22 +103,22 @@ document.addEventListener("keyup", function(e) {
 //});
 //
 //document.addEventListener("mousemove", function(e) {
-//  
+//
 //  window.mouseChangeX = e.x - window.mouseMoveX;
 //  window.mouseChangeY = e.y - window.mouseMoveY;
 //  window.mouseMoveX = e.x;
 //  window.mouseMoveY = e.y;
-//  
+//
 ////  console.log("mouseChangeY "+window.mouseChangeY);
-//  
+//
 //  info_mouse_position.innerHTML = "x: " + e.x + " y: " + e.y;
-//  
+//
 //});
 
 //click event happens when the mouse is pressed and released over the same element. In this case, as we are using the "document" it will always trigger
 document.addEventListener("click", function(e) {
   info_mouse_clicked_position.innerHTML = "x: " + e.x + " y: " + e.y;
-   // toggleFullScreen();
+  // toggleFullScreen();
 });
 
 //----touch screen interaction via touch-------
@@ -133,10 +129,9 @@ function log( message ) {
 }
  */
 
-
 //https://bodyscrolllock.now.sh/
 //https://github.com/willmcpo/body-scroll-lock#readme
-const targetElement = document.querySelector('body');
+const targetElement = document.querySelector("body");
 bodyScrollLock.disableBodyScroll(targetElement);
 
 // const targetElement2 = document.querySelector('videoDiv');
@@ -185,9 +180,9 @@ bodyScrollLock.disableBodyScroll(targetElement);
 //     //    event.preventDefault();
 //     // only care about the first touch
 //     var touch = event.changedTouches[0];
-    
-//     // 
-    
+
+//     //
+
 //     identifier = touch.identifier;
 //     // log('touch START; indentifer ' + touch.identifier);
 //     window.addEventListener("touchmove", onTouchMove, false);
@@ -210,7 +205,7 @@ bodyScrollLock.disableBodyScroll(targetElement);
 //     // bShowInfo = !bShowInfo;
 //     // setFullWindow(false);
 //     // toggleFullWindow();
-    
+
 //     // toggleFullScreen();
 //     // toggleFullWindow();
 //   },
@@ -229,24 +224,24 @@ bodyScrollLock.disableBodyScroll(targetElement);
 
 // function onTouchMove(event) {
 //   var touch = getTouch(event);
-    
+
 //  window.touchMoveY = touch.pageY;
 //   if (!touch) {
 //     return;
 //   }
-    
+
 //   // log('touch move ' + touch.pageX + ' ' + touch.pageY);
 //   // info_touch_state.innerHTML = "touch moved ";
-  
+
 //   info_mouse_position.innerHTML = "x: " + touch.pageX + " y: " + touch.pageY;
 // }
 
 // function onTouchEnd(event) {
- 
+
 //   var touch = getTouch(event);
-  
+
 //    touch.preventDefault();
-  
+
 //   if (!touch) {
 //     return;
 //   }
@@ -258,52 +253,55 @@ bodyScrollLock.disableBodyScroll(targetElement);
 //   window.isTouching = false;
 // }
 
-
 window.orientationMillis;
 //https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari
-//important to call any function before setting document.getElementById('orient').className = 
-window.addEventListener('orientationchange', function () {
+//important to call any function before setting document.getElementById('orient').className =
+window.addEventListener(
+  "orientationchange",
+  function() {
     if (window.orientation == -90) {
-         // setFullWindow(true, true);
-        // toggleFullScreen();
-      setFullScreen(true,true);
+      // setFullWindow(true, true);
+      // toggleFullScreen();
+      setFullScreen(true, true);
       // displayWindowSize();
       setToWindowSize();
       // jumpTo(1);
       window.orientationMillis = Date.now();
-        // document.getElementById('orient').className = 'orientright';
-      // 
-    // element.style.webkitTransform = "rotate(-90deg) translateX(600px) translateY(160px)"
+      // document.getElementById('orient').className = 'orientright';
+      //
+      // element.style.webkitTransform = "rotate(-90deg) translateX(600px) translateY(160px)"
 
-        var element = document.getElementById('audio_Canvas');
-    element.style.webkitTransform = "translateX(160px) translateY(160px) rotate(90eg)"; //for safari and chrome
-    element.style.MozTransform = "translateX(160px) translateY(160px) rotate(90deg)"; //for firefox
-      
+      var element = document.getElementById("audio_Canvas");
+      element.style.webkitTransform =
+        "translateX(160px) translateY(160px) rotate(90eg)"; //for safari and chrome
+      element.style.MozTransform =
+        "translateX(160px) translateY(160px) rotate(90deg)"; //for firefox
     }
     if (window.orientation == 90) {
       // toggleFullScreen();
-      setFullScreen(true,true);
+      setFullScreen(true, true);
       // displayWindowSize();
-         // setFullWindow(true, true);
+      // setFullWindow(true, true);
       setToWindowSize();
-       window.orientationMillis = Date.now();
-      
-        var element = document.getElementById('audio_Canvas');
-    element.style.webkitTransform = "translateX(230px) translateY(230px) rotate(-90eg)"; //for safari and chrome
-    element.style.MozTransform = "translateX(230px) translateY(230px) rotate(-90deg)"; //for firefox
+      window.orientationMillis = Date.now();
 
-      
+      var element = document.getElementById("audio_Canvas");
+      element.style.webkitTransform =
+        "translateX(230px) translateY(230px) rotate(-90eg)"; //for safari and chrome
+      element.style.MozTransform =
+        "translateX(230px) translateY(230px) rotate(-90deg)"; //for firefox
+
       // jumpTo(10);
-        // document.getElementById('orient').className = 'orientleft';
+      // document.getElementById('orient').className = 'orientleft';
       // setToWindowSize();
-   
     }
     if (window.orientation == 0) {
-       // setFullWindow(false, false);
-            setFullScreen(false,false);
-       // jumpTo(20);
-        // document.getElementById('orient').className = '';
-       window.orientationMillis = Date.now();
-     
+      // setFullWindow(false, false);
+      setFullScreen(false, false);
+      // jumpTo(20);
+      // document.getElementById('orient').className = '';
+      window.orientationMillis = Date.now();
     }
- }, true);
+  },
+  true
+);

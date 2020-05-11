@@ -42,7 +42,9 @@ function displayWindowSize() {
         window.playerW = screenWidth; //window.screen.width;
   window.playerH = screenHeight; //window.screen.height;
   
-  updateCanvasSize(window.playerW, window.playerH);
+   updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+  
+  // updateCanvasSize(window.playerW, window.playerH);
   // updateCanvasSize(window.playerW, window.playerW*(4/5));
 }
 
@@ -346,5 +348,9 @@ function setToWindowSize() {
   // player.width(window.playerW);
   // player.height(window.playerH);
 
-  updateCanvasSize(window.playerW, window.playerH);
+  
+   // updateCanvasSize(window.player.currentWidth, window.player.currentHeight);
+  // updateCanvasSize(window.playerW, window.playerH);
+  updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+
 }
