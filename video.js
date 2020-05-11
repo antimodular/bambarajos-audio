@@ -442,6 +442,8 @@ player.on("progress", function(e) {
   info_progress.innerHTML = temp_buf;
 });
 
+
+//https://docs.videojs.com/player#event:playerresize
 player.on("playerresize",  function(e) {
  updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
 });
