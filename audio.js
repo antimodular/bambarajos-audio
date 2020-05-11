@@ -176,7 +176,7 @@ function spectrum(stream) {
     var isTouching = false;
     var graph_y = 0;
     var text_y = 0;
-    
+
     canvas.addEventListener(
       "touchstart",
       function(event) {
@@ -280,6 +280,7 @@ function spectrum(stream) {
     var mainAlpha = 1;
 
     setInterval(() => {
+      
       if (deviceOrientation == 0) {
         // canvasCtx.fillText("touch screen to adjust sensitivity", 40, 200);
         canvas.height =
@@ -287,9 +288,8 @@ function spectrum(stream) {
           document.documentElement.clientHeight ||
           document.body.clientHeight;
 
-        graph_y =
-          canvas.height - (canvas.height - player.currentHeight()) / 3; // (canvas.height / 3) * 4; // * 3;
-text_y = player.currentHeight();
+        graph_y = canvas.height - (canvas.height - player.currentHeight()) / 3; // (canvas.height / 3) * 4; // * 3;
+        text_y = player.currentHeight();
       } else {
         canvas.height = player.currentHeight(); //window.playerH; //window.innerHeight / 4 - 20;
         graph_y = canvas.height / 2; // * 3;
@@ -305,9 +305,10 @@ text_y = player.currentHeight();
         mapped_y = ofClamp(mapped_y, 0, graph_y);
         //     console.log("temp_v "+temp_v + " mY "+window.canvas_mouseMoveY + " rect.top "+rect.top);
 
-        beatThreshold = mapRange(mapped_y, [0, graph_y], [2, 0]);
+        beatThreshold = mapRange(mapped_y, [graph_y,0], [2, 0]);
         // beatThreshold += mouseChangeX;
       } else if (window.isTouching == true) {
+        
         var rect = canvas.getBoundingClientRect();
         mapped_y = touchMoveY - rect.top;
         mapped_y = ofClamp(mapped_y, 0, graph_y);
@@ -428,10 +429,11 @@ text_y = player.currentHeight();
 
         for (let i = 1; i < levelHistory.length; i++) {
           //          let y = graph_y - (levelHistory[i].y * graph_scaler);
-          let y = mapRange(levelHistory[i].y, [0, 2], [graph_y, 0]);
+          // let y = mapRange(levelHistory[i].y, [0, 2], [graph_y, 0]);
           // let x = i;
-          canvasCtx.lineTo(temp_x, y);
-          canvasCtx.moveTo(temp_x, y);
+          let y = levelHistory[i].y * 300;
+          canvasCtx.lineTo(temp_x, graph_y - y);
+          canvasCtx.moveTo(temp_x, graph_y - y);
           temp_x += step_w;
         }
         canvasCtx.stroke();
@@ -441,11 +443,11 @@ text_y = player.currentHeight();
         canvasCtx.beginPath();
 
         //        let mapped_cutOff = graph_y - (beatCutoff * graph_scaler);
-        let mapped_cutOff = mapRange(beatCutoff, [0, 2], [graph_y, 0]);
-
+        // let mapped_cutOff = mapRange(beatCutoff, [0, 2], [graph_y, 0]);
+let mapped_cutOff = beatCutoff * 300;
         // console.log("beatCutoff " + mapped_cutOff);
-        canvasCtx.moveTo(0, mapped_cutOff);
-        canvasCtx.lineTo(canvas.width, mapped_cutOff);
+        canvasCtx.moveTo(0, graph_y - mapped_cutOff);
+        canvasCtx.lineTo(canvas.width, graph_y - mapped_cutOff);
         // line(0, temp_cutOff, levelHistory.length, temp_cutOff);
         canvasCtx.stroke();
 
@@ -454,10 +456,11 @@ text_y = player.currentHeight();
         canvasCtx.beginPath();
 
         //        let mapped_beatThres = graph_y - (beatThreshold * graph_scaler);
-        let mapped_beatThres = mapRange(beatThreshold, [0, 2], [graph_y, 0]);
+        // let mapped_beatThres = mapRange(beatThreshold, [0, 2], [graph_y, 0]);
+        let mapped_beatThres = beatThreshold * 300;
         // console.log("mapped_beatThres " + mapped_beatThres);
-        canvasCtx.moveTo(0, mapped_beatThres);
-        canvasCtx.lineTo(canvas.width, mapped_beatThres);
+        canvasCtx.moveTo(0, graph_y - mapped_beatThres);
+        canvasCtx.lineTo(canvas.width, graph_y - mapped_beatThres);
         canvasCtx.stroke();
 
         // console.log((1000 * canvas.width) / audioCtx.sampleRate); is equal 2
@@ -512,11 +515,11 @@ function drawCanvasText(yOffset) {
   slideAlpha = ofClamp(slideAlpha, 0, 1);
   canvasCtx.font = "25px Helvetica";
   canvasCtx.fillStyle = "rgb(255,255,255," + slideAlpha + ")";
-  canvasCtx.fillText("Bambarajos (Kissing to the beat)", 40, yOffset+60);
-  canvasCtx.fillText("Rafael Lozano-Hemmer", 40, yOffset+85);
+  canvasCtx.fillText("Bambarajos (Kissing to the beat)", 40, yOffset + 60);
+  canvasCtx.fillText("Rafael Lozano-Hemmer", 40, yOffset + 85);
 
   canvasCtx.font = "20px Helvetica";
-  canvasCtx.fillText("touch screen to adjust sensitivity", 40, yOffset+120);
+  canvasCtx.fillText("touch screen to adjust sensitivity", 40, yOffset + 120);
 
   // if (deviceOrientation == 0) {
   //   canvasCtx.fillText("touch screen to adjust sensitivity", 40, 200);
