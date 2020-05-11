@@ -62,7 +62,7 @@ var playSpeed = 1; //0.5;
 //            ]);
 
 var req = new XMLHttpRequest();
-req.open("GET", vid_src, true);
+req.open("GET", "https://stephanschulz.ca/bamba/l-001-20min_h264.mp4", true);
 req.responseType = "blob";
 
 req.onload = function() {
@@ -80,10 +80,13 @@ console.log("blob_src "+blob_src);
     // //   //            ]);
     //    { src: blob_src, type: "blob.type" }
     // ]);
+  }else{
+    console.log("else blob_src ");
   }
 };
 req.onerror = function() {
   // Error
+  console.log("this.status === 200");
 };
 
 req.send();
@@ -468,7 +471,7 @@ player.on("progress", function(e) {
 player.on("playerresize", function(e) {
   updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
 });
-player.on("playerresize", function(e) {
+player.on("loadstart", function(e) {
   updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
 });
 //player.on('ready', function(e)

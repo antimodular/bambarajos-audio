@@ -136,7 +136,7 @@ function spectrum(stream) {
     //https://webaudioapi.com/book/Web_Audio_API_Boris_Smus_html/ch07.html
       var filter = audioCtx.createBiquadFilter();
   filter.type = filter.LOWPASS;
-  filter.frequency.value = 600; //440;
+  filter.frequency.value = 440; //440;
     
     var source = audioCtx.createMediaStreamSource(stream);
     source.connect(filter).connect(analyser);
