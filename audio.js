@@ -309,7 +309,7 @@ canvasCtx.lineWidth = 2;
       audioLevel = 0;
       var total = 0;
       var sum = 0;
-      analyser.getByteFrequencyData(data);
+      analyser.getByteFrequency3(data);
       canvasCtx.lineWidth = 1;
 
       var dataLength = data.length;
