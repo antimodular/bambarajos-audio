@@ -132,9 +132,10 @@ function log( message ) {
 //https://bodyscrolllock.now.sh/
 //https://github.com/willmcpo/body-scroll-lock#readme
 const targetElement = document.querySelector("body");
-bodyScrollLock.disableBodyScroll(targetElement);
+// bodyScrollLock.disableBodyScroll(targetElement);
 
-// const targetElement2 = document.querySelector('videoDiv');
+// const targetElement2 = document.querySelector('audio_Canvas');
+// bodyScrollLock.enableBodyScroll(targetElement2);
 // const targetElement3 = document.querySelector('audio_Canvas');
 // 2. ...in some event handler after showing the target element...disable body scroll
 // bodyScrollLock.disableBodyScroll(targetElement, {
@@ -145,17 +146,17 @@ bodyScrollLock.disableBodyScroll(targetElement);
 //   allowTouchMove: el => el.tagName === 'audio_Canvas',
 // });
 
-// bodyScrollLock.disableBodyScroll(targetElement, {
-//   allowTouchMove: el => {
-//     while (el && el !== document.body) {
-//       if (el.getAttribute('body-scroll-lock-ignore') !== null) {
-//         return true;
-//       }
+bodyScrollLock.disableBodyScroll(targetElement, {
+  allowTouchMove: el => {
+    while (el && el !== document.body) {
+      if (el.getAttribute('body-scroll-lock-ignore') !== null) {
+        return true;
+      }
 
-//       el = el.parentNode;
-//     }
-//   },
-// });
+      el = el.parentNode;
+    }
+  },
+});
 
 // var identifier;
 // window.isTouching = false;

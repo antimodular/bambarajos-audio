@@ -1,7 +1,9 @@
 var isFullScreen = false;
 
- hide("info");
-  hide("audioInfo");
+ // hide("info");
+  // hide("audioInfo");
+show("info");
+show("audioInfo");
 
 //https://www.w3schools.com/js/js_json_objects.asp
 window.onload = function(e) {

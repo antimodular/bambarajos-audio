@@ -124,6 +124,7 @@ var old_deviceOrientation = -1;
 
 function spectrum(stream) {
   // var audioCtx = new AudioContext();
+   var isTouching = false;
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   //   var audioCtx =  new AudioContext // Default
@@ -177,7 +178,7 @@ function spectrum(stream) {
 
     //these need to be inside function spectrum(stream) otherwise body-scroll-lock library blocks canvas touch
     var identifier;
-    var isTouching = false;
+   
 
     var text_y = 0;
 
@@ -555,12 +556,12 @@ function drawCanvasText(yOffset) {
   canvasCtx.fillText("Rafael Lozano-Hemmer", 40, yOffset + 85);
 
   canvasCtx.font = "20px Helvetica";
-  canvasCtx.fillText("touch screen to adjust sensitivity", 40, yOffset + 120);
+  // canvasCtx.fillText("touch screen to adjust sensitivity", 40, yOffset + 120);
 
-  canvasCtx.fillText("beatThreshold " + beatThreshold, 40, yOffset + 150);
-canvasCtx.fillText("graph_y "+graph_y, 40, yOffset + 170);
-  canvasCtx.fillText("setCounter "+setCounter, 40, yOffset + 190);
-  canvasCtx.fillText("isTouching "+isTouching, 40, yOffset + 210);
+  canvasCtx.fillText("beatThreshold " + beatThreshold, 40, yOffset + 130);
+canvasCtx.fillText("graph_y "+graph_y, 40, yOffset + 150);
+  canvasCtx.fillText("setCounter "+setCounter, 40, yOffset + 170);
+  // canvasCtx.fillText("isTouching "+isTouching, 40, yOffset + 190);
 
   // if (deviceOrientation == 0) {
   //   canvasCtx.fillText("touch screen to adjust sensitivity", 40, 200);
