@@ -7,7 +7,7 @@
 var beatHoldFrames = 10; //30;
 
 // what amplitude level can trigger a beat?
-window.beatThreshold = 0.5; //0.28; //1.75; //0.05; //0.11;
+window.beatThreshold = 0.3; //0.28; //1.75; //0.05; //0.11;
 // window.setCounter = 0;
 
 // When we have a beat, beatCutoff will be reset to 1.1*beatThreshold, and then decay
