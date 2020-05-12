@@ -13,8 +13,8 @@ window.onload = function(e) {
 
   loadJsonData();
 
-  // hide("info");
-  // hide("audioInfo");
+   hide("info");
+   hide("audioInfo");
 
   // bShowInfo = false;
   // hide("info");

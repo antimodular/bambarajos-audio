@@ -3,7 +3,7 @@
 //change buffer amounts
 //https://github.com/videojs/videojs-contrib-hls/issues/1302
 
-var version = "v17";
+var version = "v18";
 
 var player = videojs("vid", {});
 
@@ -31,16 +31,44 @@ var player = videojs("vid", {});
 // var json_src = "l-001-200_047.json";
 // var json_srcArray = {};
 var json_srcArray = [
-  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.json?v=1589301289192",
-  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.json?v=1589302176190",
-  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_02.json?v=1589302180128"
+ // "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.json?v=1589301289192",
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.json?v=1589302176190",
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_02.json?v=1589302180128",
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_03.json?v=1589306913469",
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_04.json?v=1589306918618",
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_05.json?v=1589306926036",
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_06.json?v=1589306932106"
 ];
 var vid_srcArray = [
-  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.mp4?v=1589301371128",
-  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.mp4?v=1589302239633",
-  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_02.mp4?v=1589302248282"
+ // "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.mp4?v=1589301371128",
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.mp4?v=1589302239633",
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_02.mp4?v=1589302248282",
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_03.mp4?v=1589306972187",
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_04.mp4?v=1589307007186",
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_05.mp4?v=1589307020395",
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_06.mp4?v=1589307010407"
 ];
-var temp_r = Math.floor(Math.random() * 3);
+
+// var json_srcArray = [
+//   "assets/group_00.json",
+//   "assets/group_01.json",
+//   "assets/group_02.json",
+//      "assets/group_03.json",  
+//     "assets/group_04.json",
+//   "assets/group_05.json",
+//      "assets/group_06.json"
+// ];
+// var vid_srcArray = [
+//     "assets/group_00.mp4",
+//   "assets/group_01.mp4",
+//   "assets/group_02.mp4", 
+//     "assets/group_03.mp4",
+//       "assets/group_04.mp4",
+//   "assets/group_05.mp4", 
+//     "assets/group_06.mp4"
+// ];
+
+var temp_r = Math.floor(Math.random() * json_srcArray.length);
 var json_src = json_srcArray[temp_r];
 var vid_src = vid_srcArray[temp_r];
 console.log("json src idx: " + temp_r + " json_name: " + json_src + " vid_name "+ vid_src);
@@ -56,11 +84,12 @@ var millisStart;
 var vidCounter = 0;
 var jumpCounter = 0;
 
+window.new_index = 0;
 var new_startTime = 0;
 var new_endTime = 10;
 var new_duration = 0;
 var startOffsetTime = 0.05; //0.3; //in order to not start right at start time but a bit later
-var endOffsetTime = 0.2;
+var endOffsetTime = 0.25;
 var new_eye_contact = 0;
 
 //var rewind = false;
@@ -124,9 +153,11 @@ player.autoplay(true);
 // player.aspectRatio('16:9');
 player.fluid(true); //set to window size
 player.poster(
-  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fposter.png?v=1589294040845"
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fposter.png?v=1589294040845"
 );
-
+// player.poster(
+//   "assets/poster.png"
+// );
 /// player GUI controls
 //use the following functions to show or hide the controls
 player.loadingSpinner.hide();
@@ -242,6 +273,7 @@ window.setInterval(update_loop, 33); //33 ms = 30 fps 1000/30
 
 function display_jsonObj(oneObj) {
   document.getElementById("chapter_name").innerHTML = oneObj.name;
+document.getElementById("chapter_index").innerHTML = window.new_index;
 
   document.getElementById("chapter_duration").innerHTML = new_duration;
   document.getElementById("chapter_startTime").innerHTML = new_startTime;
@@ -297,7 +329,7 @@ function jumpTo(idx) {
     // new_duration = 2 + Math.random() * 5;
     new_duration = Math.round(jsonData[idx].duration_vid * 1e6) / 1e6;
     new_endTime = new_startTime + new_duration; //jsonData[idx].duration_vid;
-
+new_index = idx;
     loopDirection = 1;
     // Math.round(someNumber * 1e2) / 1e2
 

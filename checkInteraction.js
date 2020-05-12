@@ -17,6 +17,10 @@ document.addEventListener("keyup", function(e) {
 //     //        console.log('temp_r', temp_r);
 //     //       display_jsonObj(jsonData[temp_r]);
 
+      var temp_idx = window.new_index + 1;
+      if(temp_idx < 120){
+      jumpTo(temp_idx)
+      }
 //     player.currentTime((player.currentTime() + 3) % player.duration());
   } else if (e.code === "ArrowLeft") {
     // let t = player.currentTime() - 3;
@@ -24,8 +28,16 @@ document.addEventListener("keyup", function(e) {
     //   t += player.duration();
     // }
     // player.currentTime(t);
-  } else if (e.key === "d") {
-    // toggleFullWindow();
+        var temp_idx = window.new_index - 1;
+      if(temp_idx >= 0){
+      jumpTo(temp_idx)
+      }
+} else if (e.key === "0") {
+     jumpTo(0)
+// show("audioInfo");
+  } else if (e.key === "i") {
+     show("info");
+// show("audioInfo");
   } else if (e.key === "w") {
     // setToWindowSize();
   } else if (e.key === "f") {

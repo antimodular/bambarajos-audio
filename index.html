@@ -7,7 +7,7 @@
     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
     <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
     <script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
-    <script src="lib/bodyScrollLock.js"></script>
+    <script src="lib/bodyScrollLock/bodyScrollLock.js"></script>
 
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   </head>
@@ -42,7 +42,7 @@
       <!--       <div id="version">...</div> -->
       <div id="version">...</div>
       <div id="keys">
-        key [j] = jump, key [n] = next chapter, key [d] = debug, key [f] =
+        arrow keys = flip chapter, key [0] = chapter 0, key [i] = info, key [f] =
         fullscreen
       </div>
 
@@ -61,7 +61,10 @@
             <th>name</th>
             <td><span id="chapter_name"></span></td>
           </tr>
-
+        <tr>
+            <th>index</th>
+            <td><span id="chapter_index"></span></td>
+          </tr>
           <tr>
             <th>startTime</th>
             <td><span id="chapter_startTime"></span></td>
