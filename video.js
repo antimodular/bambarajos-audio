@@ -30,6 +30,7 @@ var player = videojs("vid", {});
 
 
 // var json_src = "l-001-200_047.json";
+var json_srcArray = {"https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.json?v=1589301289192","",""};
 var json_src = "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.json?v=1589301289192";
 var vid_src = "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.mp4?v=1589301371128";
 // var vid_src = "l-001-200_047.mp4";
