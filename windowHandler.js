@@ -30,19 +30,21 @@ window.onload = function(e) {
     document.getElementById("shrinkIcon").style.visibility = "hidden";
   }
   
-  document.getElementById('shrinkIcon').addEventListener('click', function (e) {
-    console.log("click shrinkIcon");
-    // var img = document.createElement('img');
-    // img.setAttribute('src', 'http://blog.stackoverflow.com/wp-content/uploads/stackoverflow-logo-300.png');
-    // e.target.appendChild(img);
-  });
-   document.getElementById('expandIcon').addEventListener('click', function (e) {
-    console.log("click expandIcon");
-    // var img = document.createElement('img');
-    // img.setAttribute('src', 'http://blog.stackoverflow.com/wp-content/uploads/stackoverflow-logo-300.png');
-    // e.target.appendChild(img);
-  });
+
 };
+
+  // document.getElementById('shrink').addEventListener('click', function (e) {
+  //   console.log("click shrinkIcon");
+  //   // var img = document.createElement('img');
+  //   // img.setAttribute('src', 'http://blog.stackoverflow.com/wp-content/uploads/stackoverflow-logo-300.png');
+  //   // e.target.appendChild(img);
+  // });
+  //  document.getElementById('expand').addEventListener('click', function (e) {
+  //   console.log("click expandIcon");
+  //   // var img = document.createElement('img');
+  //   // img.setAttribute('src', 'http://blog.stackoverflow.com/wp-content/uploads/stackoverflow-logo-300.png');
+  //   // e.target.appendChild(img);
+  // });
 
 // document.addEventListener('fullscreenchange', (event) => {
 //   // document.fullscreenElement will point to the element that

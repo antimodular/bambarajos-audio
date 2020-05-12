@@ -70,6 +70,11 @@ audio_mute.onclick = function(e) {
   console.log("audio_mute.onclick " + e);
 };
 
+// var icon_expand = document.getElementById("expandIcon");
+// icon_expand.onclick = function(e) {
+//   console.log("icon_expand " + e);
+// };
+
 // function update() {
 // document.getElementById("mute").checked = !track.enabled;
 
@@ -156,7 +161,10 @@ function spectrum(stream) {
     canvas.addEventListener("mousedown", function(e) {
       window.canvas_mousePressed = true;
       info_mouse_pressed.innerHTML = "pressed: " + window.canvas_mousePressed;
-
+      if (e.x > canvas.width - 100 && e.y < 100) {
+        console.log("click in corner");
+        setFullScreen(!document.fullscreen);
+      }
       lastTouchMillis = Date.now();
     });
 
