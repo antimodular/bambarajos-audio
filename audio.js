@@ -254,7 +254,7 @@ function spectrum(stream) {
     function onTouchEnd(event) {
       var touch = getTouch(event);
 
-      touch.preventDefault();
+      // touch.preventDefault();
 
       if (!touch) {
         return;
