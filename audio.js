@@ -577,11 +577,16 @@ function drawCanvasText(yOffset) {
   //           210
   //         );
 
-  if (Date.now() - window.orientationMillis < 10000) {
-    slideAlpha += 0.3;
+  if (performance.now() < 10000) {
+    slideAlpha = 1;
   } else {
-    slideAlpha -= 0.1;
+    if (Date.now() - window.orientationMillis < 10000) {
+      slideAlpha += 0.3;
+    } else {
+      slideAlpha -= 0.1;
+    }
   }
+  // 
   slideAlpha = ofClamp(slideAlpha, 0, 1);
   canvasCtx.font = "25px Helvetica";
   canvasCtx.fillStyle = "rgb(255,255,255," + slideAlpha + ")";
