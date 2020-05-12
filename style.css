@@ -1,5 +1,3 @@
-
-
 /* .container {
   position: absolute;
 } */
@@ -9,18 +7,21 @@
 .hidden {
   visibility: collapse;
 } */
-html, body {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    overflow: hidden;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
   color: white;
 }
-body {background-color: black;}
+body {
+  background-color: black;
+}
 
 /* https://www.w3schools.com/html/html_images_background.asp */
 /* body { */
-  
+
 /*   background-image: url('https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2FMutek_MO_1386.jpg?v=1589225578596'); */
 /*       background-image: url('https://www.w3schools.com/html/img_girl.jpg'); */
 /*  background-repeat: no-repeat; */
@@ -38,28 +39,28 @@ body {background-color: black;}
 https://jsfiddle.net/stephanschulz/3pnkh9t4/2/ */
 /*  doing the below to have canvas on top of video*/
 /* . dot for div class= */
-.videoDiv  {
-/*   position: relative;
+.videoDiv {
+  /*   position: relative;
   margin-top: 0px; */
-/*   min-height: 100%;
+  /*   min-height: 100%;
     min-width: 100%;
     height: auto;
     width: auto; */
-/*   height: auto;
+  /*   height: auto;
     width: auto; */
-/*   player.fluid() can't handle inline-block */
-/*    display: inline-block;  */ 
-/*       width: 100%;
+  /*   player.fluid() can't handle inline-block */
+  /*    display: inline-block;  */
+  /*       width: 100%;
      height: 1000vh; */
-/*     position: relative; */
-  
-/*    position: absolute;
+  /*     position: relative; */
+
+  /*    position: absolute;
   left: 0;
   top: 50%; */
-/*    left: 1em;
+  /*    left: 1em;
   top: 1em; */
-/*    margin-top: 100px; */
-/*      -webkit-box-align:center;
+  /*    margin-top: 100px; */
+  /*      -webkit-box-align:center;
     -webkit-box-pack:center;
     display:-webkit-box; */
 }
@@ -81,51 +82,47 @@ https://jsfiddle.net/stephanschulz/3pnkh9t4/2/ */
 } */
 
 /* # for div id=  */
-#audio_Canvas{
+#audio_Canvas {
   position: absolute;
   left: 0;
   top: 0;
-/*    top: 50%;
+  /*    top: 50%;
     transform: translateY(-50%); */
-/*   height: auto;
+  /*   height: auto;
   width: auto; */
   z-index: 10;
-/*   opacity: 1; //0.5; */
-} 
+  /*   opacity: 1; //0.5; */
+}
 
 #shrinkIcon {
-/*    visibility: hidden; */
+  /*    visibility: hidden; */
   opacity: 0;
-/*   position: absolute; */
-/*   left: 0%;
+  /*   position: absolute; */
+  /*   left: 0%;
   top: 0;
    */
 }
 #shrinkIcon img {
-  
-    position: absolute;
-    top: 0px;
-    right: 0px;
-   width: 10%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 30%;
   height: auto;
-
 }
 #expandIcon {
-/*   visibility: hidden; */
+  /*   visibility: hidden; */
   opacity: 0;
-/*   position: absolute; */
-/*   left: 0%;
+  /*   position: absolute; */
+  /*   left: 0%;
   top: 0;
    */
 }
 #expandIcon img {
-
-    position: absolute;
-    top: 0px;
-    right: 0px;
-   width: 10%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 30%;
   height: auto;
-
 }
 
 /* @media (max-width:629px) {
@@ -146,7 +143,6 @@ https://jsfiddle.net/stephanschulz/3pnkh9t4/2/ */
 /*     background-color: rgba(50, 50, 50, 0.3); */
 /*    opacity: 0.5; */
 /* } */
-
 
 /* #videoDiv:before {
     position: absolute;

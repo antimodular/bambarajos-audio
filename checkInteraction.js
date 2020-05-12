@@ -31,7 +31,7 @@ document.addEventListener("keyup", function(e) {
   } else if (e.key === "f") {
     // player.requestFullscreen();
     // toggleFullScreen();
-     setFullScreen(!window.isFullscreen);
+     setFullScreen(!document.fullscreen);
   } else if (e.key === "[") {
     window.orientationMillis = Date.now();
     setFullScreen(true);

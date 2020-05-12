@@ -8,7 +8,7 @@ var beatHoldFrames = 10; //30;
 
 // what amplitude level can trigger a beat?
 window.beatThreshold = 0.5; //0.28; //1.75; //0.05; //0.11;
-window.setCounter = 0;
+// window.setCounter = 0;
 
 // When we have a beat, beatCutoff will be reset to 1.1*beatThreshold, and then decay
 // Level must be greater than beatThreshold and beatCutoff before the next beat can trigger.
@@ -31,7 +31,7 @@ var millisStart;
 var canvas;
 var canvasCtx;
 
-    var graph_y = 0;
+var graph_y = 0;
 
 var track,
   gUM = c => navigator.mediaDevices.getUserMedia(c);
@@ -124,7 +124,7 @@ var old_deviceOrientation = -1;
 
 function spectrum(stream) {
   // var audioCtx = new AudioContext();
-   var isTouching = false;
+  var isTouching = false;
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
   //   var audioCtx =  new AudioContext // Default
@@ -178,7 +178,6 @@ function spectrum(stream) {
 
     //these need to be inside function spectrum(stream) otherwise body-scroll-lock library blocks canvas touch
     var identifier;
-   
 
     var text_y = 0;
 
@@ -284,7 +283,7 @@ function spectrum(stream) {
     var data = new Uint8Array(512);
     var mainAlpha = 1;
 
-     // console.log("beatThreshold "+beatThreshold);
+    // console.log("beatThreshold "+beatThreshold);
     setInterval(() => {
       // console.log("beatThreshold "+beatThreshold);
       if (deviceOrientation == 0) {
@@ -303,35 +302,36 @@ function spectrum(stream) {
       }
 
       var orientationChanged = false;
-      if(old_deviceOrientation != deviceOrientation){
-old_deviceOrientation = deviceOrientation;
+      if (old_deviceOrientation != deviceOrientation) {
+        old_deviceOrientation = deviceOrientation;
         orientationChanged = true;
       }
-      if (window.canvas_mousePressed == true ) {
+      if (window.canvas_mousePressed == true) {
         //           var rect = document.querySelector('div').getBoundingClientRect(),
-//         var rect = canvas.getBoundingClientRect();
-//         //          console.log("rect top "+rect.top + " left "+ rect.left);
-//         mapped_y = window.canvas_mouseMoveY - rect.top; //-graph_y;
-//         //          var temp_max = graph_y - rect.top;
-//         mapped_y = ofClamp(mapped_y, 0, graph_y);
-        
-//           var diff = graph_y - mapped_y;
-//         beatThreshold = (diff/graph_y); //mapRange(mapped_y, [0,graph_y], [1, 0]);
-        
+        //         var rect = canvas.getBoundingClientRect();
+        //         //          console.log("rect top "+rect.top + " left "+ rect.left);
+        //         mapped_y = window.canvas_mouseMoveY - rect.top; //-graph_y;
+        //         //          var temp_max = graph_y - rect.top;
+        //         mapped_y = ofClamp(mapped_y, 0, graph_y);
+
+        //           var diff = graph_y - mapped_y;
+        //         beatThreshold = (diff/graph_y); //mapRange(mapped_y, [0,graph_y], [1, 0]);
+
         setBeatThreshold(window.canvas_mouseMoveY);
-      // console.log("beatThreshold "+beatThreshold);
-          // console.log("diff "+diff+" graph_y "+graph_y + " mapped_y "+mapped_y + " beatThreshold "+beatThreshold);
+        // console.log("beatThreshold "+beatThreshold);
+        // console.log("diff "+diff+" graph_y "+graph_y + " mapped_y "+mapped_y + " beatThreshold "+beatThreshold);
 
         // beatThreshold += mouseChangeX;
-      } else if (isTouching == true ) { //|| orientationChanged == true
-        
+      } else if (isTouching == true) {
+        //|| orientationChanged == true
+
         setBeatThreshold(touchMoveY);
-//         var rect = canvas.getBoundingClientRect();
-//         mapped_y = touchMoveY - rect.top;
-//         mapped_y = ofClamp(mapped_y, 0, graph_y);
-        
-//          var diff = graph_y - mapped_y;
-//         beatThreshold = (diff/graph_y);
+        //         var rect = canvas.getBoundingClientRect();
+        //         mapped_y = touchMoveY - rect.top;
+        //         mapped_y = ofClamp(mapped_y, 0, graph_y);
+
+        //          var diff = graph_y - mapped_y;
+        //         beatThreshold = (diff/graph_y);
 
         // console.log("beatThreshold "+beatThreshold);
         // beatThreshold = 1 - mapped_y/graph_y; //mapRange(mapped_y, [0, graph_y], [1, 0]);
@@ -466,7 +466,7 @@ old_deviceOrientation = deviceOrientation;
 
         //        let mapped_cutOff = graph_y - (beatCutoff * graph_scaler);
         // let mapped_cutOff = mapRange(beatCutoff, [0, 2], [graph_y, 0]);
-let mapped_cutOff = beatCutoff * graph_y;
+        let mapped_cutOff = beatCutoff * graph_y;
         // console.log("beatCutoff " + mapped_cutOff);
         canvasCtx.moveTo(0, graph_y - mapped_cutOff);
         canvasCtx.lineTo(canvas.width, graph_y - mapped_cutOff);
@@ -486,12 +486,14 @@ let mapped_cutOff = beatCutoff * graph_y;
         canvasCtx.lineTo(canvas.width, graph_y - mapped_beatThres);
         canvasCtx.stroke();
 
-        if(window.isFullScreen == true){
-          document.getElementById("shrinkIcon").style.opacity = mainAlpha;
-          document.getElementById("expandIcon").style.opacity  = 0;
-        }else{
-          document.getElementById("expandIcon").style.opacity = mainAlpha;
-          document.getElementById("shrinkIcon").style.opacity = 0;
+        if (window.deviceIsMobile == false) {
+          if (document.fullscreen == true) {
+            document.getElementById("shrinkIcon").style.opacity = mainAlpha;
+            document.getElementById("expandIcon").style.opacity = 0;
+          } else {
+            document.getElementById("expandIcon").style.opacity = mainAlpha;
+            document.getElementById("shrinkIcon").style.opacity = 0;
+          }
         }
         // if(mainAlpha < 0.5){
         //   document.getElementById("shrinkIcon").style.visibility = "hidden";
@@ -505,19 +507,28 @@ let mapped_cutOff = beatCutoff * graph_y;
   }
 }
 
-function setBeatThreshold(temp_y){
-   var rect = canvas.getBoundingClientRect();
-        //          console.log("rect top "+rect.top + " left "+ rect.left);
-       var mapped_y = temp_y - rect.top; //-graph_y;
-        //          var temp_max = graph_y - rect.top;
-        mapped_y = ofClamp(mapped_y, 0, graph_y);
-        
-          var diff = graph_y - mapped_y;
-        window.beatThreshold = (diff/graph_y); //mapRange(mapped_y, [0,graph_y], [1, 0]);
-      // console.log("beatThreshold "+beatThreshold);
-          console.log("diff "+diff+" graph_y "+graph_y + " mapped_y "+mapped_y + " beatThreshold "+beatThreshold);
+function setBeatThreshold(temp_y) {
+  var rect = canvas.getBoundingClientRect();
+  //          console.log("rect top "+rect.top + " left "+ rect.left);
+  var mapped_y = temp_y - rect.top; //-graph_y;
+  //          var temp_max = graph_y - rect.top;
+  mapped_y = ofClamp(mapped_y, 0, graph_y);
 
-  setCounter++;
+  var diff = graph_y - mapped_y;
+  window.beatThreshold = diff / graph_y; //mapRange(mapped_y, [0,graph_y], [1, 0]);
+  // console.log("beatThreshold "+beatThreshold);
+  console.log(
+    "diff " +
+      diff +
+      " graph_y " +
+      graph_y +
+      " mapped_y " +
+      mapped_y +
+      " beatThreshold " +
+      beatThreshold
+  );
+
+  // setCounter++;
 }
 function drawCanvasText(yOffset) {
   //      canvasCtx.font = "20px Arial";
@@ -570,11 +581,15 @@ function drawCanvasText(yOffset) {
   canvasCtx.font = "20px Helvetica";
   // canvasCtx.fillText("touch screen to adjust sensitivity", 40, yOffset + 120);
 
-//   canvasCtx.fillText("beatThreshold " + beatThreshold, 40, yOffset + 130);
-// canvasCtx.fillText("graph_y "+graph_y, 40, yOffset + 150);
-//   canvasCtx.fillText("setCounter "+setCounter, 40, yOffset + 170);
-    canvasCtx.fillText("window.deviceIsMobile "+window.deviceIsMobile, 40, yOffset + 170);
-  canvasCtx.fillText("isFullscreen "+window.isFullscreen, 40, yOffset + 190);
+  //   canvasCtx.fillText("beatThreshold " + beatThreshold, 40, yOffset + 130);
+  // canvasCtx.fillText("graph_y "+graph_y, 40, yOffset + 150);
+  //   canvasCtx.fillText("setCounter "+setCounter, 40, yOffset + 170);
+  canvasCtx.fillText(
+    "window.deviceIsMobile " + window.deviceIsMobile,
+    40,
+    yOffset + 170
+  );
+  canvasCtx.fillText("isFullscreen " + document.fullscreen, 40, yOffset + 190);
   // canvasCtx.fillText("isTouching "+isTouching, 40, yOffset + 190);
 
   // if (deviceOrientation == 0) {

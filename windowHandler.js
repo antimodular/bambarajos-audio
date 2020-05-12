@@ -1,21 +1,21 @@
-window.isFullScreen = false;
+// window.isFullScreen = false;
 window.deviceIsMobile = false;
 
- hide("info");
-  hide("audioInfo");
+hide("info");
+hide("audioInfo");
 // show("info");
 // show("audioInfo");
 
 //https://www.w3schools.com/js/js_json_objects.asp
 window.onload = function(e) {
   millisStart = Date.now();
-window.orientationMillis = Date.now();
-  
+  window.orientationMillis = Date.now();
+
   loadJsonData();
 
   // hide("info");
   // hide("audioInfo");
-  
+
   // bShowInfo = false;
   // hide("info");
   //    hide("audioInfo");
@@ -23,8 +23,25 @@ window.orientationMillis = Date.now();
 
   document.getElementById("version").innerHTML = "version " + version;
   document.getElementById("audioInfo").style.display = "none";
-  
+
   window.deviceIsMobile = isMobile();
+  if (window.deviceIsMobile == true) {
+    document.getElementById("expandIcon").style.visibility = "hidden";
+    document.getElementById("shrinkIcon").style.visibility = "hidden";
+  }
+  
+  document.getElementById('shrinkIcon').addEventListener('click', function (e) {
+    console.log("click shrinkIcon");
+    // var img = document.createElement('img');
+    // img.setAttribute('src', 'http://blog.stackoverflow.com/wp-content/uploads/stackoverflow-logo-300.png');
+    // e.target.appendChild(img);
+  });
+   document.getElementById('expandIcon').addEventListener('click', function (e) {
+    console.log("click expandIcon");
+    // var img = document.createElement('img');
+    // img.setAttribute('src', 'http://blog.stackoverflow.com/wp-content/uploads/stackoverflow-logo-300.png');
+    // e.target.appendChild(img);
+  });
 };
 
 // document.addEventListener('fullscreenchange', (event) => {
@@ -70,13 +87,13 @@ function displayWindowSize() {
   // document.getElementById("result").innerHTML =
   //   "Width: " + w + ", " + "Height: " + h;
   // console.log("Width: " + w + ", " + "Height: " + h);
-//   screenWidth = w;
-//     screenHeight =  h;
-//         window.playerW = screenWidth; //window.screen.width;
-//   window.playerH = screenHeight; //window.screen.height;
-  
-   updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
-  
+  //   screenWidth = w;
+  //     screenHeight =  h;
+  //         window.playerW = screenWidth; //window.screen.width;
+  //   window.playerH = screenHeight; //window.screen.height;
+
+  updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+
   // updateCanvasSize(window.playerW, window.playerH);
   // updateCanvasSize(window.playerW, window.playerW*(4/5));
 }
@@ -86,7 +103,7 @@ function displayWindowSize() {
 // 	if(window.innerHeight != iHeight) {
 // 		iHeight = window.innerHeight;
 // 		document.body.style.height = iHeight + 'px';
-    
+
 //     displayWindowSize();
 // 	}
 // }
@@ -97,7 +114,7 @@ function displayWindowSize() {
 // }
 // function toggleFullScreen() {
 //    // if(window.isFullscreen == true){
-   
+
 //   // }else{
 //   //    setFullScreen(true);
 //   // }
@@ -105,7 +122,7 @@ function displayWindowSize() {
 // function toggleFullScreen2() {
 //   console.log("toggleFullScreen()");
 // window.orientationMillis = Date.now();
-  
+
 //   //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
 //   var doc = window.document;
 //   var docEl = doc.documentElement;
@@ -138,14 +155,14 @@ function displayWindowSize() {
 //     window.isFullScreen = false;
 //     // show("info");
 //     // show("audioInfo");
-    
+
 //     console.log("cancelFullScreen.call");
 //     //any other function calls should happen before cancelFullScreen.call
 //     cancelFullScreen.call(doc);
 
 //     // setFullWindow(false);
 //   }
-  
+
 //   // updateCanvasSize(window.playerW, window.playerH);
 //   updateCanvasSize(window.player.currentWidth, window.player.currentHeight);
 // }
@@ -154,103 +171,95 @@ function setFullScreen(full) {
   console.log("setFullScreen() " + full);
 
   window.orientationMillis = Date.now();
-  
+
   //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
   var doc = window.document;
   var docEl = doc.documentElement;
 
   var requestFullScreen =
-        docEl.webkitRequestFullScreen ||
+    docEl.webkitRequestFullScreen ||
     docEl.requestFullscreen ||
     docEl.mozRequestFullScreen ||
     docEl.msRequestFullscreen;
   var cancelFullScreen =
-      doc.webkitExitFullscreen ||
+    doc.webkitExitFullscreen ||
     doc.exitFullscreen ||
     doc.mozCancelFullScreen ||
     doc.msExitFullscreen;
 
-  
-  
   if (full == true) {
     // setFullWindow(true);
-    window.isFullScreen = true;
-    
+    // window.isFullScreen = true;
+
     // hide("info");
     // hide("audioInfo");
-    
+
     // screenWidth = window.screen.availWidth;
     // screenHeight = window.screen.availHeight;
     // screenWidth = window.screen.width;
     // screenHeight = window.screen.height;
-//      screenWidth = window.screen.width * window.devicePixelRatio;
+    //      screenWidth = window.screen.width * window.devicePixelRatio;
 
-//  screenHeight = window.screen.height * window.devicePixelRatio;
-  //     window.playerW = screenWidth; //window.screen.width;
-  // window.playerH = screenHeight; //window.screen.height;
-  
+    //  screenHeight = window.screen.height * window.devicePixelRatio;
+    //     window.playerW = screenWidth; //window.screen.width;
+    // window.playerH = screenHeight; //window.screen.height;
+
     // player.videoWidth(screenWidth);
     // player.height(screenHeight);
-      // console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
+    // console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
 
-//    window.playerW = screenWidth; //window.screen.width;
-//   window.playerH = screenHeight; //window.screen.height;
-  
-//     player.width(screenWidth);
-//     player.height(screenHeight);
+    //    window.playerW = screenWidth; //window.screen.width;
+    //   window.playerH = screenHeight; //window.screen.height;
 
-//   updateCanvasSize(window.playerW, window.playerH);
-    
+    //     player.width(screenWidth);
+    //     player.height(screenHeight);
+
+    //   updateCanvasSize(window.playerW, window.playerH);
+
     //any other function calls should happen before requestFullScreen.call
     requestFullScreen.call(docEl);
   } else {
     // setFullWindow(false);
-    window.isFullScreen = false;
+    // window.isFullScreen = false;
     // show("info");
     // show("audioInfo");
     //any other function calls should happen before cancelFullScreen.call
-    
-      // console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
 
- 
-  
+    // console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
+
     // player.videoWidth(screenWidth);
     // player.height(screenHeight);
     cancelFullScreen.call(doc);
-    
-  //    screenWidth =  window.innerWidth;
-  // screenHeight = window.innerHeight ;
-  //     window.playerW = screenWidth; //window.screen.width;
-  // window.playerH = screenHeight; //window.screen.height;
+
+    //    screenWidth =  window.innerWidth;
+    // screenHeight = window.innerHeight ;
+    //     window.playerW = screenWidth; //window.screen.width;
+    // window.playerH = screenHeight; //window.screen.height;
   }
 
-//    screenWidth =
-//     window.innerWidth ||
-//     document.documentElement.clientWidth ||
-//     document.body.clientWidth;
+  //    screenWidth =
+  //     window.innerWidth ||
+  //     document.documentElement.clientWidth ||
+  //     document.body.clientWidth;
 
-//   screenHeight =
-//     window.innerHeight ||
-//     document.documentElement.clientHeight ||
-//     document.body.clientHeight;
-  
- 
-  
-  
+  //   screenHeight =
+  //     window.innerHeight ||
+  //     document.documentElement.clientHeight ||
+  //     document.body.clientHeight;
+
   // updateCanvasSize(window.playerW, window.playerH);
- 
+
   //   if (_flipWH == true) {
   //   //swap to numbers
   //   //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
   //   screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
   // }
-
 }
 
-function toggleFullWindow() {
-  window.isFullScreen = !window.isFullScreen;
-  setFullWindow(window.isFullScreen);
-}
+// function toggleFullWindow() {
+//   // window.isFullScreen = !window.isFullScreen;
+//   setFullWindow(!window.isFullScreen);
+// }
 
 // function setFullWindow2(_fullWindow, _flipWH) {
 //   isFullScreen = _fullWindow;
@@ -271,7 +280,7 @@ function toggleFullWindow() {
 
 //    window.playerW = screenWidth; //window.screen.width;
 //   window.playerH = screenHeight; //window.screen.height;
-  
+
 //   if (_flipWH == true) {
 //     //swap to numbers
 //     //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
@@ -305,92 +314,88 @@ function toggleFullWindow() {
 //   updateCanvasSize(window.playerW, window.playerH);
 // }
 
-function setFullWindow(_fullWindow, _flipWH) {
-  window.isFullScreen = _fullWindow;
-  // console.log("fullScreen "+fullScreen);
-  // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
-  //   var w = window.innerWidth;
-  // var h = window.innerHeight;
+// function setFullWindow(_fullWindow, _flipWH) {
+//   window.isFullScreen = _fullWindow;
+//   // console.log("fullScreen "+fullScreen);
+//   // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
+//   //   var w = window.innerWidth;
+//   // var h = window.innerHeight;
 
- 
+//   if (_flipWH == true) {
+//     //swap to numbers
+//     //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
+//     screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
+//   }
 
-  if (_flipWH == true) {
-    //swap to numbers
-    //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
-    screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
-  }
+//   //iphone 1472 x 980
+//   // bShowInfo = !_fullWindow;
+//   if (window.isFullScreen == true) {
+//     // window.playerW = 960; //1920/2; //screenWidth; //window.screen.width;
+//     // window.playerH = 540; //1080/2; //screenHeight; //window.screen.height;
+//     // window.playerW = screenWidth; //window.screen.width;
+//     // window.playerH = screenHeight; //window.screen.height;
+//     // hide("info");
+//     // hide("audioInfo");
 
- 
-  //iphone 1472 x 980
-  // bShowInfo = !_fullWindow;
-  if (window.isFullScreen == true) {
-    // window.playerW = 960; //1920/2; //screenWidth; //window.screen.width;
-    // window.playerH = 540; //1080/2; //screenHeight; //window.screen.height;
-    // window.playerW = screenWidth; //window.screen.width;
-    // window.playerH = screenHeight; //window.screen.height;
-    // hide("info");
-    // hide("audioInfo");
+//     // screenWidth = screen.width;
+//     // screenHeight = screen.height;
+//     // player.aspectRatio("1:1");  //5:4
+//     // player.fluid(true); //set to window size
+//     // player.fluid(true);
 
-    // screenWidth = screen.width;
-    // screenHeight = screen.height;
-    // player.aspectRatio("1:1");  //5:4
-    // player.fluid(true); //set to window size
-    // player.fluid(true);
+//   } else {
+//     // window.playerW = 400;
+//     // window.playerH = 320;
+// //  screenWidth =
+// //     window.innerWidth ||
+// //     document.documentElement.clientWidth ||
+// //     document.body.clientWidth;
 
-  } else {
-    // window.playerW = 400;
-    // window.playerH = 320;
-//  screenWidth =
-//     window.innerWidth ||
-//     document.documentElement.clientWidth ||
-//     document.body.clientWidth;
+// //   screenHeight =
+// //     window.innerHeight ||
+// //     document.documentElement.clientHeight ||
+// //     document.body.clientHeight;
 
-//   screenHeight =
-//     window.innerHeight ||
-//     document.documentElement.clientHeight ||
-//     document.body.clientHeight;
-    
-    // show("info");
-    // show("audioInfo");
-    // player.width(400); //80
-    // player.height(320); //64
-    // player.fluid(false);
-    //    player.width(window.playerW);
-    // player.height(window.playerH);
-  }
-  // console.log("player.videoWidth() "+player.videoWidth())
-  // updateCanvasSize(player.videoWidth(),player.videoHeight());
-  
-  //  window.playerW = screenWidth; //window.screen.width;
-  // window.playerH = screenHeight; //window.screen.height;
-  
-  // updateCanvasSize(window.playerW, window.playerH);
-}
+//     // show("info");
+//     // show("audioInfo");
+//     // player.width(400); //80
+//     // player.height(320); //64
+//     // player.fluid(false);
+//     //    player.width(window.playerW);
+//     // player.height(window.playerH);
+//   }
+//   // console.log("player.videoWidth() "+player.videoWidth())
+//   // updateCanvasSize(player.videoWidth(),player.videoHeight());
 
-function setToWindowSize() {
-  
-  //  var w = document.documentElement.clientWidth;
-  // var h = document.documentElement.clientHeight;
-  
-//   screenWidth =
-//     window.innerWidth ||
-//     document.documentElement.clientWidth ||
-//     document.body.clientWidth;
+//   //  window.playerW = screenWidth; //window.screen.width;
+//   // window.playerH = screenHeight; //window.screen.height;
 
-//   screenHeight =
-//     window.innerHeight ||
-//     document.documentElement.clientHeight ||
-//     document.body.clientHeight;
+//   // updateCanvasSize(window.playerW, window.playerH);
+// }
 
-//   window.playerW = screenWidth; //window.screen.width;
-//   window.playerH = screenHeight; //window.screen.height;
+// function setToWindowSize() {
 
-  // player.width(window.playerW);
-  // player.height(window.playerH);
+//   //  var w = document.documentElement.clientWidth;
+//   // var h = document.documentElement.clientHeight;
 
-  
-   // updateCanvasSize(window.player.currentWidth, window.player.currentHeight);
-  // updateCanvasSize(window.playerW, window.playerH);
-  // updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+// //   screenWidth =
+// //     window.innerWidth ||
+// //     document.documentElement.clientWidth ||
+// //     document.body.clientWidth;
 
-}
+// //   screenHeight =
+// //     window.innerHeight ||
+// //     document.documentElement.clientHeight ||
+// //     document.body.clientHeight;
+
+// //   window.playerW = screenWidth; //window.screen.width;
+// //   window.playerH = screenHeight; //window.screen.height;
+
+//   // player.width(window.playerW);
+//   // player.height(window.playerH);
+
+//    // updateCanvasSize(window.player.currentWidth, window.player.currentHeight);
+//   // updateCanvasSize(window.playerW, window.playerH);
+//   // updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+
+// }
