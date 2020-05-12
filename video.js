@@ -98,7 +98,6 @@ player.src([
 // ]);
 
 // player.poster("https://stephanschulz.ca/bamba/l-001-20min_h264.png");
-player.poster("https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fposter.png?v=1589294040845");
 
 player.autoplay(true);
 //https://coolestguidesontheplanet.com/videodrome/videojs/
@@ -108,6 +107,7 @@ player.autoplay(true);
 // player.controls.aspectRatio("16:9");
 // player.aspectRatio('16:9');
 player.fluid(true); //set to window size
+player.poster("https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fposter.png?v=1589294040845");
 
 /// player GUI controls
 //use the following functions to show or hide the controls
