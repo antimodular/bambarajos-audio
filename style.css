@@ -93,6 +93,19 @@ https://jsfiddle.net/stephanschulz/3pnkh9t4/2/ */
 /*   opacity: 1; //0.5; */
 } 
 
+#icons {
+    position: absolute;
+  left: 100%;
+  top: 0;
+
+}
+#icons img {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+
+
+}
 /* .version2{
 /*   position: absolute; */
 /*     left: 0px; */
