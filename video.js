@@ -3,7 +3,7 @@
 //change buffer amounts
 //https://github.com/videojs/videojs-contrib-hls/issues/1302
 
-var version = "v15";
+var version = "v16";
 
 var player = videojs("vid", {});
 
@@ -97,7 +97,8 @@ player.src([
 //   //player.src([{src:src_url,type: blob.type}
 // ]);
 
-player.poster("https://stephanschulz.ca/bamba/l-001-20min_h264.png");
+// player.poster("https://stephanschulz.ca/bamba/l-001-20min_h264.png");
+player.poster("https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fposter.png?v=1589294040845");
 
 player.autoplay(true);
 //https://coolestguidesontheplanet.com/videodrome/videojs/

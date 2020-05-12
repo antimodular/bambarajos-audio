@@ -159,11 +159,13 @@ function spectrum(stream) {
 
     // register for the mouse events of the document
     canvas.addEventListener("mousedown", function(e) {
-      window.canvas_mousePressed = true;
-      info_mouse_pressed.innerHTML = "pressed: " + window.canvas_mousePressed;
-      if (e.x > canvas.width - 100 && e.y < 100) {
+           if (e.x > canvas.width - 100 && e.y < 100) {
         console.log("click in corner");
         setFullScreen(!document.fullscreen);
+      }else{
+         window.canvas_mousePressed = true;
+      info_mouse_pressed.innerHTML = "pressed: " + window.canvas_mousePressed;
+
       }
       lastTouchMillis = Date.now();
     });
@@ -592,12 +594,12 @@ function drawCanvasText(yOffset) {
   //   canvasCtx.fillText("beatThreshold " + beatThreshold, 40, yOffset + 130);
   // canvasCtx.fillText("graph_y "+graph_y, 40, yOffset + 150);
   //   canvasCtx.fillText("setCounter "+setCounter, 40, yOffset + 170);
-  canvasCtx.fillText(
-    "window.deviceIsMobile " + window.deviceIsMobile,
-    40,
-    yOffset + 170
-  );
-  canvasCtx.fillText("isFullscreen " + document.fullscreen, 40, yOffset + 190);
+  // canvasCtx.fillText(
+  //   "window.deviceIsMobile " + window.deviceIsMobile,
+  //   40,
+  //   yOffset + 170
+  // );
+  // canvasCtx.fillText("isFullscreen " + document.fullscreen, 40, yOffset + 190);
   // canvasCtx.fillText("isTouching "+isTouching, 40, yOffset + 190);
 
   // if (deviceOrientation == 0) {
