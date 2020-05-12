@@ -1,4 +1,5 @@
 var isFullScreen = false;
+window.deviceIsMobile = false;
 
  hide("info");
   hide("audioInfo");
@@ -22,6 +23,8 @@ window.orientationMillis = Date.now();
 
   document.getElementById("version").innerHTML = "version " + version;
   document.getElementById("audioInfo").style.display = "none";
+  
+  window.deviceIsMobile = isMobile();
 };
 
 window.addEventListener("resize", displayWindowSize);
