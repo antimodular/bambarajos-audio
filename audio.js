@@ -8,6 +8,7 @@ var beatHoldFrames = 10; //30;
 
 // what amplitude level can trigger a beat?
 window.beatThreshold = 0.28; //1.75; //0.05; //0.11;
+window.setCounter = 0;
 
 // When we have a beat, beatCutoff will be reset to 1.1*beatThreshold, and then decay
 // Level must be greater than beatThreshold and beatCutoff before the next beat can trigger.
@@ -198,7 +199,7 @@ function spectrum(stream) {
         // log('touch START; indentifer ' + touch.identifier);
         window.addEventListener("touchmove", onTouchMove, false);
         window.addEventListener("touchend", onTouchEnd, false);
-        window.isTouching = true;
+        isTouching = true;
 
         var out = { x: 0, y: 0 };
         out.x = touch.pageX;
@@ -262,7 +263,7 @@ function spectrum(stream) {
       window.removeEventListener("touchend", onTouchEnd, false);
 
       info_touch_state.innerHTML = "touchend ";
-      window.isTouching = false;
+      isTouching = false;
     }
 
     deviceOrientation = window.orientation;
@@ -321,7 +322,7 @@ old_deviceOrientation = deviceOrientation;
           // console.log("diff "+diff+" graph_y "+graph_y + " mapped_y "+mapped_y + " beatThreshold "+beatThreshold);
 
         // beatThreshold += mouseChangeX;
-      } else if (window.isTouching == true ) { //|| orientationChanged == true
+      } else if (isTouching == true ) { //|| orientationChanged == true
         
         setBeatThreshold(touchMoveY);
 //         var rect = canvas.getBoundingClientRect();
@@ -503,6 +504,7 @@ function setBeatThreshold(temp_y){
       // console.log("beatThreshold "+beatThreshold);
           console.log("diff "+diff+" graph_y "+graph_y + " mapped_y "+mapped_y + " beatThreshold "+beatThreshold);
 
+  setCounter++;
 }
 function drawCanvasText(yOffset) {
   //      canvasCtx.font = "20px Arial";
@@ -554,6 +556,11 @@ function drawCanvasText(yOffset) {
 
   canvasCtx.font = "20px Helvetica";
   canvasCtx.fillText("touch screen to adjust sensitivity", 40, yOffset + 120);
+
+  canvasCtx.fillText("beatThreshold " + beatThreshold, 40, yOffset + 150);
+canvasCtx.fillText("graph_y "+graph_y, 40, yOffset + 170);
+  canvasCtx.fillText("setCounter "+setCounter, 40, yOffset + 190);
+  canvasCtx.fillText("isTouching "+isTouching, 40, yOffset + 210);
 
   // if (deviceOrientation == 0) {
   //   canvasCtx.fillText("touch screen to adjust sensitivity", 40, 200);
