@@ -28,11 +28,26 @@ var player = videojs("vid", {});
 // window.playerW = screenWidth; //400;
 // window.playerH = screenHeight; //320;
 
-
 // var json_src = "l-001-200_047.json";
-var json_srcArray = {"https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.json?v=1589301289192","",""};
-var json_src = "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.json?v=1589301289192";
-var vid_src = "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.mp4?v=1589301371128";
+// var json_srcArray = {};
+var json_srcArray = [
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.json?v=1589301289192",
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.json?v=1589302176190",
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_02.json?v=1589302180128"
+];
+var vid_srcArray = [
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.mp4?v=1589301371128",
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.mp4?v=1589302239633",
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_02.mp4?v=1589302248282"
+];
+var temp_r = Math.floor(Math.random() * 3);
+var json_src = json_srcArray[temp_r];
+var vid_src = vid_srcArray[temp_r];
+console.log("json src idx: " + temp_r + " json_name: " + json_src + " vid_name "+ vid_src);
+// var json_src =
+// "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.json?v=1589301289192";
+// var vid_src =
+//   "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.mp4?v=1589301371128";
 // var vid_src = "l-001-200_047.mp4";
 // var vid_src = "https://cdn.glitch.com/b1e475c8-3489-4513-8664-2d0f29f610de%2Fl-001-200_047.mp4?v=1588351308938";
 // var vid_src = "https://stephanschulz.ca/bamba/l-001-200_047.mp4";
@@ -84,9 +99,7 @@ var playSpeed = 1; //0.5;
 //       console.log("blob failed", ex);
 //     });
 
-player.src([
-  { src: vid_src, type: "video/mp4" }
-]);
+player.src([{ src: vid_src, type: "video/mp4" }]);
 
 //var URL = window.URL || window.webkitURL;
 //var src_url = URL.createObjectURL(vid_src);
@@ -110,7 +123,9 @@ player.autoplay(true);
 // player.controls.aspectRatio("16:9");
 // player.aspectRatio('16:9');
 player.fluid(true); //set to window size
-player.poster("https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fposter.png?v=1589294040845");
+player.poster(
+  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fposter.png?v=1589294040845"
+);
 
 /// player GUI controls
 //use the following functions to show or hide the controls
