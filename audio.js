@@ -486,6 +486,11 @@ let mapped_cutOff = beatCutoff * graph_y;
         canvasCtx.lineTo(canvas.width, graph_y - mapped_beatThres);
         canvasCtx.stroke();
 
+        if(mainAlpha < 0.5){
+          document.getElementById("shrinkIcon").style.visibility = "hidden";
+        } else{
+           document.getElementById("shrinkIcon").style.visibility = "visible";
+        }
         // console.log((1000 * canvas.width) / audioCtx.sampleRate); is equal 2
         var bogus = source; // avoid GC or the whole thing stops
       }
