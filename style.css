@@ -94,7 +94,8 @@ https://jsfiddle.net/stephanschulz/3pnkh9t4/2/ */
 } 
 
 #shrinkIcon {
-   visibility: hidden;
+/*    visibility: hidden; */
+  opacity: 0;
 /*   position: absolute; */
 /*   left: 0%;
   top: 0;
@@ -110,7 +111,8 @@ https://jsfiddle.net/stephanschulz/3pnkh9t4/2/ */
 
 }
 #expandIcon {
-  visibility: hidden;
+/*   visibility: hidden; */
+  opacity: 0;
 /*   position: absolute; */
 /*   left: 0%;
   top: 0;

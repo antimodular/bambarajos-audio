@@ -1,4 +1,4 @@
-var isFullScreen = false;
+window.isFullScreen = false;
 window.deviceIsMobile = false;
 
  hide("info");
@@ -28,6 +28,17 @@ window.orientationMillis = Date.now();
 };
 
 window.addEventListener("resize", displayWindowSize);
+// window.addEventListener("fullscreenchange", screenChange);
+window.addEventListener("fullscreenchange", function (event) {
+  console.log(fullscreenchange");
+    if (document.fullscreenElement) {
+        // fullscreen is activated
+      window.isFullScreen = false;
+    } else {
+        // fullscreen is cancelled
+      window.isFullScreen = true;
+    }
+});
 
 function show(target) {
   console.log("show " + target);
@@ -73,8 +84,14 @@ function displayWindowSize() {
 // 	if(timeOut) clearTimeout(timeOut);
 // 	timeOut = setTimeout(resize, 200);
 // }
-
 function toggleFullScreen() {
+  if(window.isFullscreen == true){
+    setFullScreen(false);
+  }else{
+     setFullScreen(true);
+  }
+}
+function toggleFullScreen2() {
   console.log("toggleFullScreen()");
 window.orientationMillis = Date.now();
   
@@ -101,13 +118,13 @@ window.orientationMillis = Date.now();
   ) {
     console.log("requestFullScreen.call(docEl)");
     // setFullWindow(true);
-    isFullScreen = true;
+    window.isFullScreen = true;
     // hide("info");
     // hide("audioInfo");
     //any other function calls should happen before requestFullScreen.call
     requestFullScreen.call(docEl);
   } else {
-    isFullScreen = false;
+    window.isFullScreen = false;
     // show("info");
     // show("audioInfo");
     
@@ -122,8 +139,8 @@ window.orientationMillis = Date.now();
   updateCanvasSize(window.player.currentWidth, window.player.currentHeight);
 }
 
-function setFullScreen(full , _flipWH) {
-  console.log("setFullScreen() " + full + " _flipWH "+_flipWH);
+function setFullScreen(full) {
+  console.log("setFullScreen() " + full);
 
   window.orientationMillis = Date.now();
   
@@ -146,7 +163,7 @@ function setFullScreen(full , _flipWH) {
   
   if (full == true) {
     // setFullWindow(true);
-    isFullScreen = true;
+    // window.isFullScreen = true;
     
     // hide("info");
     // hide("audioInfo");
@@ -177,7 +194,7 @@ function setFullScreen(full , _flipWH) {
     requestFullScreen.call(docEl);
   } else {
     // setFullWindow(false);
-    isFullScreen = false;
+    // window.isFullScreen = false;
     // show("info");
     // show("audioInfo");
     //any other function calls should happen before cancelFullScreen.call
@@ -220,8 +237,8 @@ function setFullScreen(full , _flipWH) {
 }
 
 function toggleFullWindow() {
-  isFullScreen = !isFullScreen;
-  setFullWindow(isFullScreen);
+  window.isFullScreen = !window.isFullScreen;
+  setFullWindow(window.isFullScreen);
 }
 
 // function setFullWindow2(_fullWindow, _flipWH) {
@@ -278,7 +295,7 @@ function toggleFullWindow() {
 // }
 
 function setFullWindow(_fullWindow, _flipWH) {
-  isFullScreen = _fullWindow;
+  window.isFullScreen = _fullWindow;
   // console.log("fullScreen "+fullScreen);
   // console.log("screen.width "+screen.width + " screen.height "+ screen.height);
   //   var w = window.innerWidth;
@@ -295,7 +312,7 @@ function setFullWindow(_fullWindow, _flipWH) {
  
   //iphone 1472 x 980
   // bShowInfo = !_fullWindow;
-  if (isFullScreen == true) {
+  if (window.isFullScreen == true) {
     // window.playerW = 960; //1920/2; //screenWidth; //window.screen.width;
     // window.playerH = 540; //1080/2; //screenHeight; //window.screen.height;
     // window.playerW = screenWidth; //window.screen.width;

@@ -12,69 +12,69 @@ document.addEventListener("keyup", function(e) {
     }
   }
   if (e.code === "ArrowRight") {
-    //          var temp_r = Math.random()*jsonData.length;
-    //      temp_r = parseInt(temp_r);
-    //        console.log('temp_r', temp_r);
-    //       display_jsonObj(jsonData[temp_r]);
+//     //          var temp_r = Math.random()*jsonData.length;
+//     //      temp_r = parseInt(temp_r);
+//     //        console.log('temp_r', temp_r);
+//     //       display_jsonObj(jsonData[temp_r]);
 
-    player.currentTime((player.currentTime() + 3) % player.duration());
+//     player.currentTime((player.currentTime() + 3) % player.duration());
   } else if (e.code === "ArrowLeft") {
-    let t = player.currentTime() - 3;
-    if (t < 0) {
-      t += player.duration();
-    }
-    player.currentTime(t);
+    // let t = player.currentTime() - 3;
+    // if (t < 0) {
+    //   t += player.duration();
+    // }
+    // player.currentTime(t);
   } else if (e.key === "j") {
-    // player.play();
-    jumpTo(-1);
+    // // player.play();
+    // jumpTo(-1);
   } else if (e.key === "n") {
-    // player.play();
-    jumpTo(vidCounter);
-    vidCounter++;
-    vidCounter %= 200;
+    // // player.play();
+    // jumpTo(vidCounter);
+    // vidCounter++;
+    // vidCounter %= 200;
   } else if (e.key === "1") {
-    //      var temp_speed = Math.random() * 2 ;
-    //      temp_speed = temp_speed - 1;
-    console.log("rewind(-1)");
-    //      speed = -1;
-    //      rewind = true;
-    //      player.pause();
-    setup_rewind(1);
+    // //      var temp_speed = Math.random() * 2 ;
+    // //      temp_speed = temp_speed - 1;
+    // console.log("rewind(-1)");
+    // //      speed = -1;
+    // //      rewind = true;
+    // //      player.pause();
+    // setup_rewind(1);
 
     //      player.playbackRate(speed);
   } else if (e.key === "2") {
-    console.log("rewind(-0.5)");
+//     console.log("rewind(-0.5)");
 
-    //         speed = -0.5;
-    //      rewind = true;
-    //      player.pause();
-    setup_rewind(0.5);
-    //      player.playbackRate(speed);
+//     //         speed = -0.5;
+//     //      rewind = true;
+//     //      player.pause();
+//     setup_rewind(0.5);
+//     //      player.playbackRate(speed);
   } else if (e.key === "3") {
-    console.log("playbackRate(0.5)");
+//     console.log("playbackRate(0.5)");
 
-    speed = 0.5;
-    rewinding = false;
+//     speed = 0.5;
+//     rewinding = false;
 
-    player.playbackRate(speed);
+//     player.playbackRate(speed);
   } else if (e.key === "4") {
-    console.log("playbackRate(1)");
-    speed = 1;
-    rewinding = false;
-    player.playbackRate(speed);
+    // console.log("playbackRate(1)");
+    // speed = 1;
+    // rewinding = false;
+    // player.playbackRate(speed);
   } else if (e.key === "d") {
-    toggleFullWindow();
+    // toggleFullWindow();
   } else if (e.key === "w") {
-    setToWindowSize();
+    // setToWindowSize();
   } else if (e.key === "f") {
     // player.requestFullscreen();
     toggleFullScreen();
   } else if (e.key === "[") {
     window.orientationMillis = Date.now();
-    setFullScreen(true, true);
+    setFullScreen(true);
   } else if (e.key === "]") {
     window.orientationMillis = Date.now();
-    setFullScreen(false, false);
+    setFullScreen(false);
   } else if (e.key === "g") {
     bShowGui;
   }
