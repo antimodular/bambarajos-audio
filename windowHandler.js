@@ -27,18 +27,29 @@ window.orientationMillis = Date.now();
   window.deviceIsMobile = isMobile();
 };
 
-window.addEventListener("resize", displayWindowSize);
+// document.addEventListener('fullscreenchange', (event) => {
+//   // document.fullscreenElement will point to the element that
+//   // is in fullscreen mode if there is one. If there isn't one,
+//   // the value of the property is null.
+//   if (document.fullscreenElement) {
+//     console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+//   } else {
+//     console.log('Leaving full-screen mode.');
+//   }
+// });
+
+document.addEventListener("resize", displayWindowSize);
 // window.addEventListener("fullscreenchange", screenChange);
-window.addEventListener("fullscreenchange", function (event) {
-  console.log(fullscreenchange");
-    if (document.fullscreenElement) {
-        // fullscreen is activated
-      window.isFullScreen = false;
-    } else {
-        // fullscreen is cancelled
-      window.isFullScreen = true;
-    }
-});
+// document.addEventListener("fullscreenchange", function (event) {
+//   console.log("fullscreenchange");
+//     if (document.fullscreenElement) {
+//         // fullscreen is activated
+//       window.isFullScreen = false;
+//     } else {
+//         // fullscreen is cancelled
+//       window.isFullScreen = true;
+//     }
+// });
 
 function show(target) {
   console.log("show " + target);
@@ -84,60 +95,60 @@ function displayWindowSize() {
 // 	if(timeOut) clearTimeout(timeOut);
 // 	timeOut = setTimeout(resize, 200);
 // }
-function toggleFullScreen() {
-  if(window.isFullscreen == true){
-    setFullScreen(false);
-  }else{
-     setFullScreen(true);
-  }
-}
-function toggleFullScreen2() {
-  console.log("toggleFullScreen()");
-window.orientationMillis = Date.now();
+// function toggleFullScreen() {
+//    // if(window.isFullscreen == true){
+   
+//   // }else{
+//   //    setFullScreen(true);
+//   // }
+// }
+// function toggleFullScreen2() {
+//   console.log("toggleFullScreen()");
+// window.orientationMillis = Date.now();
   
-  //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
-  var doc = window.document;
-  var docEl = doc.documentElement;
+//   //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
+//   var doc = window.document;
+//   var docEl = doc.documentElement;
 
-  var requestFullScreen =
-    docEl.requestFullscreen ||
-    docEl.mozRequestFullScreen ||
-    docEl.webkitRequestFullScreen ||
-    docEl.msRequestFullscreen;
-  var cancelFullScreen =
-    doc.exitFullscreen ||
-    doc.mozCancelFullScreen ||
-    doc.webkitExitFullscreen ||
-    doc.msExitFullscreen;
+//   var requestFullScreen =
+//     docEl.requestFullscreen ||
+//     docEl.mozRequestFullScreen ||
+//     docEl.webkitRequestFullScreen ||
+//     docEl.msRequestFullscreen;
+//   var cancelFullScreen =
+//     doc.exitFullscreen ||
+//     doc.mozCancelFullScreen ||
+//     doc.webkitExitFullscreen ||
+//     doc.msExitFullscreen;
 
-  if (
-    !doc.fullscreenElement &&
-    !doc.mozFullScreenElement &&
-    !doc.webkitFullscreenElement &&
-    !doc.msFullscreenElement
-  ) {
-    console.log("requestFullScreen.call(docEl)");
-    // setFullWindow(true);
-    window.isFullScreen = true;
-    // hide("info");
-    // hide("audioInfo");
-    //any other function calls should happen before requestFullScreen.call
-    requestFullScreen.call(docEl);
-  } else {
-    window.isFullScreen = false;
-    // show("info");
-    // show("audioInfo");
+//   if (
+//     !doc.fullscreenElement &&
+//     !doc.mozFullScreenElement &&
+//     !doc.webkitFullscreenElement &&
+//     !doc.msFullscreenElement
+//   ) {
+//     console.log("requestFullScreen.call(docEl)");
+//     // setFullWindow(true);
+//     window.isFullScreen = true;
+//     // hide("info");
+//     // hide("audioInfo");
+//     //any other function calls should happen before requestFullScreen.call
+//     requestFullScreen.call(docEl);
+//   } else {
+//     window.isFullScreen = false;
+//     // show("info");
+//     // show("audioInfo");
     
-    console.log("cancelFullScreen.call");
-    //any other function calls should happen before cancelFullScreen.call
-    cancelFullScreen.call(doc);
+//     console.log("cancelFullScreen.call");
+//     //any other function calls should happen before cancelFullScreen.call
+//     cancelFullScreen.call(doc);
 
-    // setFullWindow(false);
-  }
+//     // setFullWindow(false);
+//   }
   
-  // updateCanvasSize(window.playerW, window.playerH);
-  updateCanvasSize(window.player.currentWidth, window.player.currentHeight);
-}
+//   // updateCanvasSize(window.playerW, window.playerH);
+//   updateCanvasSize(window.player.currentWidth, window.player.currentHeight);
+// }
 
 function setFullScreen(full) {
   console.log("setFullScreen() " + full);
@@ -163,7 +174,7 @@ function setFullScreen(full) {
   
   if (full == true) {
     // setFullWindow(true);
-    // window.isFullScreen = true;
+    window.isFullScreen = true;
     
     // hide("info");
     // hide("audioInfo");
@@ -194,7 +205,7 @@ function setFullScreen(full) {
     requestFullScreen.call(docEl);
   } else {
     // setFullWindow(false);
-    // window.isFullScreen = false;
+    window.isFullScreen = false;
     // show("info");
     // show("audioInfo");
     //any other function calls should happen before cancelFullScreen.call

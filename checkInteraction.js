@@ -24,51 +24,14 @@ document.addEventListener("keyup", function(e) {
     //   t += player.duration();
     // }
     // player.currentTime(t);
-  } else if (e.key === "j") {
-    // // player.play();
-    // jumpTo(-1);
-  } else if (e.key === "n") {
-    // // player.play();
-    // jumpTo(vidCounter);
-    // vidCounter++;
-    // vidCounter %= 200;
-  } else if (e.key === "1") {
-    // //      var temp_speed = Math.random() * 2 ;
-    // //      temp_speed = temp_speed - 1;
-    // console.log("rewind(-1)");
-    // //      speed = -1;
-    // //      rewind = true;
-    // //      player.pause();
-    // setup_rewind(1);
-
-    //      player.playbackRate(speed);
-  } else if (e.key === "2") {
-//     console.log("rewind(-0.5)");
-
-//     //         speed = -0.5;
-//     //      rewind = true;
-//     //      player.pause();
-//     setup_rewind(0.5);
-//     //      player.playbackRate(speed);
-  } else if (e.key === "3") {
-//     console.log("playbackRate(0.5)");
-
-//     speed = 0.5;
-//     rewinding = false;
-
-//     player.playbackRate(speed);
-  } else if (e.key === "4") {
-    // console.log("playbackRate(1)");
-    // speed = 1;
-    // rewinding = false;
-    // player.playbackRate(speed);
   } else if (e.key === "d") {
     // toggleFullWindow();
   } else if (e.key === "w") {
     // setToWindowSize();
   } else if (e.key === "f") {
     // player.requestFullscreen();
-    toggleFullScreen();
+    // toggleFullScreen();
+     setFullScreen(!window.isFullscreen);
   } else if (e.key === "[") {
     window.orientationMillis = Date.now();
     setFullScreen(true);
@@ -76,7 +39,7 @@ document.addEventListener("keyup", function(e) {
     window.orientationMillis = Date.now();
     setFullScreen(false);
   } else if (e.key === "g") {
-    bShowGui;
+    // bShowGui;
   }
 });
 
@@ -264,7 +227,7 @@ window.addEventListener(
       deviceOrientation = -90;
       // setFullWindow(true, true);
       // toggleFullScreen();
-      setFullScreen(true, true);
+      setFullScreen(true);
       // displayWindowSize();
       setToWindowSize();
       // jumpTo(1);
@@ -282,7 +245,7 @@ window.addEventListener(
     if (window.orientation == 90) {
       deviceOrientation = 90;
       // toggleFullScreen();
-      setFullScreen(true, true);
+      setFullScreen(true);
       // displayWindowSize();
       // setFullWindow(true, true);
       setToWindowSize();
@@ -301,7 +264,7 @@ window.addEventListener(
     if (window.orientation == 0) {
       deviceOrientation = 0;
       // setFullWindow(false, false);
-      setFullScreen(false, false);
+      setFullScreen(false);
       // jumpTo(20);
       // document.getElementById('orient').className = '';
       console.log("window.orientation == 0");

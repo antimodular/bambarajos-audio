@@ -7,7 +7,7 @@
 var beatHoldFrames = 10; //30;
 
 // what amplitude level can trigger a beat?
-window.beatThreshold = 0.28; //1.75; //0.05; //0.11;
+window.beatThreshold = 0.5; //0.28; //1.75; //0.05; //0.11;
 window.setCounter = 0;
 
 // When we have a beat, beatCutoff will be reset to 1.1*beatThreshold, and then decay
@@ -574,7 +574,7 @@ function drawCanvasText(yOffset) {
 // canvasCtx.fillText("graph_y "+graph_y, 40, yOffset + 150);
 //   canvasCtx.fillText("setCounter "+setCounter, 40, yOffset + 170);
     canvasCtx.fillText("window.deviceIsMobile "+window.deviceIsMobile, 40, yOffset + 170);
-  
+  canvasCtx.fillText("isFullscreen "+window.isFullscreen, 40, yOffset + 190);
   // canvasCtx.fillText("isTouching "+isTouching, 40, yOffset + 190);
 
   // if (deviceOrientation == 0) {
