@@ -28,10 +28,12 @@ var player = videojs("vid", {});
 // window.playerW = screenWidth; //400;
 // window.playerH = screenHeight; //320;
 
-var json_src = "l-001-200_047.json";
+
+// var json_src = "l-001-200_047.json";
+var json_src = "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.json?v=1589300083672";
+var vid_src = "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.mp4?v=1589300113989";
 // var vid_src = "l-001-200_047.mp4";
-var vid_src =
-  "https://cdn.glitch.com/b1e475c8-3489-4513-8664-2d0f29f610de%2Fl-001-200_047.mp4?v=1588351308938";
+// var vid_src = "https://cdn.glitch.com/b1e475c8-3489-4513-8664-2d0f29f610de%2Fl-001-200_047.mp4?v=1588351308938";
 // var vid_src = "https://stephanschulz.ca/bamba/l-001-200_047.mp4";
 var millisStart;
 

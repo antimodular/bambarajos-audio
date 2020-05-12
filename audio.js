@@ -527,16 +527,16 @@ function setBeatThreshold(temp_y) {
   var diff = graph_y - mapped_y;
   window.beatThreshold = diff / graph_y; //mapRange(mapped_y, [0,graph_y], [1, 0]);
   // console.log("beatThreshold "+beatThreshold);
-  console.log(
-    "diff " +
-      diff +
-      " graph_y " +
-      graph_y +
-      " mapped_y " +
-      mapped_y +
-      " beatThreshold " +
-      beatThreshold
-  );
+  // console.log(
+  //   "diff " +
+  //     diff +
+  //     " graph_y " +
+  //     graph_y +
+  //     " mapped_y " +
+  //     mapped_y +
+  //     " beatThreshold " +
+  //     beatThreshold
+  // );
 
   // setCounter++;
 }
