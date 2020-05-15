@@ -8,6 +8,7 @@ console.log("version" + version);
             
 //var player = videojs("vid", {});
 window.player = document.getElementById("vid");
+var source = document.createElement('source');
 
 //https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
 // var screenWidth =
@@ -105,12 +106,15 @@ window.player.width = w;
 window.player.height = w * 4/5;
 
 //https://stackoverflow.com/questions/14161516/html5-video-completely-hide-controls
-window.player.controls = false;
-window.player.playsinline = true;
 
+window.player.playsinline = true;
+window.player.mute = true;
+window.player.autoplay = true;
+ window.player.play();
+window.player.controls = false;
 //    document.getElementById("myVideo").poster = "/images/w3schoolscomlogo.png";
 // player.poster = "assets/poster.png";
-player.poster = "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fposter.png?v=1589294040845";
+window.player.poster = "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fposter.png?v=1589294040845";
 
 var json_src;
 var vid_src;
@@ -170,9 +174,11 @@ window.contentLength = 0;
 //         console.log(" player.src " + player.src);
 //    }
    
+   window.player.type = "video/mp4";
       window.player.src = vid_src;
+   
 //        player.preload = true;
-      window.player.autoplay = true;
+      // window.player.autoplay = true;
          console.log(" player.src " + window.player.src);
  window.player.play();
     //    var w = document.documentElement.clientWidth;
