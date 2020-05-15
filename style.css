@@ -16,9 +16,22 @@ body {
   color: white;
 }
 body {
-  background-color: black;
+  background-color: rgb(20, 20, 20);
 }
 
+#loadText{
+ display: block;
+    text-align: center;
+/*    justify-content: center;*/
+/*    text-align: center;*/
+    margin: auto;
+/*  width: 50%;*/
+}
+
+.vjs-poster img {
+  height: 100%; /* If you always want the poster to fill the player area, despite poster dimensions */
+  max-width: 100%; /* If you know the poster will be taller */
+}
 /* https://www.w3schools.com/html/html_images_background.asp */
 /* body { */
 

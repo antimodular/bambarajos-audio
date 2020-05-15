@@ -15,6 +15,7 @@ var ofClamp = function(value, min, max) {
 	return value < min ? min : value > max ? max : value;
 }
 
+function arrayRemove(arr, value) { return arr.filter(function(ele){ return ele != value; });}
 
 //https://markus.oberlehner.net/blog/simple-solution-to-prevent-body-scrolling-on-ios/
 // const $body = document.querySelector('body');

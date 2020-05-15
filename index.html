@@ -1,36 +1,76 @@
+
+<!--
+Open a terminal window and navigate to or create a root directory for your web app
+firebase login
+firebase init
+firebase deploy
+-->
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
+      
+<!--          <link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />-->
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+      
+          <!-- update the version number as needed -->
+<!--    <script defer src="/__/firebase/7.14.3/firebase-app.js"></script>-->
+    <!-- include only the Firebase features as you need -->
+<!--
+    <script defer src="/__/firebase/7.14.3/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.14.3/firebase-database.js"></script>
+    <script defer src="/__/firebase/7.14.3/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/7.14.3/firebase-storage.js"></script>
+-->
+    <!-- initialize the SDK after all desired features are loaded -->
+<!--    <script defer src="/__/firebase/init.js"></script>-->
+      
+
+<!--
+     If you'd like to support IE8 (for Video.js versions prior to v7) 
     <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
     <script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
+-->
     <script src="lib/bodyScrollLock/bodyScrollLock.js"></script>
+
 
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   </head>
 
   <body>
-    <video-js id="vid" controls preload="auto"> </video-js>
+    <video id="vid" controls preload="auto"> </video>
 
     <canvas id="audio_Canvas" body-scroll-lock-ignore> </canvas>
 
     <div id="shrinkIcon">
+
       <img id="shrink"
         src="https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fshrink_white.png?v=1589292058629"
       />
+
+<!--          <img id="shrink"
+        src="assets/shrink_white.png"
+      /> -->
     </div>
     <div id="expandIcon">
+
       <img id="expand"
         src="https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fexpand_white.png?v=1589292062936"
       />
+
+<!--         <img id="expand"
+        src="assets/expand_white.png"
+      /> -->
+
     </div>
 
-    <div id="audioInfo">
+    <div id="loadText">Bambarajos is loading ... </div>
+          
+          
+    <div id="audioInfo" style="display:none">
       <!--       <audio id="audio" controls width="160" height="120" autoplay> -->
-      <audio id="audio" controls width="160" height="120"></audio><br />
+      <audio id="audio" controls width="160" height="120" ></audio><br />
       <label><input type="checkbox" id="echo" />echoCancellation</label>
       <label><input type="checkbox" id="noise" />noiseSuppression</label>
       <label><input type="checkbox" id="gain" />autoGainControl</label>
@@ -38,8 +78,8 @@
       <!--       <div class="audio_Canvas"></div> -->
     </div>
 
-    <div id="info">
-      <!--       <div id="version">...</div> -->
+    <div id="info" style="display:none">
+
       <div id="version">...</div>
       <div id="keys">
         arrow keys = flip chapter, key [0] = chapter 0, key [i] = info, key [f] =
@@ -128,18 +168,31 @@
             <th>video_name</th>
             <td><span id="video_name"></span></td>
           </tr>
+                <tr>
+            <th>json_name</th>
+            <td><span id="json_name"></span></td>
+          </tr>
           <tr>
             <th>currentTime</th>
             <td><span id="current_time"></span></td>
+          </tr>
+             <tr>
+            <th>currentTime</th>
+            <td>
+              <input
+                id="time_slider"
+                type="range"
+                value="0"
+                max="1"
+                step="any"
+              />
+            </td>
           </tr>
           <tr>
             <th>duration</th>
             <td><span id="duration"></span></td>
           </tr>
-          <tr>
-            <th>speed</th>
-            <td><span id="speed"></span></td>
-          </tr>
+      
           <tr>
             <th>progress</th>
             <td><span id="progress">0</span></td>
@@ -148,14 +201,7 @@
             <th>paused-state</th>
             <td><span id="paused_state">true</span></td>
           </tr>
-          <tr>
-            <th>muted-state</th>
-            <td><span id="muted_state">false</span></td>
-          </tr>
-          <tr>
-            <th>volume</th>
-            <td><span id="volume">1</span></td>
-          </tr>
+
           <tr>
             <th>videoWidth/videoHeight</th>
             <td><span id="height_width">-/-</span></td>
@@ -168,18 +214,7 @@
             <th>readyState</th>
             <td><span id="ready_state"></span></td>
           </tr>
-          <tr>
-            <th>currentTime</th>
-            <td>
-              <input
-                id="time_slider"
-                type="range"
-                value="0"
-                max="1"
-                step="any"
-              />
-            </td>
-          </tr>
+         
           <tr>
             <th>play</th>
             <td>
@@ -197,6 +232,19 @@
             <td>
               <input id="muted" type="checkbox" />
             </td>
+          </tr>
+                      <tr>
+            <th>muted-state</th>
+            <td><span id="muted_state">false</span></td>
+          </tr>
+            
+          <tr>
+            <th>volume</th>
+            <td><span id="volume">1</span></td>
+          </tr>
+                <tr>
+            <th>speed</th>
+            <td><span id="speed"></span></td>
           </tr>
           <tr>
             <th>volume</th>
@@ -241,6 +289,40 @@
 
     <!--    <div myJson></div>-->
 
+      <!-- The core Firebase JS SDK is always required and must be listed first -->
+<!--<script src="/__/firebase/7.14.3/firebase-app.js"></script>-->
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<!--<script src="/__/firebase/7.14.3/firebase-analytics.js"></script>-->
+
+<!-- Initialize Firebase -->
+
+<!--
+          <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+//        try {
+//          let app = firebase.app();
+//          let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+//          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
+//        } catch (e) {
+//          console.error(e);
+//          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
+//        }
+      });
+    </script>
+-->
+      
     <script src="windowHandler.js"></script>
     <script src="helper.js"></script>
     <script src="video.js"></script>

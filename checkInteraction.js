@@ -1,59 +1,68 @@
 //--------key events
+var bShowInfo = false;
 
 document.addEventListener("keyup", function(e) {
-  //uncommnet the following line so the pressed key info is printed to the console and you can see which is its code or key value if you want to add more behaviors.
-  console.log("key event " + e);
-
-  if (e.code === "Space") {
-    if (player.paused()) {
-      player.play();
-    } else {
-      player.pause();
+    //uncommnet the following line so the pressed key info is printed to the console and you can see which is its code or key value if you want to add more behaviors.
+    console.log("key event " + e);
+ console.log("window.isFullScreen "+window.isFullScreen);
+    if (e.code === "Space") {
+        if (player.paused()) {
+            player.play();
+        } else {
+            player.pause();
+        }
     }
-  }
-  if (e.code === "ArrowRight") {
-//     //          var temp_r = Math.random()*jsonData.length;
-//     //      temp_r = parseInt(temp_r);
-//     //        console.log('temp_r', temp_r);
-//     //       display_jsonObj(jsonData[temp_r]);
+    if (e.code === "ArrowRight") {
+        //     //          var temp_r = Math.random()*jsonData.length;
+        //     //      temp_r = parseInt(temp_r);
+        //     //        console.log('temp_r', temp_r);
+        //     //       display_jsonObj(jsonData[temp_r]);
 
-      var temp_idx = window.new_index + 1;
-      if(temp_idx < 120){
-      jumpTo(temp_idx)
-      }
-//     player.currentTime((player.currentTime() + 3) % player.duration());
-  } else if (e.code === "ArrowLeft") {
-    // let t = player.currentTime() - 3;
-    // if (t < 0) {
-    //   t += player.duration();
-    // }
-    // player.currentTime(t);
+        var temp_idx = window.new_index + 1;
+        if(temp_idx < 120){
+            jumpTo(temp_idx)
+        }
+    } else if (e.code === "ArrowLeft") {
         var temp_idx = window.new_index - 1;
-      if(temp_idx >= 0){
-      jumpTo(temp_idx)
-      }
-} else if (e.key === "0") {
-     jumpTo(0)
-// show("audioInfo");
-  } else if (e.key === "i") {
-     show("info");
-// show("audioInfo");
-  } else if (e.key === "w") {
-    // setToWindowSize();
-  } else if (e.key === "f") {
-    // player.requestFullscreen();
-    // toggleFullScreen();
-     setFullScreen(!document.fullscreen);
-  } else if (e.key === "[") {
-    window.orientationMillis = Date.now();
-    setFullScreen(true);
-  } else if (e.key === "]") {
-    window.orientationMillis = Date.now();
-    setFullScreen(false);
-  } else if (e.key === "g") {
-    // bShowGui;
-  }
+        if(temp_idx >= 0){
+            jumpTo(temp_idx)
+        }
+    } else if (e.key === "0") {
+        jumpTo(0)
+        // show("audioInfo");
+    } else if (e.key === "i") {
+        if(bShowInfo == true){
+            hide("info");
+            bShowInfo = false;
+//             player.loadingSpinner.hide();
+              player.controls = false;
+        }else{
+            show("info");
+            bShowInfo = true;
+//             player.loadingSpinner.show();
+              player.controls = true;
+        }
+        // show("audioInfo");
+    } else if (e.key === "n") {
+        setUpNewVideo();
+    } else if (e.key === "f") {
+        // player.requestFullscreen();
+         toggleFullScreen();
+//        console.log("key f window.isFullScreen "+window.isFullScreen);
+//       if(window.isFullScreen == true) setFullScreen(false);
+//        else setFullScreen(true);
+        
+    } else if (e.key === "[") {
+        window.orientationMillis = Date.now();
+        setFullScreen(true);
+    } else if (e.key === "]") {
+        window.orientationMillis = Date.now();
+        setFullScreen(false);
+    } else if (e.key === "g") {
+        // bShowGui;
+    }
 });
+
 
 //--------mouse or touch events
 //window.mousePressed = false;
@@ -92,8 +101,8 @@ document.addEventListener("keyup", function(e) {
 
 //click event happens when the mouse is pressed and released over the same element. In this case, as we are using the "document" it will always trigger
 document.addEventListener("click", function(e) {
-  info_mouse_clicked_position.innerHTML = "x: " + e.x + " y: " + e.y;
-  // toggleFullScreen();
+    info_mouse_clicked_position.innerHTML = "x: " + e.x + " y: " + e.y;
+    // toggleFullScreen();
 });
 
 //----touch screen interaction via touch-------
@@ -233,55 +242,55 @@ window.orientationMillis;
 //https://stackoverflow.com/questions/5298467/prevent-orientation-change-in-ios-safari
 //important to call any function before setting document.getElementById('orient').className =
 window.addEventListener(
-  "orientationchange",
-  function() {
-    if (window.orientation == -90) {
-      deviceOrientation = -90;
-      // setFullWindow(true, true);
-      // toggleFullScreen();
-      setFullScreen(true);
-      // displayWindowSize();
-      setToWindowSize();
-      // jumpTo(1);
-      window.orientationMillis = Date.now();
-      // document.getElementById('orient').className = 'orientright';
-      //
-      // element.style.webkitTransform = "rotate(-90deg) translateX(600px) translateY(160px)"
+    "orientationchange",
+    function() {
+        if (window.orientation == -90) {
+            window.deviceOrientation = -90;
+            // setFullWindow(true, true);
+            // toggleFullScreen();
+            setFullScreen(true);
+            // displayWindowSize();
+            setToWindowSize();
+            // jumpTo(1);
+            window.orientationMillis = Date.now();
+            // document.getElementById('orient').className = 'orientright';
+            //
+            // element.style.webkitTransform = "rotate(-90deg) translateX(600px) translateY(160px)"
 
-      var element = document.getElementById("audio_Canvas");
-      element.style.webkitTransform =
-        "translateX(160px) translateY(160px) rotate(90eg)"; //for safari and chrome
-      element.style.MozTransform =
-        "translateX(160px) translateY(160px) rotate(90deg)"; //for firefox
-    }
-    if (window.orientation == 90) {
-      deviceOrientation = 90;
-      // toggleFullScreen();
-      setFullScreen(true);
-      // displayWindowSize();
-      // setFullWindow(true, true);
-      setToWindowSize();
-      window.orientationMillis = Date.now();
+            var element = document.getElementById("audio_Canvas");
+            element.style.webkitTransform =
+                "translateX(160px) translateY(160px) rotate(90eg)"; //for safari and chrome
+            element.style.MozTransform =
+                "translateX(160px) translateY(160px) rotate(90deg)"; //for firefox
+        }
+        if (window.orientation == 90) {
+            window.deviceOrientation = 90;
+            // toggleFullScreen();
+            setFullScreen(true);
+            // displayWindowSize();
+            // setFullWindow(true, true);
+            setToWindowSize();
+            window.orientationMillis = Date.now();
 
-      var element = document.getElementById("audio_Canvas");
-      element.style.webkitTransform =
-        "translateX(230px) translateY(230px) rotate(-90eg)"; //for safari and chrome
-      element.style.MozTransform =
-        "translateX(230px) translateY(230px) rotate(-90deg)"; //for firefox
+            var element = document.getElementById("audio_Canvas");
+            element.style.webkitTransform =
+                "translateX(230px) translateY(230px) rotate(-90eg)"; //for safari and chrome
+            element.style.MozTransform =
+                "translateX(230px) translateY(230px) rotate(-90deg)"; //for firefox
 
-      // jumpTo(10);
-      // document.getElementById('orient').className = 'orientleft';
-      // setToWindowSize();
-    }
-    if (window.orientation == 0) {
-      deviceOrientation = 0;
-      // setFullWindow(false, false);
-      setFullScreen(false);
-      // jumpTo(20);
-      // document.getElementById('orient').className = '';
-      console.log("window.orientation == 0");
-      window.orientationMillis = Date.now();
-    }
-  },
-  true
+            // jumpTo(10);
+            // document.getElementById('orient').className = 'orientleft';
+            // setToWindowSize();
+        }
+        if (window.orientation == 0) {
+            window.deviceOrientation = 0;
+            // setFullWindow(false, false);
+            setFullScreen(false);
+            // jumpTo(20);
+            // document.getElementById('orient').className = '';
+            console.log("window.orientation == 0");
+            window.orientationMillis = Date.now();
+        }
+    },
+    true
 );

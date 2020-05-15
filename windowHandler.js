@@ -1,4 +1,4 @@
-// window.isFullScreen = false;
+window.isFullScreen = false;
 window.deviceIsMobile = false;
 
 hide("info");
@@ -8,43 +8,43 @@ hide("audioInfo");
 
 //https://www.w3schools.com/js/js_json_objects.asp
 window.onload = function(e) {
-  millisStart = Date.now();
-  window.orientationMillis = Date.now();
+    millisStart = Date.now();
+    window.orientationMillis = Date.now();
 
-  loadJsonData();
+    //    loadJsonData(vid_src);
+    setUpNewVideo(true);
+    hide("info");
+    hide("audioInfo");
+    hide("loadText");
+    // bShowInfo = false;
+    // hide("info");
+    //    hide("audioInfo");
+    // setFullWindow(true);
 
-   hide("info");
-   hide("audioInfo");
+    document.getElementById("version").innerHTML = "version " + version;
+    document.getElementById("audioInfo").style.display = "none";
 
-  // bShowInfo = false;
-  // hide("info");
-  //    hide("audioInfo");
-  // setFullWindow(true);
+    window.deviceIsMobile = isMobile();
+    if (window.deviceIsMobile == true) {
+        document.getElementById("expandIcon").style.visibility = "hidden";
+        document.getElementById("shrinkIcon").style.visibility = "hidden";
+    }
 
-  document.getElementById("version").innerHTML = "version " + version;
-  document.getElementById("audioInfo").style.display = "none";
-
-  window.deviceIsMobile = isMobile();
-  if (window.deviceIsMobile == true) {
-    document.getElementById("expandIcon").style.visibility = "hidden";
-    document.getElementById("shrinkIcon").style.visibility = "hidden";
-  }
-  
 
 };
 
-  // document.getElementById('shrink').addEventListener('click', function (e) {
-  //   console.log("click shrinkIcon");
-  //   // var img = document.createElement('img');
-  //   // img.setAttribute('src', 'http://blog.stackoverflow.com/wp-content/uploads/stackoverflow-logo-300.png');
-  //   // e.target.appendChild(img);
-  // });
-  //  document.getElementById('expand').addEventListener('click', function (e) {
-  //   console.log("click expandIcon");
-  //   // var img = document.createElement('img');
-  //   // img.setAttribute('src', 'http://blog.stackoverflow.com/wp-content/uploads/stackoverflow-logo-300.png');
-  //   // e.target.appendChild(img);
-  // });
+// document.getElementById('shrink').addEventListener('click', function (e) {
+//   console.log("click shrinkIcon");
+//   // var img = document.createElement('img');
+//   // img.setAttribute('src', 'http://blog.stackoverflow.com/wp-content/uploads/stackoverflow-logo-300.png');
+//   // e.target.appendChild(img);
+// });
+//  document.getElementById('expand').addEventListener('click', function (e) {
+//   console.log("click expandIcon");
+//   // var img = document.createElement('img');
+//   // img.setAttribute('src', 'http://blog.stackoverflow.com/wp-content/uploads/stackoverflow-logo-300.png');
+//   // e.target.appendChild(img);
+// });
 
 // document.addEventListener('fullscreenchange', (event) => {
 //   // document.fullscreenElement will point to the element that
@@ -57,7 +57,7 @@ window.onload = function(e) {
 //   }
 // });
 
-document.addEventListener("resize", displayWindowSize);
+window.addEventListener("resize", windowResizing);
 // window.addEventListener("fullscreenchange", screenChange);
 // document.addEventListener("fullscreenchange", function (event) {
 //   console.log("fullscreenchange");
@@ -71,33 +71,48 @@ document.addEventListener("resize", displayWindowSize);
 // });
 
 function show(target) {
-  console.log("show " + target);
-  document.getElementById(target).style.display = "block";
+    console.log("show " + target);
+    document.getElementById(target).style.display = "block";
 }
 
 function hide(target) {
-  console.log("hide " + target);
-  document.getElementById(target).style.display = "none";
+    console.log("hide " + target);
+    document.getElementById(target).style.display = "none"; 
 }
 
-function displayWindowSize() {
-  // Get width and height of the window excluding scrollbars
-  var w = document.documentElement.clientWidth;
-  var h = document.documentElement.clientHeight;
+function windowResizing() {
+    // Get width and height of the window excluding scrollbars
+    //    var w = document.documentElement.clientWidth;
+    //    var h = document.documentElement.clientHeight;
 
-  // // Display result inside a div element
-  // document.getElementById("result").innerHTML =
-  //   "Width: " + w + ", " + "Height: " + h;
-  // console.log("Width: " + w + ", " + "Height: " + h);
-  //   screenWidth = w;
-  //     screenHeight =  h;
-  //         window.playerW = screenWidth; //window.screen.width;
-  //   window.playerH = screenHeight; //window.screen.height;
+    var w =
+        window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth;
 
-  updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+    var h =
+        window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight;
 
-  // updateCanvasSize(window.playerW, window.playerH);
-  // updateCanvasSize(window.playerW, window.playerW*(4/5));
+
+    // // Display result inside a div element
+    // document.getElementById("result").innerHTML =
+    //   "Width: " + w + ", " + "Height: " + h;
+    //     console.log("Width: " + w + ", " + "Height: " + h);
+    //   screenWidth = w;
+    //     screenHeight =  h;
+    //         window.playerW = screenWidth; //window.screen.width;
+    //   window.playerH = screenHeight; //window.screen.height;
+    checkFullScreenElement();
+    //    updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
+    window.player.width = w;
+    window.player.height = w * 4/5;
+    //    window.player.height = h;
+    updateCanvasSize(window.player.width, window.player.height);
+
+    // updateCanvasSize(window.playerW, window.playerH);
+    // updateCanvasSize(window.playerW, window.playerW*(4/5));
 }
 
 // var iHeight = window.innerHeight;
@@ -169,93 +184,101 @@ function displayWindowSize() {
 //   updateCanvasSize(window.player.currentWidth, window.player.currentHeight);
 // }
 
+function toggleFullScreen(){
+    console.log("toggleFullscreen window.isFullScreen "+window.isFullScreen);
+    if(window.isFullScreen == true) setFullScreen(false);
+    else setFullScreen(true);
+}
 function setFullScreen(full) {
-  console.log("setFullScreen() " + full);
+    console.log("setFullScreen() " + full);
 
-  window.orientationMillis = Date.now();
+    window.orientationMillis = Date.now();
 
-  //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
-  var doc = window.document;
-  var docEl = doc.documentElement;
+    //https://developers.google.com/web/fundamentals/native-hardware/fullscreen
+    var doc = window.document;
+    var docEl = doc.documentElement;
 
-  var requestFullScreen =
-    docEl.webkitRequestFullScreen ||
-    docEl.requestFullscreen ||
-    docEl.mozRequestFullScreen ||
-    docEl.msRequestFullscreen;
-  var cancelFullScreen =
-    doc.webkitExitFullscreen ||
-    doc.exitFullscreen ||
-    doc.mozCancelFullScreen ||
-    doc.msExitFullscreen;
+    var requestFullScreen =
+        docEl.webkitRequestFullScreen ||
+        docEl.requestFullscreen ||
+        docEl.mozRequestFullScreen ||
+        docEl.msRequestFullscreen;
+    var cancelFullScreen =
+        doc.webkitExitFullscreen ||
+        doc.exitFullscreen ||
+        doc.mozCancelFullScreen ||
+        doc.msExitFullscreen;
 
-  if (full == true) {
-    // setFullWindow(true);
-    // window.isFullScreen = true;
+    if (full == true) {
+        // setFullWindow(true);
+        // window.isFullScreen = true;
+        //window.isFullscreen = true;
+        //        console.log("TRUE window.isFullScreen "+window.isFullScreen);
+        // hide("info");
+        // hide("audioInfo");
 
-    // hide("info");
-    // hide("audioInfo");
+        // screenWidth = window.screen.availWidth;
+        // screenHeight = window.screen.availHeight;
+        // screenWidth = window.screen.width;
+        // screenHeight = window.screen.height;
+        //      screenWidth = window.screen.width * window.devicePixelRatio;
 
-    // screenWidth = window.screen.availWidth;
-    // screenHeight = window.screen.availHeight;
-    // screenWidth = window.screen.width;
-    // screenHeight = window.screen.height;
-    //      screenWidth = window.screen.width * window.devicePixelRatio;
+        //  screenHeight = window.screen.height * window.devicePixelRatio;
+        //     window.playerW = screenWidth; //window.screen.width;
+        // window.playerH = screenHeight; //window.screen.height;
 
-    //  screenHeight = window.screen.height * window.devicePixelRatio;
-    //     window.playerW = screenWidth; //window.screen.width;
-    // window.playerH = screenHeight; //window.screen.height;
+        // player.videoWidth(screenWidth);
+        // player.height(screenHeight);
+        // console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
 
-    // player.videoWidth(screenWidth);
-    // player.height(screenHeight);
-    // console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
+        //    window.playerW = screenWidth; //window.screen.width;
+        //   window.playerH = screenHeight; //window.screen.height;
 
-    //    window.playerW = screenWidth; //window.screen.width;
-    //   window.playerH = screenHeight; //window.screen.height;
+        //     player.width(screenWidth);
+        //     player.height(screenHeight);
 
-    //     player.width(screenWidth);
-    //     player.height(screenHeight);
+        //   updateCanvasSize(window.playerW, window.playerH);
 
-    //   updateCanvasSize(window.playerW, window.playerH);
+        //any other function calls should happen before requestFullScreen.call
+        requestFullScreen.call(docEl);
+    } else {
+        //        window.isFullscreen = false;
+        //        console.log("FALSE window.isFullScreen "+window.isFullScreen);
+        // setFullWindow(false);
+        // window.isFullScreen = false;
+        // show("info");
+        // show("audioInfo");
+        //any other function calls should happen before cancelFullScreen.call
 
-    //any other function calls should happen before requestFullScreen.call
-    requestFullScreen.call(docEl);
-  } else {
-    // setFullWindow(false);
-    // window.isFullScreen = false;
-    // show("info");
-    // show("audioInfo");
-    //any other function calls should happen before cancelFullScreen.call
+        // console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
 
-    // console.log("screenHeight " + screenHeight + " screenWidth "+screenWidth);
+        // player.videoWidth(screenWidth);
+        // player.height(screenHeight);
+        cancelFullScreen.call(doc);
 
-    // player.videoWidth(screenWidth);
-    // player.height(screenHeight);
-    cancelFullScreen.call(doc);
+        //    screenWidth =  window.innerWidth;
+        // screenHeight = window.innerHeight ;
+        //     window.playerW = screenWidth; //window.screen.width;
+        // window.playerH = screenHeight; //window.screen.height;
+    }
 
-    //    screenWidth =  window.innerWidth;
-    // screenHeight = window.innerHeight ;
-    //     window.playerW = screenWidth; //window.screen.width;
-    // window.playerH = screenHeight; //window.screen.height;
-  }
+    //    screenWidth =
+    //     window.innerWidth ||
+    //     document.documentElement.clientWidth ||
+    //     document.body.clientWidth;
 
-  //    screenWidth =
-  //     window.innerWidth ||
-  //     document.documentElement.clientWidth ||
-  //     document.body.clientWidth;
+    //   screenHeight =
+    //     window.innerHeight ||
+    //     document.documentElement.clientHeight ||
+    //     document.body.clientHeight;
 
-  //   screenHeight =
-  //     window.innerHeight ||
-  //     document.documentElement.clientHeight ||
-  //     document.body.clientHeight;
+    // updateCanvasSize(window.playerW, window.playerH);
 
-  // updateCanvasSize(window.playerW, window.playerH);
-
-  //   if (_flipWH == true) {
-  //   //swap to numbers
-  //   //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
-  //   screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
-  // }
+    //   if (_flipWH == true) {
+    //   //swap to numbers
+    //   //https://stackoverflow.com/questions/16201656/how-to-swap-two-variables-in-javascript
+    //   screenHeight = [screenWidth, (screenWidth = screenHeight)][0];
+    // }
 }
 
 // function toggleFullWindow() {
@@ -401,3 +424,29 @@ function setFullScreen(full) {
 //   // updateCanvasSize(window.player.currentWidth(), window.player.currentHeight());
 
 // }
+
+function checkFullScreenElement() { 
+
+    //    console.log( 
+    //        /* Standard syntax */ 
+    //        document.fullscreenElement || 
+    //
+    //        /* Chrome, Safari and Opera syntax */ 
+    //        document.webkitFullscreenElement || 
+    //
+    //        /* Firefox syntax */ 
+    //        document.mozFullScreenElement || 
+    //
+    //        /* IE/Edge syntax */ 
+    //        document.msFullscreenElement 
+    //    ) 
+
+    if( (document.fullscreenElement ||  document.webkitFullscreenElement ||  document.mozFullScreenElement ||  document.msFullscreenElement) == null){
+        window.isFullScreen = false;   
+    }else{
+        window.isFullScreen = true;   
+    }
+
+    console.log("checkFullscreenElement "+window.isFullScreen);
+    return window.isFullScreen;
+} 
