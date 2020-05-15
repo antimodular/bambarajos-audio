@@ -126,7 +126,7 @@ window.player.controls = false;
 // player.poster = "assets/poster.png";
 window.player.poster =
   "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fposter.png?v=1589294040845";
-
+let obj_url;
 var json_src;
 var vid_src;
 
@@ -190,24 +190,30 @@ async function setUpNewVideo(downloadFirst) {
       );
     }
 
-    let myBlob = new Blob(chunks);
+    // let myBlob = new Blob(chunks);
+     let myBlob = new Blob(chunks,{type: 'video/mp4'});
+    // URL.revokeObjectURL(obj_url);
+    // obj_url = URL.createObjectURL(myBlob);
+    obj_url = URL.createObjectURL(myBlob);
+    window.player.src = obj_url;
+
+    var blob = new Blob([arrayBuffer], {type: 'audio/mpeg'});
+url = webkitURL.createObjectURL(blob);
     
-    window.player.src = window.URL.createObjectURL(myBlob);
-      img.onload = function() {
-        URL.revokeObjectURL(this.src);
-      }
-    
-     window.player.src = (window.webkitURL || window.URL).createObjectURL(myBlob);
+     // window.player.src = (window.webkitURL || window.URL).createObjectURL(myBlob);
     // window.player.src = window.URL.createObjectURL(myBlob);
     // window.player.type = "blob";
     console.log("URL.createObjectURL(myBlob) " + window.player.src);
+    window.player.play();
+    // 
   } else {
     window.player.src = vid_src;
     window.player.preload = true;
     console.log(" player.src " + window.player.src);
+    window.player.play();
   }
 
-  window.player.play();
+  
 
   //  window.player.src = vid_src;
   //  window.player.type = "video/mp4";
