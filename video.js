@@ -108,8 +108,8 @@ var playSpeed = 1; //0.5;
 var w = document.documentElement.clientWidth;
 var h = document.documentElement.clientHeight;
 
-console.log("hello");
-setUpNewVideo(true);
+// console.log("hello");
+// setUpNewVideo(true);
 
 window.player.width = w;
 window.player.height = (w * 4) / 5;
@@ -161,7 +161,7 @@ async function setUpNewVideo(downloadFirst) {
 
     const reader = response.body.getReader();
     // Step 2: get total length
-    window.contentLength = +response.headers.get("Content-Length");
+    window.contentLength = response.headers.get("Content-Length");
 
     // Step 3: read the data
     window.receivedLength = 0; // received that many bytes at the moment
@@ -173,6 +173,8 @@ async function setUpNewVideo(downloadFirst) {
         break;
       }
 
+      window.contentLength = response.headers.get("Content-Length");
+      
       chunks.push(value);
       window.receivedLength += value.length;
 

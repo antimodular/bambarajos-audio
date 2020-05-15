@@ -363,15 +363,35 @@ function spectrum(stream) {
 
             canvasCtx.clearRect(0, 0, window.canvas.width, window.canvas.height);
 
-            //rects
+            //frame
+          var showFrame = false;
+          if (showFrame == true) {
             canvasCtx.lineWidth = 4;
             canvasCtx.strokeStyle = "rgb(0, 255, 0)";
-          canvasCtx.strokeStyle = "rgb("+randomColorR+", "+randomColorG+", "+randomColorB+")";
-          
-            // // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
-              canvasCtx.strokeRect(2, 2, window.canvas.width - 7, window.canvas.height/2 -4);
-             canvasCtx.strokeRect(2, window.canvas.height/2+2, window.canvas.width - 7, window.canvas.height/2 - 4);
+            canvasCtx.strokeStyle =
+              "rgb(" +
+              randomColorR +
+              ", " +
+              randomColorG +
+              ", " +
+              randomColorB +
+              ")";
 
+            // // canvasCtx.strokeRect(0, 0, canvas.width, canvas.height);
+            canvasCtx.strokeRect(
+              2,
+              2,
+              window.canvas.width - 7,
+              window.canvas.height / 2 - 4
+            );
+            canvasCtx.strokeRect(
+              2,
+              window.canvas.height / 2 + 2,
+              window.canvas.width - 7,
+              window.canvas.height / 2 - 4
+            );
+          }
+                    
             canvasCtx.lineWidth = 2;
             audioLevel = 0;
             var total = 0;
@@ -525,11 +545,14 @@ function spectrum(stream) {
                 // console.log((1000 * canvas.width) / audioCtx.sampleRate); is equal 2
 
                
-                if(window.firstLoadIsDone == false && window.videoLoadPercent){
-                    var barY = window.canvas.height/4*3;
-                    var barX = 10;
-                    var barH = 20;
-                    var barW = window.canvas.width-20;
+                if (
+                  window.firstLoadIsDone == false &&
+                  window.videoLoadPercent
+                ) {
+                  var barY = window.canvas.width * (4/5);
+                  var barX = 10;
+                  var barH = 20;
+                  var barW = window.canvas.width-20;
                     canvasCtx.lineWidth = 2;
                     canvasCtx.strokeStyle = "rgb(255,255,255,1)";
                     canvasCtx.fillStyle = "rgb(255,255,255,1)";
