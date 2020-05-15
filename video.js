@@ -120,15 +120,6 @@ window.player.controls = false;
 // player.poster = "assets/poster.png";
 window.player.poster = "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fposter.png?v=1589294040845";
 
- window.player.src = vid_src;
-      window.player.type = "video/mp4";
-//        player.preload = true;
-      // window.player.autoplay = true;
-         console.log(" player.src " + window.player.src + " type " + window.player.type);
-console.log(" player.mute " + window.player.mute + " playsinline " + window.player.playsinline);
-console.log(" player.autoplay " + window.player.autoplay + " playsinline " + window.player.playsinline);
-
-   window.player.play();
 var json_src;
 var vid_src;
 
@@ -136,8 +127,8 @@ window.videoLoadPercent = 0;
 window.firstLoadIsDone = false;
 window.receivedLength = 0;
 window.contentLength = 0;
-//async
- function setUpNewVideo(downloadFirst){
+
+async function setUpNewVideo(downloadFirst){
     downloadFirst = false;
     console.log("setUpNewVideo() with downloadFirst = "+downloadFirst);
 
@@ -148,46 +139,70 @@ window.contentLength = 0;
 
     loadJsonData(json_src);
 
-//    if(downloadFirst == true){
-//        //http://dinbror.dk/blog/how-to-preload-entire-html5-video-before-play-solved/
-//        //https://javascript.info/fetch-progress
-//        // Step 1: start the fetch and obtain a reader
-//        let response = await fetch(vid_src);
-//
-//        const reader = response.body.getReader();
-//        // Step 2: get total length
-//        window.contentLength = +response.headers.get('Content-Length');
-//
-//        // Step 3: read the data
-//        window.receivedLength = 0; // received that many bytes at the moment
-//        let chunks = []; // array of received binary chunks (comprises the body)
-//        while(true) {
-//            const {done, value} = await reader.read();
-//
-//            if (done) {
-//                break;
-//            }
-//
-//            chunks.push(value);
-//            window.receivedLength += value.length;
-//
-//            window.videoLoadPercent = window.receivedLength/window.contentLength;
-//            if(window.videoLoadPercent >= 1) window.firstLoadIsDone = true;
-//            
-//            console.log(`Received ${window.receivedLength} of ${window.contentLength}`)
-//             console.log("videoLoadPercent "+window.videoLoadPercent +" loadIsDOne "+window.firstLoadIsDone);
-//        }
-//
-//        let myBlob = new Blob(chunks);
-//        player.src = URL.createObjectURL(myBlob);
-//         console.log("URL.createObjectURL(myBlob) " + player.src);
-//    }else{
-//        player.src = vid_src;
-//        player.preload = true;
-//         console.log(" player.src " + player.src);
-//    }
+   if(downloadFirst == true){
+       //http://dinbror.dk/blog/how-to-preload-entire-html5-video-before-play-solved/
+       //https://javascript.info/fetch-progress
+       // Step 1: start the fetch and obtain a reader
+       let response = await fetch(vid_src);
+
+       const reader = response.body.getReader();
+       // Step 2: get total length
+       window.contentLength = +response.headers.get('Content-Length');
+
+       // Step 3: read the data
+       window.receivedLength = 0; // received that many bytes at the moment
+       let chunks = []; // array of received binary chunks (comprises the body)
+       while(true) {
+           const {done, value} = await reader.read();
+
+           if (done) {
+               break;
+           }
+
+           chunks.push(value);
+           window.receivedLength += value.length;
+
+           window.videoLoadPercent = window.receivedLength/window.contentLength;
+           if(window.videoLoadPercent >= 1) window.firstLoadIsDone = true;
+           
+           console.log(`Received ${window.receivedLength} of ${window.contentLength}`)
+            console.log("videoLoadPercent "+window.videoLoadPercent +" loadIsDOne "+window.firstLoadIsDone);
+       }
+
+       let myBlob = new Blob(chunks);
+       window.player.src = URL.createObjectURL(myBlob);
+        console.log("URL.createObjectURL(myBlob) " + window.player.src);
+   }else{
+       window.player.src = vid_src;
+       window.player.preload = true;
+        console.log(" player.src " + player.src);
+   }
    
 
+//  window.player.src = vid_src;
+//  window.player.type = "video/mp4";
+//  //        player.preload = true;
+//  // window.player.autoplay = true;
+//  console.log(
+//    " player.src " + window.player.src + " type " + window.player.type
+//  );
+//  console.log(
+//    " player.mute " +
+//      window.player.mute +
+//      " playsinline " +
+//      window.player.playsinline
+//  );
+//  console.log(
+//    " player.autoplay " +
+//      window.player.autoplay +
+//      " playsinline " +
+//      window.player.playsinline
+//  );
+
+//  window.player.play();
+   
+   
+   
       // window.player.src = [ src: vid_src, type: "video/mp4" ]; //vid_src;
 //    window.player.src = vid_src;
 //       window.player.type = "video/mp4";

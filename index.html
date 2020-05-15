@@ -39,8 +39,9 @@ firebase deploy
   </head>
 
   <body>
-    <video id="vid" controls preload="auto"> </video>
-
+<!--     when using normal js video i had to add autoplay and playsinline in to the html tag for it to work on ios -->
+    <video id="vid" autoplay playsinline> </video> 
+<!-- preload="auto"  -->
     <canvas id="audio_Canvas" body-scroll-lock-ignore> </canvas>
 
     <div id="shrinkIcon">
