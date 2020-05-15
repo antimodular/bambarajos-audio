@@ -8,7 +8,7 @@ console.log("version" + version);
             
 //var player = videojs("vid", {});
 window.player = document.getElementById("vid");
-var source = document.createElement('source');
+// var source = document.createElement('source');
 
 //https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
 // var screenWidth =
@@ -110,7 +110,8 @@ window.player.height = w * 4/5;
 window.player.playsinline = true;
 window.player.mute = true;
 window.player.autoplay = true;
- window.player.play();
+// window.player.setAttribute("src", mp4uri);
+ // window.player.play();
 window.player.controls = false;
 //    document.getElementById("myVideo").poster = "/images/w3schoolscomlogo.png";
 // player.poster = "assets/poster.png";
@@ -174,13 +175,17 @@ window.contentLength = 0;
 //         console.log(" player.src " + player.src);
 //    }
    
-   window.player.type = "video/mp4";
-      window.player.src = vid_src;
-   
+
+      // window.player.src = [ src: vid_src, type: "video/mp4" ]; //vid_src;
+   window.player.src = vid_src;
+      window.player.type = "video/mp4";
 //        player.preload = true;
       // window.player.autoplay = true;
-         console.log(" player.src " + window.player.src);
- window.player.play();
+         console.log(" player.src " + window.player.src + " type " + window.player.type);
+console.log(" player.mute " + window.player.mute + " playsinline " + window.player.playsinline);
+console.log(" player.autoplay " + window.player.autoplay + " playsinline " + window.player.playsinline);
+
+   window.player.play();
     //    var w = document.documentElement.clientWidth;
     //    var h = document.documentElement.clientHeight;
     //
