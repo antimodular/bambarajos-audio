@@ -549,7 +549,22 @@ function spectrum(stream) {
                   window.firstLoadIsDone == false &&
                   window.videoLoadPercent
                 ) {
-                  var barY = window.canvas.width * (4/5);
+                   var barY = window.canvas.height/4*3;
+                  
+                  var screenHeight =
+                    window.innerHeight ||
+                    document.documentElement.clientHeight ||
+                    document.body.clientHeight;
+// console.log("screen "+ screenHeight +" canvas h "+window.canvas.height);
+                  if(screenHeight < window.canvas.height){
+                    barY = screenHeight - 40;
+                    // console.log("<");
+                    // barY = window.canvas.height /4*3;
+                  } else {
+                    // console.log(">=");
+                    barY = window.canvas.height - 40;
+                  }
+                  
                   var barX = 10;
                   var barH = 20;
                   var barW = window.canvas.width-20;
