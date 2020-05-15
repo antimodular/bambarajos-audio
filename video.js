@@ -57,7 +57,7 @@ var json_srcArray = [
 // var vid_srcArray = [
 //  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.mp4?v=1589302239633"];
 var vid_srcArray = [
- "https://cdn.glitch.com/b1e475c8-3489-4513-8664-2d0f29f610de%2Fl-001-200_047.mp4?v=1588351308938"];
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2F2min.mp4?v=1589565201201"];
 
 // var json_srcArray = [
 //     //   "assets/group_00.json",
@@ -191,8 +191,15 @@ async function setUpNewVideo(downloadFirst) {
     }
 
     let myBlob = new Blob(chunks);
-    window.player.src = URL.createObjectURL(myBlob);
-    window.player.type = "blob";
+    
+    window.player.src = window.URL.createObjectURL(myBlob);
+      img.onload = function() {
+        URL.revokeObjectURL(this.src);
+      }
+    
+     window.player.src = (window.webkitURL || window.URL).createObjectURL(myBlob);
+    // window.player.src = window.URL.createObjectURL(myBlob);
+    // window.player.type = "blob";
     console.log("URL.createObjectURL(myBlob) " + window.player.src);
   } else {
     window.player.src = vid_src;
