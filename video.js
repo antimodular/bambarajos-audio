@@ -33,31 +33,31 @@ window.player = document.getElementById("vid");
 
 // var json_src = "l-001-200_047.json";
 // var json_srcArray = {};
-// var json_srcArray = [
-// // "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.json?v=1589301289192",
-// "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.json?v=1589302176190",
-// "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_02.json?v=1589302180128",
-//  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_03.json?v=1589306913469",
-//  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_04.json?v=1589306918618",
-//  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_05.json?v=1589306926036",
-//  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_06.json?v=1589306932106"
-// ];
-// var vid_srcArray = [
-// // "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.mp4?v=1589301371128",
-// "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.mp4?v=1589302239633",
-// "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_02.mp4?v=1589302248282",
-//  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_03.mp4?v=1589306972187",
-//  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_04.mp4?v=1589307007186",
-//  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_05.mp4?v=1589307020395",
-//  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_06.mp4?v=1589307010407"
-// ];
-
 var json_srcArray = [
-  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.json?v=1589302176190"];
-// var vid_srcArray = [
-//  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.mp4?v=1589302239633"];
+// "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.json?v=1589301289192",
+"https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.json?v=1589302176190",
+"https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_02.json?v=1589302180128",
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_03.json?v=1589306913469",
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_04.json?v=1589306918618",
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_05.json?v=1589306926036",
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_06.json?v=1589306932106"
+];
 var vid_srcArray = [
- "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2F2min.mp4?v=1589565201201"];
+// "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_00.mp4?v=1589301371128",
+"https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.mp4?v=1589302239633",
+"https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_02.mp4?v=1589302248282",
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_03.mp4?v=1589306972187",
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_04.mp4?v=1589307007186",
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_05.mp4?v=1589307020395",
+ "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_06.mp4?v=1589307010407"
+];
+
+// var json_srcArray = [
+//   "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.json?v=1589302176190"];
+// // var vid_srcArray = [
+// //  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2Fgroup_01.mp4?v=1589302239633"];
+// var vid_srcArray = [
+//  "https://cdn.glitch.com/91812b4c-a1b7-4816-958b-e44e496b0835%2F2min.mp4?v=1589565201201"];
 
 // var json_srcArray = [
 //     //   "assets/group_00.json",
@@ -179,27 +179,27 @@ async function setUpNewVideo(downloadFirst) {
       window.videoLoadPercent = window.receivedLength / window.contentLength;
       if (window.videoLoadPercent >= 1) window.firstLoadIsDone = true;
 
-      console.log(
-        `Received ${window.receivedLength} of ${window.contentLength}`
-      );
-      console.log(
-        "videoLoadPercent " +
-          window.videoLoadPercent +
-          " loadIsDOne " +
-          window.firstLoadIsDone
-      );
+      // console.log(`Received ${window.receivedLength} of ${window.contentLength}`);
+      // console.log(
+      //   "videoLoadPercent " +
+      //     window.videoLoadPercent +
+      //     " loadIsDOne " +
+      //     window.firstLoadIsDone
+      // );
     }
 
     // let myBlob = new Blob(chunks);
      let myBlob = new Blob(chunks,{type: 'video/mp4'});
     // URL.revokeObjectURL(obj_url);
     // obj_url = URL.createObjectURL(myBlob);
-    obj_url = URL.createObjectURL(myBlob);
-    window.player.src = obj_url;
+    // obj_url = URL.createObjectURL(myBlob);
+    // window.player.src = obj_url;
 
-    var blob = new Blob([arrayBuffer], {type: 'audio/mpeg'});
-url = webkitURL.createObjectURL(blob);
-    
+    // var blob = new Blob([arrayBuffer], {type: 'audio/mpeg'});
+     window.URL = window.URL || window.webkitURL;
+        var blobURL = window.URL.createObjectURL(myBlob);
+// url = webkitURL.createObjectURL(blob);
+    window.player.src = blobURL;
      // window.player.src = (window.webkitURL || window.URL).createObjectURL(myBlob);
     // window.player.src = window.URL.createObjectURL(myBlob);
     // window.player.type = "blob";

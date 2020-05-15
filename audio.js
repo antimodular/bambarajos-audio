@@ -629,9 +629,10 @@ function drawCanvasText(yOffset) {
     canvasCtx.fillText("Bambarajos (Kissing to the beat)", 40, yOffset + 60);
     canvasCtx.fillText("Rafael Lozano-Hemmer", 40, yOffset + 85);
 
-    canvasCtx.font = "20px Helvetica";
+    // canvasCtx.font = "20px Helvetica";
     // canvasCtx.fillText("touch screen to adjust sensitivity", 40, yOffset + 120);
-
+ // canvasCtx.font = "px Helvetica";
+ // canvasCtx.fillText("json_src " + json_src, 40, yOffset + 130);
     //   canvasCtx.fillText("beatThreshold " + beatThreshold, 40, yOffset + 130);
 //    var load_percent = window.receivedLength/window.contentLength;
 //    canvasCtx.fillText("receivedLength "+window.receivedLength, 40, yOffset + 150);
