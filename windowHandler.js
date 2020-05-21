@@ -189,6 +189,7 @@ function toggleFullScreen(){
     if(window.isFullScreen == true) setFullScreen(false);
     else setFullScreen(true);
 }
+
 function setFullScreen(full) {
     console.log("setFullScreen() " + full);
 
